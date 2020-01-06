@@ -1,3 +1,3 @@
-#load rmd
+# load rmd
 
-#system.file("rmd", "tmp.Rmd", package = "cmfproperty")
+# system.file('rmd', 'tmp.Rmd', package = 'cmfproperty')
