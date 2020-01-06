@@ -1,0 +1,14 @@
+Package: cmfproperty
+Type: Package
+Title: Property Tax Analysis
+Version: 0.1.0
+Author: Center for Municipal Finance, University of Chicago
+Maintainer: Eric Langowski <langowski@uchicago.edu>
+Description: Analyzes property assessment data.
+    Use four spaces when indenting paragraphs within the Description.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+    tidyverse
+RoxygenNote: 7.0.2
