@@ -10,5 +10,9 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
-    tidyverse
+    magrittr,
+    stats,
+    dplyr 
 RoxygenNote: 7.0.2
+Suggests: 
+    testthat (>= 2.1.0)

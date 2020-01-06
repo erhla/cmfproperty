@@ -15,6 +15,3 @@ Various statistics and facts on assessments by year
 \description{
 Evaluates the accuracy of assessments.
 }
-\examples{
-calc_iaao_stats(ratios)
-}

@@ -2,12 +2,12 @@ cod_func <- function(df, ratio_col, bootstrap_iters){
   n <- length(df)
   generated_cods <- NULL
   for (i in 1:bootstrap_iters){
-    s <- sample_n(data.frame(df[[ratio_col]]), n, replace = T)
+    s <- dplyr::sample_n(data.frame(df[[ratio_col]]), n, replace = T)
     generated_cods[i] <-
-      100 * sum(abs(s[, 1] - median(s[, 1]))) / (n * median(s[, 1]))
+      100 * sum(abs(s[, 1] - stats::median(s[, 1]))) / (n * stats::median(s[, 1]))
   }
   cod_output <- c(round(mean(generated_cods, na.rm = TRUE), 4),
-                  round(sd(generated_cods, na.rm = TRUE), 4))
+                  round(stats::sd(generated_cods, na.rm = TRUE), 4))
   return(cod_output)
 }
 
@@ -15,12 +15,12 @@ prd_func <- function(df, ratio_col, sale_price_col, bootstrap_iters) {
   generated_prds <- NULL
   for (i in 1:bootstrap_iters) {
     df <-
-      sample_n(data.frame(df),  nrow(df), replace = TRUE)
+      dplyr::sample_n(data.frame(df),  nrow(df), replace = TRUE)
     generated_prds[i] <-
-      mean(df[[ratio_col]],  na.rm = TRUE) / weighted.mean(df[[ratio_col]], df[[sale_price_col]], na.rm = TRUE)
+      mean(df[[ratio_col]],  na.rm = TRUE) / stats::weighted.mean(df[[ratio_col]], df[[sale_price_col]], na.rm = TRUE)
   }
   prd_output <- c(round(mean(generated_prds, na.rm = TRUE), 4),
-                  round(sd(generated_prds, na.rm = TRUE), 4))
+                  round(stats::sd(generated_prds, na.rm = TRUE), 4))
   return(prd_output)
 }
 
@@ -35,11 +35,11 @@ prb_func <- function(df, ratio_col, assessed_value_col, sale_price_col, bootstra
     )
 
   prb_formula <-
-    lm(((ratio - median(ratio)) / median(ratio)) ~ I(log(0.5 * (
+    stats::lm(((ratio - median(ratio)) / median(ratio)) ~ I(log(0.5 * (
       sale_price + fitted_value / median(ratio)
     )) / log2),
     data = reg_data,
-    na.action = na.exclude)
+    na.action = stats::na.exclude)
   prb_output <- c(round(summary(prb_formula)$coefficients[2], 4),
                   round(summary(prb_formula)$coefficients[2, "Std. Error"], 4))
   return(prb_output)
@@ -58,15 +58,15 @@ get_stats <- function(df, bootstrap_iters){
     PRD_SE = prd_calcs[2],
     PRB = prb_calcs[1],
     PRB_SE = prb_calcs[2],
-    q1_ratio = quantile(df$RATIO)[[2]],
-    median_ratio = median(df$RATIO),
-    q3_ratio = quantile(df$RATIO)[[4]],
-    q1_sale = quantile(df$SALE_PRICE)[[2]],
-    median_sale = median(df$SALE_PRICE),
-    q3_sale = quantile(df$SALE_PRICE)[[4]],
-    q1_assessed_value = quantile(df$ASSESSED_VALUE)[[2]],
-    median_assessed_value = quantile(df$ASSESSED_VALUE)[[3]],
-    q3_assessed_value = quantile(df$ASSESSED_VALUE)[[4]]
+    q1_ratio = stats::quantile(df$RATIO)[[2]],
+    median_ratio = stats::median(df$RATIO),
+    q3_ratio = stats::quantile(df$RATIO)[[4]],
+    q1_sale = stats::quantile(df$SALE_PRICE)[[2]],
+    median_sale = stats::median(df$SALE_PRICE),
+    q3_sale = stats::quantile(df$SALE_PRICE)[[4]],
+    q1_assessed_value = stats::quantile(df$ASSESSED_VALUE)[[2]],
+    median_assessed_value = stats::quantile(df$ASSESSED_VALUE)[[3]],
+    q3_assessed_value = stats::quantile(df$ASSESSED_VALUE)[[4]]
   )
   return(stats)
 }
@@ -78,8 +78,7 @@ get_stats <- function(df, bootstrap_iters){
 #'
 #' @param ratios A dataframe which has been pre-processed by \code{\link{reformat_data}}
 #' @return Various statistics and facts on assessments by year
-#' @examples
-#' calc_iaao_stats(ratios)
+
 calc_iaao_stats <- function(ratios) {
   stats <- data.frame()
   for (y in sort(unique(ratios$SALE_YEAR))) {
