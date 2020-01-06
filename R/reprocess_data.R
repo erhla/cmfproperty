@@ -1,5 +1,3 @@
-#' @importFrom magrittr %>%
-
 #' Reformats data for analysis by changing column names and filtering out non-arm's length sales.
 #'
 #' @param df a dataframe with assessment, sales, and time data
@@ -11,6 +9,8 @@
 #' @param tax_year_col optional, the name of the column with tax year data. The default is to set to the sale year.
 #'
 #'@return a dataframe with appropriate column names and arm's length markings
+
+#' @importFrom magrittr %>%
 
 #'@export
 reformat_data <- function(df, sale_col, assessment_col, sale_year_col, filter_data, market_value_col = NULL, tax_year_col = NULL) {

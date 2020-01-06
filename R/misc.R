@@ -1,2 +1,1 @@
-# formatR::tidy_dir("R")
-# devtools::document()
+# formatR::tidy_dir('R') devtools::document()
