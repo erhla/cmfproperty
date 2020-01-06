@@ -12,6 +12,7 @@ LazyData: true
 Imports:
     magrittr,
     stats,
+    utils,
     dplyr 
 RoxygenNote: 7.0.2
 Suggests: 
