@@ -14,12 +14,12 @@
 
 #'@export
 reformat_data <- function(df, sale_col, assessment_col, sale_year_col, filter_data, market_value_col = NULL, tax_year_col = NULL) {
-
+    
     # rename columns
     names(df)[names(df) == sale_col] <- "SALE_PRICE"
     names(df)[names(df) == assessment_col] <- "ASSESSED_VALUE"
     names(df)[names(df) == sale_year_col] <- "SALE_YEAR"
-
+    
     # create Tax Year if missing
     if (!is.null(tax_year_col)) {
         names(df)[names(df) == tax_year_col] <- "TAX_YEAR"
@@ -31,13 +31,13 @@ reformat_data <- function(df, sale_col, assessment_col, sale_year_col, filter_da
         names(df)[names(df) == market_value_col] <- "MARKET_VALUE"
     }
     # add ratio
-    df <- df %>% dplyr::mutate(RATIO = ifelse(!is.na(SALE_PRICE), ifelse(SALE_PRICE > 100, ASSESSED_VALUE/SALE_PRICE, NA),
+    df <- df %>% dplyr::mutate(RATIO = ifelse(!is.na(SALE_PRICE), ifelse(SALE_PRICE > 100, ASSESSED_VALUE/SALE_PRICE, NA), 
         NA))
     # add arm's length
-    df <- df %>% dplyr::group_by(SALE_YEAR) %>% dplyr::mutate(arms_length_transaction = ifelse(!is.na(RATIO), ifelse((RATIO >
-        stats::quantile(RATIO, na.rm = TRUE)[[4]] + 1.5 * stats::IQR(RATIO, na.rm = TRUE)) | (RATIO < stats::quantile(RATIO,
+    df <- df %>% dplyr::group_by(SALE_YEAR) %>% dplyr::mutate(arms_length_transaction = ifelse(!is.na(RATIO), ifelse((RATIO > 
+        stats::quantile(RATIO, na.rm = TRUE)[[4]] + 1.5 * stats::IQR(RATIO, na.rm = TRUE)) | (RATIO < stats::quantile(RATIO, 
         na.rm = TRUE)[[2]] - 1.5 * stats::IQR(RATIO, na.rm = TRUE)), 0, 1), NA))
-
+    
     if (filter_data) {
         df <- df %>% dplyr::filter(arms_length_transaction == 1, !is.na(RATIO))
     }

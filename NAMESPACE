@@ -3,4 +3,5 @@
 export(calc_iaao_stats)
 export(load_example_data)
 export(reformat_data)
+export(vertical_equity_metrics)
 importFrom(magrittr,"%>%")
