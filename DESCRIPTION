@@ -1,11 +1,11 @@
 Package: cmfproperty
 Type: Package
 Title: Property Tax Analysis
-Version: 0.1.0
+Version: 0.2.0
 Author: Center for Municipal Finance, University of Chicago
 Maintainer: Eric Langowski <langowski@uchicago.edu>
-Description: Analyzes property assessment data.
-    Use four spaces when indenting paragraphs within the Description.
+Description: Analyzes property assessment data through a variety of tests.
+    Produces figures of regressivity.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -15,7 +15,9 @@ Imports:
     utils,
     dplyr,
     ggplot2,
-    AER
+    AER,
+    scales,
+    tidyr
 RoxygenNote: 7.0.2
 Suggests: 
     testthat (>= 2.1.0)

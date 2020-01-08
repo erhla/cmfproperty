@@ -2,10 +2,10 @@
 #'
 #' @param property_data a dataframe with assessment, sales, and time data which has been processed by reformat_data
 #' @param return_model_objs boolean, if true will return a list of model objects
-#' #' @return a list of model objects or a summary data.frame of results
+#' @return a list of model objects or a summary data.frame of results
 
 #'@export
-vertical_equity_metrics <- function(property_data, return_model_objs = FALSE) {
+regression_tests <- function(property_data, return_model_objs = FALSE) {
 
     property_data <- property_data %>% dplyr::group_by(TAX_YEAR) %>% dplyr::mutate(SALE_PRICE_SQD = SALE_PRICE^2, price_tercile = dplyr::ntile(SALE_PRICE,
         3), av_tercile = dplyr::ntile(ASSESSED_VALUE, 3), low = ifelse(price_tercile == 1, 1, 0), high = ifelse(price_tercile ==
@@ -15,12 +15,12 @@ vertical_equity_metrics <- function(property_data, return_model_objs = FALSE) {
     model_ls <- c("paglin72", "cheng74", "IAAO78", "kochin82", "bell84", "sunderman90", "clapp90")
     results_df <- data.frame(Model = character(), coef_value = numeric(), test = character(), coef_t_stat = numeric(), conclusion = character())
 
-    paglin72 <- lm(ASSESSED_VALUE ~ SALE_PRICE, data = property_data)
-    cheng74 <- lm(log(ASSESSED_VALUE) ~ log(SALE_PRICE), data = property_data)
-    IAAO78 <- lm(RATIO ~ SALE_PRICE, data = property_data)
-    kochin82 <- lm(log(SALE_PRICE) ~ log(ASSESSED_VALUE), data = property_data)
-    bell84 <- lm(ASSESSED_VALUE ~ SALE_PRICE + SALE_PRICE_SQD, data = property_data)
-    sunderman90 <- lm(ASSESSED_VALUE ~ SALE_PRICE + low + high + low * SALE_PRICE + high * SALE_PRICE, data = property_data)
+    paglin72 <- stats::lm(ASSESSED_VALUE ~ SALE_PRICE, data = property_data)
+    cheng74 <-  stats::lm(log(ASSESSED_VALUE) ~ log(SALE_PRICE), data = property_data)
+    IAAO78 <-  stats::lm(RATIO ~ SALE_PRICE, data = property_data)
+    kochin82 <-  stats::lm(log(SALE_PRICE) ~ log(ASSESSED_VALUE), data = property_data)
+    bell84 <-  stats::lm(ASSESSED_VALUE ~ SALE_PRICE + SALE_PRICE_SQD, data = property_data)
+    sunderman90 <-  stats::lm(ASSESSED_VALUE ~ SALE_PRICE + low + high + low * SALE_PRICE + high * SALE_PRICE, data = property_data)
     clapp90 <- AER::ivreg(log(SALE_PRICE) ~ log(ASSESSED_VALUE) | Z, data = property_data)
 
     for (name in model_ls) {

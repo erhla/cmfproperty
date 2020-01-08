@@ -9,26 +9,17 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  warning = FALSE
 )
 ```
 
 # cmfproperty
 
-<!-- badges: start -->
-<!-- badges: end -->
-
-The goal of cmfproperty is to ...
+This package analyzes property tax regressivity and produces various tables and figures for a sales ratio study.
 
 ## Installation
 
-You can install the released version of cmfproperty from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-install.packages("cmfproperty")
-```
-
-And the development version from [GitHub](https://github.com/) with:
+You can install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -36,25 +27,26 @@ devtools::install_github("erhla/cmfproperty")
 ```
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is the basic framework to conduct a sales ratio study:
 
 ```{r example}
 library(cmfproperty)
-## basic example code
+df <- cmfproperty::example_data
+df <- cmfproperty::reformat_data(df, "SALE_PRICE", "ASSESSED_VALUE", "SALE_YEAR", TRUE)
+stats <- cmfproperty::calc_iaao_stats(df)
+head(stats)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
+More advanced features are available as well:
+```{r example2}
+cmfproperty::regression_tests(df)
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
+```{r example3}
+plot_ls <- cmfproperty::plots(stats, df, 2006, 2016)
+plot_ls[[1]]
+plot_ls[[2]]
+plot_ls[[3]]
+plot_ls[[4]]
 ```
 
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
