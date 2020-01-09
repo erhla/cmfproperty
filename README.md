@@ -23,16 +23,23 @@ This is the basic framework to conduct a sales ratio study:
 ``` r
 library(cmfproperty)
 df <- cmfproperty::example_data
-df <- cmfproperty::reformat_data(df, "SALE_PRICE", "ASSESSED_VALUE", "SALE_YEAR", TRUE)
+df <-
+  cmfproperty::reformat_data(
+    df,
+    sale_col = "SALE_PRICE",
+    assessment_col = "ASSESSED_VALUE",
+    sale_year_col = "SALE_YEAR",
+    filter_data = TRUE
+  )
 stats <- cmfproperty::calc_iaao_stats(df)
 head(stats)
-#>       N     COD COD_SE    PRD PRD_SE     PRB PRB_SE  q1_ratio median_ratio
-#> 1 11448 15.2764 6.0384 1.0409 0.0055 -0.0706 0.0026 0.7463933    0.8350732
-#> 2 12341 15.2686 5.9287 1.0445 0.0078 -0.0737 0.0025 0.8122727    0.9000000
-#> 3 14002 19.0369 7.2020 1.0652 0.0050 -0.0868 0.0027 0.7787830    0.8794514
-#> 4 13449 19.5676 6.2477 1.0588 0.0058 -0.0887 0.0029 0.7556391    0.8543689
-#> 5 13743 21.4951 8.0429 1.0912 0.0042 -0.1301 0.0032 0.8974978    1.0068293
-#> 6 12634 25.7799 8.8034 1.1287 0.0083 -0.1967 0.0036 0.9369951    1.0879731
+#>       N     COD  COD_SE    PRD PRD_SE     PRB PRB_SE  q1_ratio median_ratio
+#> 1 11448 15.6920  5.9279 1.0277 0.0083 -0.0706 0.0026 0.7463933    0.8350732
+#> 2 12341 16.3622  6.6752 1.0321 0.0070 -0.0737 0.0025 0.8122727    0.9000000
+#> 3 14002 18.4400  7.5252 1.0847 0.0095 -0.0868 0.0027 0.7787830    0.8794514
+#> 4 13449 19.1875  7.0249 1.0770 0.0090 -0.0887 0.0029 0.7556391    0.8543689
+#> 5 13743 21.9013  7.3364 1.1015 0.0079 -0.1301 0.0032 0.8974978    1.0068293
+#> 6 12634 26.9728 10.6388 1.1758 0.0177 -0.1967 0.0036 0.9369951    1.0879731
 #>    q3_ratio q1_sale median_sale q3_sale q1_assessed_value median_assessed_value
 #> 1 0.9407725   68900    108162.5  146525             55075                 87100
 #> 2 1.0040000   71500    113000.0  153000             63500                 99600
@@ -74,7 +81,11 @@ cmfproperty::regression_tests(df)
 ```
 
 ``` r
-plot_ls <- cmfproperty::plots(stats, df, 2006, 2016)
+plot_ls <-
+  cmfproperty::plots(stats,
+                     df,
+                     min_reporting_yr = 2006,
+                     max_reporting_yr = 2016)
 plot_ls[[1]]
 ```
 

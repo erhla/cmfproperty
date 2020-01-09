@@ -32,7 +32,14 @@ This is the basic framework to conduct a sales ratio study:
 ```{r example}
 library(cmfproperty)
 df <- cmfproperty::example_data
-df <- cmfproperty::reformat_data(df, "SALE_PRICE", "ASSESSED_VALUE", "SALE_YEAR", TRUE)
+df <-
+  cmfproperty::reformat_data(
+    df,
+    sale_col = "SALE_PRICE",
+    assessment_col = "ASSESSED_VALUE",
+    sale_year_col = "SALE_YEAR",
+    filter_data = TRUE
+  )
 stats <- cmfproperty::calc_iaao_stats(df)
 head(stats)
 ```
@@ -43,7 +50,11 @@ cmfproperty::regression_tests(df)
 ```
 
 ```{r example3}
-plot_ls <- cmfproperty::plots(stats, df, 2006, 2016)
+plot_ls <-
+  cmfproperty::plots(stats,
+                     df,
+                     min_reporting_yr = 2006,
+                     max_reporting_yr = 2016)
 plot_ls[[1]]
 plot_ls[[2]]
 plot_ls[[3]]
