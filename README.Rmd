@@ -44,6 +44,34 @@ stats <- cmfproperty::calc_iaao_stats(df)
 head(stats)
 ```
 
+
+Data is required to have at least three columns, Sale Year, Sale Price, and Assessed Value.
+```{r dataoverview}
+head(cmfproperty::example_data)
+```
+
+reformat_data then adds additional calculated fields:
+
+* RATIO, which is the Sales Ratio (Sale Price / Assessed Value)
+* arms_length_transaction, an indicator that the property was sold in an arm's length transaction (calculated using the IAAO standard)
+* SALE_PRICE_ADJ, inflation adjusted sale price (adjusted to the last year of available data)
+* ASSESSED_VALUE_ADJ, inflation adjusted assessed value (adjusted to the last year of available data)
+
+
+```{r reformatoverview}
+df <- cmfproperty::example_data
+df <-
+  cmfproperty::reformat_data(
+    df,
+    sale_col = "SALE_PRICE",
+    assessment_col = "ASSESSED_VALUE",
+    sale_year_col = "SALE_YEAR",
+    filter_data = TRUE
+  )
+head(as.data.frame(df)) #just to print all the columns
+```
+
+
 More advanced features are available as well:
 ```{r example2}
 cmfproperty::regression_tests(df)
