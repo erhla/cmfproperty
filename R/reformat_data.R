@@ -67,7 +67,6 @@ reformat_data <-
   }
 
 adj_for_inflation <- function(df) {
-  fred <- utils::read.csv("data-raw/CPIHOSNS.csv")
   fred <-
     fred %>% tidyr::separate(DATE, c("Year", "Month", "Day")) %>%
     dplyr::mutate_all(as.numeric) %>%
