@@ -58,7 +58,7 @@ head(stats)
 #> 6            153975 2007
 ```
 
-Data is required to have at least three columns, Sale Year, Sale Price,
+We require Sale Year, Sale Price,
 and Assessed Value.
 
 ``` r
