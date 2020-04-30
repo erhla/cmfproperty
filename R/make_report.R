@@ -10,13 +10,13 @@
 make_report <-
   function(ratios, jurisdiction_name, output_dir="") {
 
-  if (is.null(output_dir)){
+  if (output_dir == ""){
     file_loc <- getwd()
   } else {
     file_loc <- output_dir
   }
 
-  output_loc <- paste0(output_dir, "/", jurisdiction_name, ".html")
+  output_loc <- paste0(file_loc, "/", jurisdiction_name, ".html")
 
   rmarkdown::render(system.file("rmd", "report.Rmd", package = "cmfproperty"),
                     params = list(title = jurisdiction_name,

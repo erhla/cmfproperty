@@ -33,7 +33,7 @@ First import `cmfproperty`.
 library(cmfproperty)
 ```
 
-Then, preprocess your data with `reformat_data` and call `make_report`. The report will be created in your current working directory by default unless specified otherwise with parameter `output_dir`. The report from the example below can be found [here](https://erhla.github.io/Columbus, Ohio.html).
+Then, preprocess your data with `reformat_data` and call `make_report`. The report will be created in your current working directory by default unless specified otherwise with parameter `output_dir`. The report from the example below can be found [here](https://erhla.github.io/Cook County, Illinois.html).
 
 ```{r reportexample, eval=FALSE}
 df <- cmfproperty::example_data

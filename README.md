@@ -28,7 +28,7 @@ Then, preprocess your data with `reformat_data` and call `make_report`.
 The report will be created in your current working directory by default
 unless specified otherwise with parameter `output_dir`. The report from
 the example below can be found
-[here](https://erhla.github.io/Columbus,%20Ohio.html).
+[here](https://erhla.github.io/Cook%20County,%20Illinois.html).
 
 ``` r
 df <- cmfproperty::example_data
@@ -164,11 +164,11 @@ ratios <-
 stats <- cmfproperty::calc_iaao_stats(ratios)
 head(stats)
 #>       N     COD COD_SE    PRD PRD_SE     PRB PRB_SE  q1_ratio median_ratio
-#> 1 51879 18.8133 6.0563 1.0801 0.0074 -0.0514 0.0012 0.7758364    0.9093448
-#> 2 62852 19.0425 5.3311 1.0548 0.0054 -0.0462 0.0011 0.7705720    0.9001375
-#> 3 65961 19.8171 5.7883 1.0603 0.0090 -0.0269 0.0011 0.7428108    0.8732099
-#> 4 65298 18.7452 5.1702 1.0170 0.0034  0.0133 0.0010 0.7470336    0.8856039
-#> 5 62041 17.2598 5.0549 1.0219 0.0026  0.0098 0.0010 0.7681042    0.9035000
+#> 1 51879 19.0847 6.6618 1.0775 0.0066 -0.0514 0.0012 0.7758364    0.9093448
+#> 2 62852 19.6790 6.7343 1.0838 0.0056 -0.0462 0.0011 0.7705720    0.9001375
+#> 3 65961 20.8489 5.6169 1.0625 0.0093 -0.0269 0.0011 0.7428108    0.8732099
+#> 4 65298 18.9213 5.9109 1.0214 0.0021  0.0133 0.0010 0.7470336    0.8856039
+#> 5 62041 17.3147 4.8929 1.0226 0.0034  0.0098 0.0010 0.7681042    0.9035000
 #>   q3_ratio q1_sale median_sale q3_sale q1_assessed_value median_assessed_value
 #> 1 1.057180  148000      230000  375000          136670.0                213430
 #> 2 1.060422  148000      229900  365000          133940.0                209150
