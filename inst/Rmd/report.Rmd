@@ -1,0 +1,330 @@
+---
+author: "Center for Municipal Finance"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    df_print: paged
+    theme: sandstone
+    number_sections: true
+bibliography: '`r system.file("rmd", "bibliography.bib", package = "cmfproperty")`'
+link-citations: true
+params:
+  title:
+    label: "Title"
+    value: ""
+    input: text
+  inputdata:
+    label: "DataFrame"
+    value: ""
+title: '`r paste("An Evaluation of Property Tax Regressivity in", params$title)`'
+---
+
+---
+nocite: |
+  @R-ggplot2, @R-rmarkdown, @R-stargazer, @CCAO
+...
+
+```{r options, echo=FALSE, out.width = "175px"}
+library(cmfproperty)
+
+knitr::include_graphics(system.file("rmd", "harrislogo.jpg", package = "cmfproperty"))
+
+knitr::opts_chunk$set(
+  echo = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 6,
+  fig.height = 3.5
+)
+```
+
+
+```{r setup, include=FALSE}
+df <- params$inputdata
+min_reporting_yr <- min(df$SALE_YEAR)
+max_reporting_yr <- max(df$SALE_YEAR)
+
+df <- df %>% dplyr::filter(!is.na(SALE_PRICE),
+                    !is.na(RATIO),
+                    !is.na(ASSESSED_VALUE))
+#arms length only
+ratios <-
+  df %>% dplyr::filter(arms_length_transaction == 1,
+                !is.na(RATIO))
+ratios <- ratios %>% dplyr::group_by(SALE_YEAR) %>% dplyr::mutate(sale_decile_bin = dplyr::ntile(SALE_PRICE, 10))
+ratios <- as.data.frame(ratios)
+
+stats <- cmfproperty::calc_iaao_stats(ratios)
+
+#main plots
+results <- cmfproperty::plots(ratios, min_reporting_yr, max_reporting_yr, params$title)
+
+```
+
+# Introduction{#introduction}
+The property tax is the single largest source of revenue for American local governments. Cities, counties, school districts, and special districts raise roughly $500 billion per year in property taxes, accounting for 72% of local taxes and 47% of locally raised revenue [@Census]. Whether residents rent or own, property taxes directly or indirectly impact almost everyone.
+
+In many cities, however, property taxes are inequitable; low-value properties face higher tax assessments, relative to their actual sale price, than do high-value properties, resulting in regressive taxation that burdens low-income residents disproportionately.
+
+The standard approach for evaluating the quality and fairness of assessments is through a sales ratio study [@IAAO]. A property’s sales ratio is defined as the assessed value divided by the sale price. A sales ratio study evaluates the extent of regressivity in a jurisdiction, along with other aspects of assessment performance, by studying sales ratios for properties that sold within a specific time period. A system in which less expensive homes are systematically assessed at higher sales ratios than more expensive homes is *regressive*.
+
+This report presents a basic sales ratio study for `r paste0(params$title)`, based on user supplied data. Data was used for residential properties that sold between `r paste0(min_reporting_yr)` and `r paste0(max_reporting_yr)` and are classified as arm’s-length transactions utilizing the IAAO Standard. For each home that sold, we compute the sales ratio as the assessed value in place on January 1 of the sale year divided by the sale price. For more details, see the [Appendix](#appendix).
+
+<P style="page-break-before: always"> 
+
+# Sales Ratio Analysis{#saleratio}
+The relationship between assessments and sale prices is regressive if less valuable homes are assessed at higher rates (relative to the value of the home) than more valuable homes. To evaluate regressivity in assessments, Figure 2.1 presents a binned scatter plot of sales ratios against sale prices.
+
+For this graph, property sales have been sorted into deciles (10 bins of equal size based on sale price), each representing 10% of all properties sold. Each dot represents the average sale price and average sales ratio for each respective decile of properties. This graph compares the most recent values for `r paste0(max_reporting_yr)` (solid line) with the average across all years of observation `r paste0("from ", min_reporting_yr, " to ", max_reporting_yr)` (dashed line). All values were adjusted for inflation to `r paste0(max_reporting_yr)` dollars to facilitate comparisons.
+
+If sale prices are a fair indication of market value and if assessments were fair and accurate, Figure 2.1 would be a flat line indicating that sales ratios do not vary systematically according to sale price. A downward sloping line indicates that less expensive homes are over-assessed compared to more expensive homes and is evidence of regressivity.
+
+
+`r results[[1]]`
+
+<h3>Figure 2.1</h3>
+  
+```{r mainbinnedscatter}
+results[[2]]
+```
+
+<P style="page-break-before: always"> 
+
+Figure 2.2 shows the share of properties in each decile that were overassessed or underassessed. relative to the median rate of assessment. That is, a property is classified as overassessed if its sales ratio is above the median sales ratio for the jurisdiction, and classified as underassessed if its sales ratio is below the median. If errors were made randomly, each decile would have 50% of properties overassessed and 50% underassessed. When lower value homes are more likely to be overassessed than higher value homes, it is evidence of regressivity.
+
+`r results[[3]]`
+
+<h3>Figure 2.2</h3>
+  
+```{r over under bar}
+results[[4]]
+```
+
+<P style="page-break-before: always"> 
+ 
+# Industry Standards{#industrystandards}
+
+Section [2](#saleratio) provides graphical evidence of regressivity in property assessments, but it does not provide a statistical evaluation. In this section, we report several standard statistics used in the evaluation of assessment quality.
+      
+The International Association of Assessing Officers (IAAO) defines standards for assessments including standards for uniformity and regressivity [@IAAO]. A detailed overview and definition of each measure can be found in the [Appendix](#standards).
+
+```{r iaao graphs}
+iaao_rslt <- iaao_graphs(stats, ratios, min_reporting_yr, max_reporting_yr, params$region)
+```
+  
+## Coefficient of Dispersion (COD){#cod}
+
+The COD is a measure of assessment uniformity, or horizontal equity. It is the average absolute percentage difference from the median sales ratio. For instance, a COD of 10 means that properties have ratios that on average deviate by 10 percent from the median ratio. The IAAO specifies that the acceptable range for COD is below 15, which is shaded in Figure 3.1.
+  
+`r iaao_rslt[[1]]`
+  
+<h3>Figure 3.1</h3>
+    
+```{r cod graph}
+iaao_rslt[[2]]
+```
+  
+<P style="page-break-before: always"> 
+    
+## Price-Related Differential (PRD){#prd}
+
+The PRD is a measure of regressivity, or vertical equity. A PRD of 1 indicates that homes are assessed at the same rate regardless of their sale price. A PRD greater than 1 indicates that less expensive homes are assessed at higher rates than more expensive homes, while a PRD less than 1 represents the opposite situation. The IAAO specifies that the acceptable range of PRD is .98 to 1.03, which is depicted as the shaded region of Figure 3.2.
+    
+`r iaao_rslt[[3]]`
+  
+<h3>Figure 3.2</h3>
+    
+```{r prd graph}
+iaao_rslt[[4]]
+```
+  
+<P style="page-break-before: always"> 
+    
+## Coefficient of Price-Related Bias (PRB){#prb}
+
+The PRB is another quantitative measure of regressivity (vertical equity) which is an alternative to the PRD. PRB is a measure of how much assessed values change as a property’s market value increases. The IAAO specifies that the acceptable range for PRB is between -0.05 and 0.05, which is depicted as the shaded region in the Figure 3.3.
+    
+`r iaao_rslt[[5]]`
+  
+<h3>Figure 3.3</h3>
+    
+```{r prb graph}
+iaao_rslt[[6]]
+```
+  
+<P style="page-break-before: always"> 
+
+# Appendices {#appendix}
+
+Here detailed information on our analysis is presented alongside reference information.
+
+- [Click here](#standards) to learn more about the IAAO Standards
+- [Click here](#statsbyyear) to see how the IAAO Statistics change over time
+- [Click here](#binnedbyyear) to see how [Figure 2.1](#saleratio) changes over time
+- [Click here](#montecarlo) to learn how we check that our results are not due to randomness
+- [Click here](#regressions) to see how alternative measures of regressivity evaluated for `r paste0(params$region)`
+
+
+## IAAO Standards {#standards}
+
+The International Association of Assessing Officers (IAAO) defines standards for assessments including standards for uniformity and vertical equity [@IAAO]. Uniform assessments assess similar properties with as little variability as possible. Vertically equitable  assessments assess properties at similar rates regardless of a property's value. The three main standards are:
+
+- Coefficient of Dispersion (COD) is a measure of uniformity based on the average deviation from the median ratio. For example, given a COD of 15, a property worth \$100,000 has a 50% chance to be assessed between \$85,000 and \$115,000.
+
+- Price-Related Differential (PRD) is a measure of vertical equity calculated by dividing mean ratios by weighted mean ratios. For example, assume a jurisdiction contains two homes, one worth \$100,000 assessed at 12% and one worth \$1,000,000 assessed at 8% of the fair market value. The mean ratio would be 10% ($\frac{12\% + 8\%}{2}$) while the weighed mean ratio would be 8.4% ($\frac{0.12*\$100,000 + 0.08*\$1,000,000}{\$1,100,000}$). The resulting PRD would be $\frac{10\%}{8.4\%} = 1.2$.
+
+- Coefficient of Price-Related Bias (PRB) measures the change in sales ratios relative to a percentage change in property values. For example, a PRB of 0.031 indicates that sales ratios increase by 3.1% when the home value doubles.
+
+<h3>Table 4.1.1</h3>
+
+```{r standardstable, results = "asis"}
+tbl <- data.frame(p=c("COD", "PRD", "PRB"), minval=c(5.00, 0.98, -0.05), maxval=c(15.00, 1.03, 0.05))
+kableExtra::kable(
+  tbl,
+  align = rep("c", 3),
+  col.names = c("Parameter", "Standard Minimum", "Standard Maximum"),
+  caption = "IAAO Standards for Single Family Residential Properties"
+) %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+    full_width = FALSE
+  )
+```
+
+<P style="page-break-before: always"> 
+
+## IAAO Statistics by Year {#statsbyyear}
+
+The following is a detailed breakdown by year of our estimates of IAAO standards and their bootstrapped confidence intervals. These estimates form the basis of our [COD](#cod), [PRD](#prd), and [PRB](#prb) plots.
+
+<h3>Table 4.2.1</h3>
+
+```{r results_tbl_values, results="asis"}
+stats$cod_with_ci <- paste0(stats$COD, " \u00b1 ", round(1.96 * stats$COD_SE, 3))
+stats$prd_with_ci <- paste0(stats$PRD, " \u00b1 ", round(1.96 * stats$PRD_SE, 3))
+stats$prb_with_ci <- paste0(stats$PRB, " \u00b1 ", round(1.96 * stats$PRB_SE, 3))
+stats$med_sale <- scales::dollar(stats$median_sale)  
+
+all <- stats %>%
+  dplyr::select(Year, N, med_sale, cod_with_ci, prd_with_ci, prb_with_ci)
+
+kableExtra::kable(all, align = rep("c", 5),
+      col.names = c("Tax Year", "Arms Length Sales", "Average Sale Price", "COD", "PRD", "PRB"),
+      caption = "Calculated Values for COD, PRD, and PRB") %>%
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+
+```
+
+<P style="page-break-before: always"> 
+
+## Sales Ratio by Decile by Year {#binnedbyyear}
+
+The following Figure 4.3.1 replicates Figure 2.1 from [Sales Ratio Analysis](#saleratio). For each panel of the Figure 4.3.1, the current year is highlighted in blue and other years are in gray.
+
+<h3>Figure 4.3.1</h3>
+
+```{r all_asr_plot, fig.height=7}
+all_yr_tbl <- ratios %>%
+  dplyr::group_by(TAX_YEAR, sale_decile_bin) %>%
+  dplyr::summarize(ratio_mean = mean(RATIO), sale_mean = mean(SALE_PRICE_ADJ))
+
+tmp <- all_yr_tbl %>% dplyr::rename(`Tax Year` = TAX_YEAR) %>% dplyr::mutate(ty2=`Tax Year`)
+
+binned_scatter <- ggplot(data = tmp,  aes(x = sale_mean, y = ratio_mean)) +
+  geom_line(data = tmp %>% dplyr::select(-ty2), aes(group=`Tax Year`), color="grey", size=0.5, alpha=0.8) +
+  geom_line(aes(color=ty2), color="blue", size=1.3) +
+  facet_wrap(~ty2) + my_theme_rotated + theme(panel.spacing = unit(0.25,"lines"),
+                                              legend.position="none",
+                                              strip.background = element_blank()) +
+  labs(x = "Sale Price", y = "Ratio") +
+  scale_x_continuous(label = scales::dollar_format())
+
+gridExtra::grid.arrange(binned_scatter)
+```
+
+<P style="page-break-before: always"> 
+
+Table 4.3.1 shows the data underling the Figure 2.1 from [Sales Ratio Analysis](#saleratio).
+
+<h3>Table 4.3.1</h3>
+
+```{r sale_ratio_decile_tbl, results="asis"}
+decile_data <- ratios %>% dplyr::group_by(SALE_YEAR) %>%
+  dplyr::rename(`Sale Year` = SALE_YEAR,
+         `Sale Decile` = sale_decile_bin)
+
+grouped_data <- decile_data %>% dplyr::group_by(`Sale Year`, `Sale Decile`) %>% 
+  dplyr::summarize(`Average Sale Price` = mean(SALE_PRICE_ADJ),
+                   `Mean Ratio` = round(mean(RATIO), 4),
+                   `Median Ratio` = round(median(RATIO), 4))
+
+table_data <- grouped_data %>% dplyr::filter(`Sale Year` == max_reporting_yr)
+table_data2 <- decile_data %>% dplyr::group_by(`Sale Decile`) %>%   
+  dplyr::summarize(`Average Sale Price` = mean(SALE_PRICE_ADJ),
+                   `Mean Ratio` = round(mean(RATIO), 4),
+                   `Median Ratio` = round(median(RATIO), 4))
+table_data$`Average Sale Price` <- scales::dollar(table_data$`Average Sale Price`)
+table_data2$`Average Sale Price` <- scales::dollar(table_data2$`Average Sale Price`)
+
+kableExtra::kable(table_data, caption = "Sales Ratio by Sale Decile and Year") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+    full_width = FALSE
+  )
+
+kableExtra::kable(table_data2, caption = "Sales Ratio by Sale Decile (all years)") %>%
+  kableExtra::kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+    full_width = FALSE
+  )
+```
+
+<P style="page-break-before: always"> 
+
+## Measurement Error and Spurious Regressivity {#montecarlo}
+
+One limitation of sales ratio studies is that a property’s sale price may be an imperfect indication of its true market value. Given inevitable random factors in the sale of any individual property, the final price may include some “noise.” If properties are spatially cluttered, this will introduce measurement error into the analysis, which could lead to the appearance of regressivity when there is none. For instance, consider two hypothetical homes that are identical and each worth \$100,000. If both homes went up for sale at the same time, one home might fetch a price of \$105,000, say if the seller were a particularly savvy negotiator, while the other home might garner only \$95,000, say if the buyer were a particularly savvy negotiator. If the assessor appropriately valued both homes at \$100,000, a sales ratio analysis would indicate regressivity (the higher-priced home is under-assessed and the lower-priced home would be over-assessed, relative to the sale price). While there is no reliable correction for measurement error of this kind, as long as the extent of measurement error is small, relative to the price, the extent of bias will also be small.
+
+We use Monte Carlo simulations to estimate the extent of measurement error that would need to exist for any of our tests to falsely show regressivity due to measurement error. We compare our results with thousands of simulated scenarios to determine the likelihood that our results would be reproduced in the absence of regressivity.
+
+The simulations are conducted as follows. First, using the same data set that was used for the main analysis, we construct a simulated sale price for each property that is set equal to the actual assessed value. In this scenario where simulated sale prices always equal assessed value, the assessments will appear to be perfect according to all of our metrics and there will be no regressivity. We then “jitter” the simulated sale prices by adding random noise drawn from a normal distribution with a mean of zero and a standard deviation of k percent. While we think that measurement error on the order of only a few percentage points is plausible in real data, we consider values of k ranging from 1 to 25. To be concrete, when k is equal to one percent, the simulated sale price is set equal to the assessed value multiplied by (1 plus a random shock drawn from a normal distribution with a mean of zero and a standard deviation of .01). The shock is drawn independently for each property in the data set. For each value of k, we run 100 simulations and record the value of each metric computed in each simulation. The mean value of each metric across the 100 simulations is reported for each value of k.
+
+Intuitively, this exercise shows how much spurious regressivity would exist if assessed values were accurate on average but sale prices contained random noise of a given value, k. We then compare the actual value of the regressivity metrics from the real data with the values from the simulated data to recover an estimate of the amount of noise that would be necessary to produce the observed regressivity statistic if there were in fact no bias in assessments.
+
+Figure 4.4.1 shows the results of our simulations. The dots in each graph show the mean value of the metric in question across the 100 simulations for each value of k. The solid line in each graph shows the value of the metric in the real data. We show simulations for COD, PRD, PRB, and each coefficient in Table 4.4.1.
+
+```{r monte carlo}
+m_rslts <- monte_carlo_graphs(ratios %>% as.data.frame())
+```
+
+<P style="page-break-before: always"> 
+
+<h3>Figure 4.4.1</h3>
+
+```{r monte carlo graphs, fig.height=5}
+gridExtra::grid.arrange(m_rslts[[1]], m_rslts[[2]], m_rslts[[3]], m_rslts[[4]], m_rslts[[5]], m_rslts[[6]], nrow = 3)
+```
+
+<P style="page-break-before: always"> 
+
+## Regression-Based Estimates of Regressivity {#regressions}
+
+Aside from the standard PRD and PRB tests recommended by the IAAO, several alternative metrics have been proposed by academic researchers [@Hodge]. Table 4.6.1 presents estimates of the most commonly used models.
+
+Model (1) shows a regression of assessed value (AV) against sale price. The coefficient on sale price should equal the jurisdiction’s legally mandated assessment rate (i.e., for each dollar of sale price, the assessed value should increase by the mandated assessment rate). In a jurisdiction where the assessment rate is 100%, the coefficient should be 1. A coefficient smaller than the assessment ratio indicates regressivity.
+
+Model (2) shows a regression of the log of assessed value against the log of sale price, which estimates the elasticity of assessed values with respect to sale price. In the absence of regressivity, this coefficient should be 1. A value less than 1 indicates regressivity.
+
+Model (3) shows a regression of sales ratios against sale prices. In the absence of regressivity, this coefficient should be zero. A negative coefficient is an indication of regressivity.
+
+<h3>Table 4.5.1</h3>
+
+```{r vertical equity methods,  results='asis'}
+models <- cmfproperty::regression_tests(ratios, FALSE, TRUE)
+```
+
+<P style="page-break-before: always"> 
+
+# Citations

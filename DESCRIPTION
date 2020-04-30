@@ -1,7 +1,7 @@
 Package: cmfproperty
 Type: Package
 Title: Property Tax Analysis
-Version: 0.2.1
+Version: 0.9.0
 Author: Center for Municipal Finance, University of Chicago
 Maintainer: Eric Langowski <langowski@uchicago.edu>
 Description: Analyzes property assessment data through a variety of tests.
@@ -15,9 +15,12 @@ Imports:
     utils,
     dplyr,
     ggplot2,
-    AER,
     scales,
-    tidyr
-RoxygenNote: 7.0.2
+    tidyr,
+    rmarkdown,
+    stargazer,
+    gridExtra,
+    kableExtra
+RoxygenNote: 7.1.0
 Suggests: 
     testthat (>= 2.1.0)

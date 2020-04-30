@@ -8,11 +8,11 @@
 #' @param market_value_col optional, the name of the column with market value data
 #' @param tax_year_col optional, the name of the column with tax year data. The default is to set to the sale year.
 #'
-#'@return a dataframe with appropriate column names and arm's length markings
+#' @return a dataframe with appropriate column names and arm's length markings
 
 #' @importFrom magrittr %>%
 
-#'@export
+#' @export
 reformat_data <-
   function(df,
            sale_col,
@@ -63,33 +63,7 @@ reformat_data <-
     }
     #adjust for inflation
     df <- adj_for_inflation(df)
-    return(df)
+    return(df %>% as.data.frame())
   }
 
-adj_for_inflation <- function(df) {
-  fred <-
-    fred %>% tidyr::separate(DATE, c("Year", "Month", "Day")) %>%
-    dplyr::mutate_all(as.numeric) %>%
-    dplyr::group_by(Year) %>%
-    dplyr::summarize(CPIHOSNS = mean(CPIHOSNS))
 
-  max_yr <- max(df$SALE_YEAR)
-  if (max_yr > max(fred$Year)) {
-    max_yr <- max(fred$Year)
-  }
-  print(paste0("Inflation adjusted to ", max_yr))
-
-  final_indx_value <-
-    fred %>% dplyr::filter(Year == max_yr) %>% dplyr::select(CPIHOSNS)
-  fred <-
-    fred %>% dplyr::mutate(percent_adj = as.numeric(final_indx_value) / CPIHOSNS) %>%
-    dplyr::group_by(Year) %>%
-    dplyr::summarize(percent_adj = mean(percent_adj))
-
-  df <- df %>% dplyr::left_join(fred, by = c("TAX_YEAR" = "Year"))
-
-  df["SALE_PRICE_ADJ"] <- df["SALE_PRICE"] * df["percent_adj"]
-  df["ASSESSED_VALUE_ADJ"] <- df["ASSESSED_VALUE"] * df["percent_adj"]
-  df <- df %>% dplyr::select(-percent_adj)
-  return(df)
-}

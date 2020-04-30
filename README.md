@@ -18,12 +18,17 @@ devtools::install_github("erhla/cmfproperty")
 
 ## Example
 
-This is the basic framework to conduct a sales ratio study:
+First import `cmfproperty`.
 
 ``` r
 library(cmfproperty)
+```
+
+This is the basic framework to conduct a sales ratio study:
+
+``` r
 df <- cmfproperty::example_data
-df <-
+ratios <-
   cmfproperty::reformat_data(
     df,
     sale_col = "SALE_PRICE",
@@ -33,15 +38,15 @@ df <-
   )
 #> [1] "Filtered out non-arm's length transactions"
 #> [1] "Inflation adjusted to 2018"
-stats <- cmfproperty::calc_iaao_stats(df)
+stats <- cmfproperty::calc_iaao_stats(ratios)
 head(stats)
 #>       N     COD COD_SE    PRD PRD_SE     PRB PRB_SE  q1_ratio median_ratio
-#> 1 11448 15.6137 5.0551 1.0646 0.0099 -0.0706 0.0026 0.7463933    0.8350732
-#> 2 12341 16.2292 5.1543 1.0440 0.0034 -0.0737 0.0025 0.8122727    0.9000000
-#> 3 14002 18.3047 6.6167 1.0723 0.0052 -0.0868 0.0027 0.7787830    0.8794514
-#> 4 13449 19.9949 5.7487 1.0734 0.0084 -0.0887 0.0029 0.7556391    0.8543689
-#> 5 13743 22.0037 6.5136 1.0844 0.0054 -0.1301 0.0032 0.8974978    1.0068293
-#> 6 12634 27.0158 8.4432 1.1467 0.0099 -0.1967 0.0036 0.9369951    1.0879731
+#> 1 11448 15.1509 5.2258 1.0359 0.0049 -0.0706 0.0026 0.7463933    0.8350732
+#> 2 12341 16.0012 5.1614 1.0479 0.0025 -0.0737 0.0025 0.8122727    0.9000000
+#> 3 14002 20.3078 6.0455 1.0726 0.0041 -0.0868 0.0027 0.7787830    0.8794514
+#> 4 13449 19.0585 6.6342 1.0519 0.0098 -0.0887 0.0029 0.7556391    0.8543689
+#> 5 13743 22.0764 7.7075 1.0850 0.0092 -0.1301 0.0032 0.8974978    1.0068293
+#> 6 12634 26.9428 8.7279 1.1711 0.0122 -0.1967 0.0036 0.9369951    1.0879731
 #>    q3_ratio q1_sale median_sale q3_sale q1_assessed_value median_assessed_value
 #> 1 0.9407725   68900    108162.5  146525             55075                 87100
 #> 2 1.0040000   71500    113000.0  153000             63500                 99600
@@ -58,8 +63,9 @@ head(stats)
 #> 6            153975 2007
 ```
 
-We require Sale Year, Sale Price,
-and Assessed Value.
+Data is required to have at least three columns, Sale Year, Sale Price,
+and Assessed Value. Assessments and sales should typically be from the
+same year.
 
 ``` r
 head(cmfproperty::example_data)
@@ -72,7 +78,7 @@ head(cmfproperty::example_data)
 #> 6 10057089         120900      2002     258000
 ```
 
-reformat\_data then adds additional calculated fields:
+`reformat_data` then adds additional calculated fields:
 
   - RATIO, which is the Sales Ratio (Sale Price / Assessed Value)
   - arms\_length\_transaction, an indicator that the property was sold
@@ -86,7 +92,7 @@ reformat\_data then adds additional calculated fields:
 
 ``` r
 df <- cmfproperty::example_data
-df <-
+ratios <-
   cmfproperty::reformat_data(
     df,
     sale_col = "SALE_PRICE",
@@ -96,7 +102,7 @@ df <-
   )
 #> [1] "Filtered out non-arm's length transactions"
 #> [1] "Inflation adjusted to 2018"
-head(as.data.frame(df)) #just to print all the columns
+head(as.data.frame(ratios)) #just to print all the columns
 #>        PID ASSESSED_VALUE SALE_YEAR SALE_PRICE TAX_YEAR     RATIO
 #> 1 10015586          52600      2002      70000     2002 0.7514286
 #> 2 10057963          36800      2002      61900     2002 0.5945073
@@ -113,10 +119,31 @@ head(as.data.frame(df)) #just to print all the columns
 #> 6                       1      448082.99          234580.41
 ```
 
+Note: `ratios` refers to data which has been processed by
+`reformat_data`
+
+# Making a Report
+
+``` r
+df <- cmfproperty::example_data
+ratios <-
+  cmfproperty::reformat_data(
+    df,
+    sale_col = "SALE_PRICE",
+    assessment_col = "ASSESSED_VALUE",
+    sale_year_col = "SALE_YEAR",
+    filter_data = TRUE
+  )
+#> [1] "Filtered out non-arm's length transactions"
+#> [1] "Inflation adjusted to 2018"
+
+#cmfproperty::make_report(ratios, "Columbus, Ohio")
+```
+
 More advanced features are available as well:
 
 ``` r
-cmfproperty::regression_tests(df)
+cmfproperty::regression_tests(ratios)
 #>         Model         Value Test T Statistic  Conclusion
 #> 1    paglin72  4.325107e+04  > 0   253.07047  Regressive
 #> 2     cheng74  6.749357e-01  < 1   500.03105  Regressive
@@ -140,7 +167,7 @@ cmfproperty::regression_tests(df)
 ``` r
 plot_ls <-
   cmfproperty::plots(stats,
-                     df,
+                     ratios,
                      min_reporting_yr = 2006,
                      max_reporting_yr = 2016)
 plot_ls[[1]]
