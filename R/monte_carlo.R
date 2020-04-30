@@ -53,7 +53,7 @@ monte_carlo_sim <- function(ratios, iters){
 
 #'@export
 monte_carlo_graphs<- function(ratios){
-  avg_stats <- monte_carlo_sim(ratios, 20)
+  avg_stats <- monte_carlo_sim(ratios, 2)
   comp_stats <- get_stats(ratios, 100)
   reg_stats <- paglin_cheng_IAAO_coefs(ratios)
 

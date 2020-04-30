@@ -70,7 +70,7 @@ In many cities, however, property taxes are inequitable; low-value properties fa
 
 The standard approach for evaluating the quality and fairness of assessments is through a sales ratio study [@IAAO]. A property’s sales ratio is defined as the assessed value divided by the sale price. A sales ratio study evaluates the extent of regressivity in a jurisdiction, along with other aspects of assessment performance, by studying sales ratios for properties that sold within a specific time period. A system in which less expensive homes are systematically assessed at higher sales ratios than more expensive homes is *regressive*.
 
-This report presents a basic sales ratio study for `r paste0(params$title)`, based on user supplied data. Data was used for residential properties that sold between `r paste0(min_reporting_yr)` and `r paste0(max_reporting_yr)` and are classified as arm’s-length transactions utilizing the IAAO Standard. For each home that sold, we compute the sales ratio as the assessed value in place on January 1 of the sale year divided by the sale price. For more details, see the [Appendix](#appendix).
+This report presents a basic sales ratio study for `r paste0(params$title)`, based on user supplied data. Data was used for residential properties that sold between `r paste0(min_reporting_yr)` and `r paste0(max_reporting_yr)` and are classified as arm’s-length transactions utilizing the IAAO Standard. For more details, see the [Appendix](#appendix).
 
 <P style="page-break-before: always"> 
 
@@ -111,7 +111,7 @@ Section [2](#saleratio) provides graphical evidence of regressivity in property 
 The International Association of Assessing Officers (IAAO) defines standards for assessments including standards for uniformity and regressivity [@IAAO]. A detailed overview and definition of each measure can be found in the [Appendix](#standards).
 
 ```{r iaao graphs}
-iaao_rslt <- iaao_graphs(stats, ratios, min_reporting_yr, max_reporting_yr, params$region)
+iaao_rslt <- iaao_graphs(stats, ratios, min_reporting_yr, max_reporting_yr, params$title)
 ```
   
 ## Coefficient of Dispersion (COD){#cod}
@@ -164,7 +164,7 @@ Here detailed information on our analysis is presented alongside reference infor
 - [Click here](#statsbyyear) to see how the IAAO Statistics change over time
 - [Click here](#binnedbyyear) to see how [Figure 2.1](#saleratio) changes over time
 - [Click here](#montecarlo) to learn how we check that our results are not due to randomness
-- [Click here](#regressions) to see how alternative measures of regressivity evaluated for `r paste0(params$region)`
+- [Click here](#regressions) to see how alternative measures of regressivity evaluated for `r paste0(params$title)`
 
 
 ## IAAO Standards {#standards}
@@ -311,7 +311,7 @@ gridExtra::grid.arrange(m_rslts[[1]], m_rslts[[2]], m_rslts[[3]], m_rslts[[4]], 
 
 ## Regression-Based Estimates of Regressivity {#regressions}
 
-Aside from the standard PRD and PRB tests recommended by the IAAO, several alternative metrics have been proposed by academic researchers [@Hodge]. Table 4.6.1 presents estimates of the most commonly used models.
+Aside from the standard PRD and PRB tests recommended by the IAAO, several alternative metrics have been proposed by academic researchers [@Hodge]. Table 4.5.1 presents estimates of the most commonly used models.
 
 Model (1) shows a regression of assessed value (AV) against sale price. The coefficient on sale price should equal the jurisdiction’s legally mandated assessment rate (i.e., for each dollar of sale price, the assessed value should increase by the mandated assessment rate). In a jurisdiction where the assessment rate is 100%, the coefficient should be 1. A coefficient smaller than the assessment ratio indicates regressivity.
 

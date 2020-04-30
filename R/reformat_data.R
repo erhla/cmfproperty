@@ -4,7 +4,7 @@
 #' @param sale_col the name of the column with sales data
 #' @param assessment_col the name of the column with assessment data
 #' @param sale_year_col the name of the column with the year of sale
-#' @param filter_data if True, keeps only arm's length sales. if False, keeps all data.
+#' @param filter_data optional, default True. if True, keeps only arm's length sales. if False, keeps all data.
 #' @param market_value_col optional, the name of the column with market value data
 #' @param tax_year_col optional, the name of the column with tax year data. The default is to set to the sale year.
 #'
@@ -18,7 +18,7 @@ reformat_data <-
            sale_col,
            assessment_col,
            sale_year_col,
-           filter_data,
+           filter_data = TRUE,
            market_value_col = NULL,
            tax_year_col = NULL) {
     # rename columns

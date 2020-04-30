@@ -24,6 +24,130 @@ First import `cmfproperty`.
 library(cmfproperty)
 ```
 
+Then, preprocess your data with `reformat_data` and call `make_report`.
+The report will be created in your current working directory by default
+unless specified otherwise with parameter `output_dir`. The report from
+the example below can be found
+[here](https://erhla.github.io/Columbus,%20Ohio.html).
+
+``` r
+df <- cmfproperty::example_data
+
+ratios <-
+  cmfproperty::reformat_data(
+    df,
+    sale_col = "SALE_PRICE",
+    assessment_col = "ASSESSED_VALUE",
+    sale_year_col = "SALE_YEAR",
+  )
+
+cmfproperty::make_report(ratios, 
+                         jurisdiction_name = "Cook County, Illinois"
+                         )
+```
+
+Let’s break down each of the steps above. First, what kind of data do
+you need?
+
+In order to conduct a sales ratio study, data is required to have at
+least three columns: Sale Year, Sale Price, and Assessed Value. We want
+to compare the sale price to the assessed value at the time of sale.
+
+``` r
+head(cmfproperty::example_data)
+#>              PIN SALE_YEAR SALE_PRICE ASSESSED_VALUE
+#> 1 17273100931118      2015      53000          33860
+#> 2 18013090421010      2018      80000          60390
+#> 3 12111190201042      2018     118000         108300
+#> 4 13093160601015      2017     125500          87200
+#> 5 14322110150000      2018    3705000        3670740
+#> 6 27021200080000      2016     345000         267280
+```
+
+In most cases, producing this data will require a sales roll consisting
+of all properties which sold in a given year and an assessment roll
+which consists of all properties assessed in a given year. For example,
+the `example_data` above was produced from the Cook County Open Data
+Portal. Sales were found
+[here](https://datacatalog.cookcountyil.gov/Property-Taxation/Cook-County-Assessor-s-Residential-Sales-Data/5pge-nu6u)
+and assessments were found
+[here](https://datacatalog.cookcountyil.gov/Property-Taxation/Cook-County-Assessor-s-Residential-Assessments/uqb9-r7vn).
+These files can be downloaded manually or via `RSocrata`:
+
+``` r
+library(data.table)
+library(tidyverse)
+
+sales <- fread("~/../Downloads/Cook_County_Assessor_s_Residential_Sales_Data.csv", 
+               colClasses = "character") #from 2013 to 2019
+assessments <- fread("~/../Downloads/Cook_County_Assessor_s_Residential_Assessments.csv", 
+                     colClasses = "character") #from 2015 to 2019
+
+sales <- sales %>% select(PIN, `Sale Year`, `Sale Price`, `Deed No.`) %>%
+  filter(`Sale Year` > 2014)
+
+assessments <- assessments %>% select(PIN, YEAR, CERTIFIED)
+
+# Filtering data to remove duplicate sales and low value sales
+sales <- sales %>% distinct(`Deed No.`, .keep_all = TRUE) %>% select(-`Deed No.`)
+sales <- sales %>% filter(as.numeric(`Sale Price`) > 2500)
+
+# Join assessments to sales based on PIN (a unique identifier) and Year.
+joined <- sales %>% left_join(assessments, by=c("PIN"="PIN", "Sale Year"="YEAR"))
+joined <- joined %>% rename(SALE_YEAR = `Sale Year`, SALE_PRICE = `Sale Price`, ASSESSED_VALUE = CERTIFIED)
+
+fwrite(joined, paste0("~/../Downloads/example_data.csv"))
+```
+
+Then, we need to let the package know which of our columns represent
+sales, assessments, and sale year.
+
+``` r
+df <- cmfproperty::example_data
+ratios <-
+  cmfproperty::reformat_data(
+    df,
+    sale_col = "SALE_PRICE",
+    assessment_col = "ASSESSED_VALUE",
+    sale_year_col = "SALE_YEAR",
+  )
+#> [1] "Filtered out non-arm's length transactions"
+#> [1] "Inflation adjusted to 2019"
+head(as.data.frame(ratios)) #just to print all the columns
+#>              PIN SALE_YEAR SALE_PRICE ASSESSED_VALUE TAX_YEAR     RATIO
+#> 1 17273100931118      2015      53000          33860     2015 0.6388679
+#> 2 18013090421010      2018      80000          60390     2018 0.7548750
+#> 3 12111190201042      2018     118000         108300     2018 0.9177966
+#> 4 13093160601015      2017     125500          87200     2017 0.6948207
+#> 5 14322110150000      2018    3705000        3670740     2018 0.9907530
+#> 6 27021200080000      2016     345000         267280     2016 0.7747246
+#>   arms_length_transaction SALE_PRICE_ADJ ASSESSED_VALUE_ADJ
+#> 1                       1       59209.48           37827.04
+#> 2                       1       82313.03           62136.05
+#> 3                       1      121411.71          111431.26
+#> 4                       1      132854.54           92310.09
+#> 5                       1     3812122.01         3776871.45
+#> 6                       1      376080.37          291358.73
+```
+
+`reformat_data` also add the additional calculated fields needed to
+complete the study:
+
+  - RATIO, which is the Sales Ratio (Sale Price / Assessed Value)
+  - arms\_length\_transaction, an indicator that the property was sold
+    in an arm’s length transaction (calculated using the IAAO standard)
+  - SALE\_PRICE\_ADJ, inflation adjusted sale price (adjusted to the
+    last year of available data)
+  - ASSESSED\_VALUE\_ADJ, inflation adjusted assessed value (adjusted to
+    the last year of available data)
+
+Note: `ratios` refers to data which has been processed by
+`reformat_data`
+
+# Other features
+
+## Calculate Regressivity Statistics
+
 This is the basic framework to conduct a sales ratio study:
 
 ``` r
@@ -34,125 +158,67 @@ ratios <-
     sale_col = "SALE_PRICE",
     assessment_col = "ASSESSED_VALUE",
     sale_year_col = "SALE_YEAR",
-    filter_data = TRUE
   )
 #> [1] "Filtered out non-arm's length transactions"
-#> [1] "Inflation adjusted to 2018"
+#> [1] "Inflation adjusted to 2019"
 stats <- cmfproperty::calc_iaao_stats(ratios)
 head(stats)
 #>       N     COD COD_SE    PRD PRD_SE     PRB PRB_SE  q1_ratio median_ratio
-#> 1 11448 15.1509 5.2258 1.0359 0.0049 -0.0706 0.0026 0.7463933    0.8350732
-#> 2 12341 16.0012 5.1614 1.0479 0.0025 -0.0737 0.0025 0.8122727    0.9000000
-#> 3 14002 20.3078 6.0455 1.0726 0.0041 -0.0868 0.0027 0.7787830    0.8794514
-#> 4 13449 19.0585 6.6342 1.0519 0.0098 -0.0887 0.0029 0.7556391    0.8543689
-#> 5 13743 22.0764 7.7075 1.0850 0.0092 -0.1301 0.0032 0.8974978    1.0068293
-#> 6 12634 26.9428 8.7279 1.1711 0.0122 -0.1967 0.0036 0.9369951    1.0879731
-#>    q3_ratio q1_sale median_sale q3_sale q1_assessed_value median_assessed_value
-#> 1 0.9407725   68900    108162.5  146525             55075                 87100
-#> 2 1.0040000   71500    113000.0  153000             63500                 99600
-#> 3 1.0219354   65000    107750.0  153000             57000                 91100
-#> 4 1.0000000   70100    114900.0  160000             61000                 94600
-#> 5 1.2715880   62500    105000.0  153000             66500                105200
-#> 6 1.4789264   53000     95000.0  149500             67000                106000
+#> 1 51879 18.8133 6.0563 1.0801 0.0074 -0.0514 0.0012 0.7758364    0.9093448
+#> 2 62852 19.0425 5.3311 1.0548 0.0054 -0.0462 0.0011 0.7705720    0.9001375
+#> 3 65961 19.8171 5.7883 1.0603 0.0090 -0.0269 0.0011 0.7428108    0.8732099
+#> 4 65298 18.7452 5.1702 1.0170 0.0034  0.0133 0.0010 0.7470336    0.8856039
+#> 5 62041 17.2598 5.0549 1.0219 0.0026  0.0098 0.0010 0.7681042    0.9035000
+#>   q3_ratio q1_sale median_sale q3_sale q1_assessed_value median_assessed_value
+#> 1 1.057180  148000      230000  375000          136670.0                213430
+#> 2 1.060422  148000      229900  365000          133940.0                209150
+#> 3 1.031267  155000      235000  365000          136960.0                209380
+#> 4 1.021504  159642      239900  370000          132382.5                210645
+#> 5 1.036399  164900      245000  372000          140220.0                217690
 #>   q3_assessed_value Year
-#> 1            120700 2002
-#> 2            136000 2003
-#> 3            133400 2004
-#> 4            136400 2005
-#> 5            153000 2006
-#> 6            153975 2007
+#> 1          331235.0 2015
+#> 2          321720.0 2016
+#> 3          316300.0 2017
+#> 4          331257.5 2018
+#> 5          336480.0 2019
 ```
 
-Data is required to have at least three columns, Sale Year, Sale Price,
-and Assessed Value. Assessments and sales should typically be from the
-same year.
+## Visualize Regressivity Statistics
 
 ``` r
-head(cmfproperty::example_data)
-#>        PID ASSESSED_VALUE SALE_YEAR SALE_PRICE
-#> 1 10015586          52600      2002      70000
-#> 2 10031205          44700      2002        500
-#> 3 10057963          36800      2002      61900
-#> 4 10057964          40300      2002      67000
-#> 5 10025322          61500      2002     102000
-#> 6 10057089         120900      2002     258000
+iaao_rslt <- iaao_graphs(stats, ratios, min_reporting_yr = 2015, max_reporting_yr = 2019, "Cook County, Illinois")
 ```
-
-`reformat_data` then adds additional calculated fields:
-
-  - RATIO, which is the Sales Ratio (Sale Price / Assessed Value)
-  - arms\_length\_transaction, an indicator that the property was sold
-    in an arm’s length transaction (calculated using the IAAO standard)
-  - SALE\_PRICE\_ADJ, inflation adjusted sale price (adjusted to the
-    last year of available data)
-  - ASSESSED\_VALUE\_ADJ, inflation adjusted assessed value (adjusted to
-    the last year of available data)
-
-<!-- end list -->
 
 ``` r
-df <- cmfproperty::example_data
-ratios <-
-  cmfproperty::reformat_data(
-    df,
-    sale_col = "SALE_PRICE",
-    assessment_col = "ASSESSED_VALUE",
-    sale_year_col = "SALE_YEAR",
-    filter_data = TRUE
-  )
-#> [1] "Filtered out non-arm's length transactions"
-#> [1] "Inflation adjusted to 2018"
-head(as.data.frame(ratios)) #just to print all the columns
-#>        PID ASSESSED_VALUE SALE_YEAR SALE_PRICE TAX_YEAR     RATIO
-#> 1 10015586          52600      2002      70000     2002 0.7514286
-#> 2 10057963          36800      2002      61900     2002 0.5945073
-#> 3 10057964          40300      2002      67000     2002 0.6014925
-#> 4 10025322          61500      2002     102000     2002 0.6029412
-#> 5 10057089         120900      2002     258000     2002 0.4686047
-#> 6 10045583         163600      2002     312500     2002 0.5235200
-#>   arms_length_transaction SALE_PRICE_ADJ ASSESSED_VALUE_ADJ
-#> 1                       1      100370.59           75421.33
-#> 2                       1       88756.28           52766.25
-#> 3                       1       96068.99           57784.78
-#> 4                       1      146254.29           88182.73
-#> 5                       1      369937.32          173354.35
-#> 6                       1      448082.99          234580.41
+iaao_rslt[[2]]
 ```
 
-Note: `ratios` refers to data which has been processed by
-`reformat_data`
-
-# Making a Report
+![](man/figures/README-cod%20graph-1.png)<!-- -->
 
 ``` r
-df <- cmfproperty::example_data
-ratios <-
-  cmfproperty::reformat_data(
-    df,
-    sale_col = "SALE_PRICE",
-    assessment_col = "ASSESSED_VALUE",
-    sale_year_col = "SALE_YEAR",
-    filter_data = TRUE
-  )
-#> [1] "Filtered out non-arm's length transactions"
-#> [1] "Inflation adjusted to 2018"
-
-#cmfproperty::make_report(ratios, "Columbus, Ohio")
+iaao_rslt[[4]]
 ```
 
-More advanced features are available as well:
+![](man/figures/README-prd%20graph-1.png)<!-- -->
+
+``` r
+iaao_rslt[[6]]
+```
+
+![](man/figures/README-prb%20graph-1.png)<!-- -->
+
+## Advanced Regressivity Statistics
 
 ``` r
 cmfproperty::regression_tests(ratios)
-#>         Model         Value Test T Statistic  Conclusion
-#> 1    paglin72  4.325107e+04  > 0   253.07047  Regressive
-#> 2     cheng74  6.749357e-01  < 1   500.03105  Regressive
-#> 3      IAAO78 -2.034027e-06  < 0  -195.83335  Regressive
-#> 4    kochin82  8.491533e-01  < 1   500.03105  Regressive
-#> 5      bell84  2.883853e+04  > 0   167.10674  Regressive
-#> 6             -1.376471e-07  < 0  -194.35497  Regressive
-#> 7 sunderman90 -3.927464e+04  > 0   -44.20409 Progressive
-#> 8     clapp90  1.216439e+00  > 1   493.80804  Regressive
+#>         Model         Value Test T Statistic Conclusion
+#> 1    paglin72  3.470212e+04  > 0  135.385620 Regressive
+#> 2     cheng74  9.136623e-01  < 1 1348.353690 Regressive
+#> 3      IAAO78 -1.430746e-07  < 0  -97.596795 Regressive
+#> 4    kochin82  9.359248e-01  < 1 1348.353690 Regressive
+#> 5      bell84  2.031487e+04  > 0   77.266036 Regressive
+#> 6             -1.811579e-08  < 0 -157.626702 Regressive
+#> 7 sunderman90  1.111135e+04  > 0    5.063213 Regressive
 #>                             Model Description
 #> 1                                     AV ~ SP
 #> 2                             ln(AV) ~ ln(SP)
@@ -161,34 +227,48 @@ cmfproperty::regression_tests(ratios)
 #> 5                              AV ~ SP + SP^2
 #> 6                              AV ~ SP + SP^2
 #> 7 AV ~ SP + low + high + low * SP + high * SP
-#> 8               ln(SP) ~ ln(AV) -> ln(AV) ~ Z
 ```
+
+## Regressivity Plots
 
 ``` r
 plot_ls <-
-  cmfproperty::plots(stats,
-                     ratios,
-                     min_reporting_yr = 2006,
-                     max_reporting_yr = 2016)
-plot_ls[[1]]
+  cmfproperty::plots(ratios,
+                     min_reporting_yr = 2015,
+                     max_reporting_yr = 2019,
+                     jurisdiction_name = "Cook County, Illinois")
+#> Joining, by = "TAX_YEAR"
 ```
 
-![](man/figures/README-example3-1.png)<!-- -->
+In 2019, the most expensive homes (the top decile) were assessed at
+87.1% of their value and the least expensive homes (the bottom decile)
+were assessed at 102.0%. In other words, the least expensive homes were
+assessed at <b>1.17 times</b> the rate applied to the most expensive
+homes. Across our sample from 2015 to 2019, the most expensive homes
+were assessed at 83.4% of their value and the least expensive homes were
+assessed at 109.4%, which is <b>1.31 times</b> the rate applied to the
+most expensive homes.
 
 ``` r
 plot_ls[[2]]
 ```
 
-![](man/figures/README-example3-2.png)<!-- -->
+![](man/figures/README-plot1-1.png)<!-- -->
 
-``` r
-plot_ls[[3]]
-```
-
-![](man/figures/README-example3-3.png)<!-- -->
+In Cook County, Illinois, <b>68%</b> of the lowest value homes are
+overassessed and <b>39%</b> of the highest value homes are overassessed.
 
 ``` r
 plot_ls[[4]]
 ```
 
-![](man/figures/README-example3-4.png)<!-- -->
+![](man/figures/README-plot2-1.png)<!-- -->
+
+## Monte Carlo Analysis
+
+``` r
+m_rslts <- monte_carlo_graphs(ratios)
+gridExtra::grid.arrange(m_rslts[[1]], m_rslts[[2]], m_rslts[[3]], m_rslts[[4]], m_rslts[[5]], m_rslts[[6]], nrow = 3)
+```
+
+![](man/figures/README-monte%20carlo-1.png)<!-- -->

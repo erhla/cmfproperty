@@ -2,18 +2,20 @@
 % Please edit documentation in R/make_report.R
 \name{make_report}
 \alias{make_report}
-\title{Produces an HTML report to evaluate regressivity in the supplied jurisdiction}
+\title{Produces an HTML report in the current working directory to evaluate regressivity in the supplied jurisdiction}
 \usage{
-make_report(ratios, jurisdiction_name)
+make_report(ratios, jurisdiction_name, output_dir = "")
 }
 \arguments{
 \item{ratios}{a dataframe which has been preprocessed by \code{\link{reformat_data}}}
 
 \item{jurisdiction_name}{the name of the jurisdiction being analyzed}
+
+\item{output_dir}{optional, specify a folder to save the output in}
 }
 \value{
 produces a file named `jurisdiction_name.html` in the working directory
 }
 \description{
-Produces an HTML report to evaluate regressivity in the supplied jurisdiction
+Produces an HTML report in the current working directory to evaluate regressivity in the supplied jurisdiction
 }

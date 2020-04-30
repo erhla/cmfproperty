@@ -5,21 +5,21 @@
 \alias{example_data}
 \title{Example assessment and sale data}
 \format{
-A dataset with 4 columns and 211,233 rows.
+A dataset with 4 columns and 346,164 rows.
 \describe{
-\item{PID}{A unique identifier for each property}
+\item{PIN}{A unique identifier for each property}
 \item{ASSESSED_VALUE}{The assessed value for the property}
 \item{SALE_YEAR}{The year of the property's sale}
 \item{SALE_PRICE}{The sale amount}
 }
 }
 \source{
-\url{franklincountyauditor.com}
+\url{https://datacatalog.cookcountyil.gov/}
 }
 \usage{
 example_data
 }
 \description{
-A dataset containing assessment and sale data from Columbus, Ohio. This data was modified from its original form.
+A dataset containing assessment and sale data from Cook County, Illinois. This data was modified from its original form.
 }
 \keyword{datasets}
