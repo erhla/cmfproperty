@@ -44,6 +44,7 @@ ratios <-
 cmfproperty::make_report(ratios, 
                          jurisdiction_name = "Cook County, Illinois"
                          )
+#to see the evaluated output---look at Report Evaluation Output at the end of this readme.
 ```
 
 Let’s break down each of the steps above. First, what kind of data do
@@ -164,11 +165,11 @@ ratios <-
 stats <- cmfproperty::calc_iaao_stats(ratios)
 head(stats)
 #>       N     COD COD_SE    PRD PRD_SE     PRB PRB_SE  q1_ratio median_ratio
-#> 1 51879 19.0847 6.6618 1.0775 0.0066 -0.0514 0.0012 0.7758364    0.9093448
-#> 2 62852 19.6790 6.7343 1.0838 0.0056 -0.0462 0.0011 0.7705720    0.9001375
-#> 3 65961 20.8489 5.6169 1.0625 0.0093 -0.0269 0.0011 0.7428108    0.8732099
-#> 4 65298 18.9213 5.9109 1.0214 0.0021  0.0133 0.0010 0.7470336    0.8856039
-#> 5 62041 17.3147 4.8929 1.0226 0.0034  0.0098 0.0010 0.7681042    0.9035000
+#> 1 51879 19.1173 5.9888 1.0801 0.0039 -0.0514 0.0012 0.7758364    0.9093448
+#> 2 62852 20.7519 6.3019 1.0656 0.0033 -0.0462 0.0011 0.7705720    0.9001375
+#> 3 65961 19.8789 6.1441 1.0513 0.0040 -0.0269 0.0011 0.7428108    0.8732099
+#> 4 65298 19.2052 6.0299 1.0095 0.0067  0.0133 0.0010 0.7470336    0.8856039
+#> 5 62041 17.1030 4.8863 1.0145 0.0053  0.0098 0.0010 0.7681042    0.9035000
 #>   q3_ratio q1_sale median_sale q3_sale q1_assessed_value median_assessed_value
 #> 1 1.057180  148000      230000  375000          136670.0                213430
 #> 2 1.060422  148000      229900  365000          133940.0                209150
@@ -193,19 +194,19 @@ iaao_rslt <- iaao_graphs(stats, ratios, min_reporting_yr = 2015, max_reporting_y
 iaao_rslt[[2]]
 ```
 
-![](man/figures/README-cod%20graph-1.png)<!-- -->
+![](man/figures/README-codgraph-1.png)<!-- -->
 
 ``` r
 iaao_rslt[[4]]
 ```
 
-![](man/figures/README-prd%20graph-1.png)<!-- -->
+![](man/figures/README-prdgraph-1.png)<!-- -->
 
 ``` r
 iaao_rslt[[6]]
 ```
 
-![](man/figures/README-prb%20graph-1.png)<!-- -->
+![](man/figures/README-prbgraph-1.png)<!-- -->
 
 ## Advanced Regressivity Statistics
 
@@ -271,4 +272,132 @@ m_rslts <- monte_carlo_graphs(ratios)
 gridExtra::grid.arrange(m_rslts[[1]], m_rslts[[2]], m_rslts[[3]], m_rslts[[4]], m_rslts[[5]], m_rslts[[6]], nrow = 3)
 ```
 
-![](man/figures/README-monte%20carlo-1.png)<!-- -->
+![](man/figures/README-montecarlo-1.png)<!-- -->
+
+## Report Evaluation Output
+
+``` r
+df <- cmfproperty::example_data
+
+ratios <-
+  cmfproperty::reformat_data(
+    df,
+    sale_col = "SALE_PRICE",
+    assessment_col = "ASSESSED_VALUE",
+    sale_year_col = "SALE_YEAR",
+  )
+#> [1] "Filtered out non-arm's length transactions"
+#> [1] "Inflation adjusted to 2019"
+
+cmfproperty::make_report(ratios, 
+                         jurisdiction_name = "Cook County, Illinois",
+                         output_dir = "C:/Users/erhla/Desktop/")
+#> 
+#> 
+#> processing file: report.Rmd
+#>   |                                                                              |                                                                      |   0%  |                                                                              |..                                                                    |   3%
+#>    inline R code fragments
+#> 
+#>   |                                                                              |.....                                                                 |   6%
+#> label: options (with options) 
+#> List of 2
+#>  $ echo     : logi FALSE
+#>  $ out.width: chr "175px"
+#> 
+#>   |                                                                              |.......                                                               |  10%
+#>   ordinary text without R code
+#> 
+#>   |                                                                              |.........                                                             |  13%
+#> label: setup (with options) 
+#> List of 1
+#>  $ include: logi FALSE
+#> Joining, by = "TAX_YEAR"
+#>   |                                                                              |...........                                                           |  16%
+#>    inline R code fragments
+#> 
+#>   |                                                                              |..............                                                        |  19%
+#> label: mainbinnedscatter
+#>   |                                                                              |................                                                      |  23%
+#>    inline R code fragments
+#> 
+#>   |                                                                              |..................                                                    |  26%
+#> label: over under bar
+#>   |                                                                              |....................                                                  |  29%
+#>   ordinary text without R code
+#> 
+#>   |                                                                              |.......................                                               |  32%
+#> label: iaao graphs
+#>   |                                                                              |.........................                                             |  35%
+#>    inline R code fragments
+#> 
+#>   |                                                                              |...........................                                           |  39%
+#> label: cod graph
+#>   |                                                                              |.............................                                         |  42%
+#>    inline R code fragments
+#> 
+#>   |                                                                              |................................                                      |  45%
+#> label: prd graph
+#>   |                                                                              |..................................                                    |  48%
+#>    inline R code fragments
+#> 
+#>   |                                                                              |....................................                                  |  52%
+#> label: prb graph
+#>   |                                                                              |......................................                                |  55%
+#>    inline R code fragments
+#> 
+#>   |                                                                              |.........................................                             |  58%
+#> label: standardstable (with options) 
+#> List of 1
+#>  $ results: chr "asis"
+#> 
+#>   |                                                                              |...........................................                           |  61%
+#>   ordinary text without R code
+#> 
+#>   |                                                                              |.............................................                         |  65%
+#> label: results_tbl_values (with options) 
+#> List of 1
+#>  $ results: chr "asis"
+#> 
+#>   |                                                                              |...............................................                       |  68%
+#>   ordinary text without R code
+#> 
+#>   |                                                                              |..................................................                    |  71%
+#> label: all_asr_plot (with options) 
+#> List of 1
+#>  $ fig.height: num 7
+#>   |                                                                              |....................................................                  |  74%
+#>   ordinary text without R code
+#> 
+#>   |                                                                              |......................................................                |  77%
+#> label: sale_ratio_decile_tbl (with options) 
+#> List of 1
+#>  $ results: chr "asis"
+#> 
+#>   |                                                                              |........................................................              |  81%
+#>   ordinary text without R code
+#> 
+#>   |                                                                              |...........................................................           |  84%
+#> label: monte carlo
+#>   |                                                                              |.............................................................         |  87%
+#>   ordinary text without R code
+#> 
+#>   |                                                                              |...............................................................       |  90%
+#> label: monte carlo graphs (with options) 
+#> List of 1
+#>  $ fig.height: num 5
+#>   |                                                                              |.................................................................     |  94%
+#>   ordinary text without R code
+#> 
+#>   |                                                                              |....................................................................  |  97%
+#> label: vertical equity methods (with options) 
+#> List of 1
+#>  $ results: chr "asis"
+#> 
+#>   |                                                                              |......................................................................| 100%
+#>   ordinary text without R code
+#> output file: report.knit.md
+#> "C:/Program Files/RStudio/bin/pandoc/pandoc" +RTS -K512m -RTS report.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash+smart --output pandoc683c53d911fc.html --email-obfuscation none --self-contained --standalone --section-divs --table-of-contents --toc-depth 2 --variable toc_float=1 --variable toc_selectors=h1,h2 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template "C:\Users\erhla\Documents\R\win-library\3.6\rmarkdown\rmd\h\default.html" --no-highlight --variable highlightjs=1 --number-sections --variable "theme:sandstone" --include-in-header "C:\Users\erhla\AppData\Local\Temp\RtmpWaNUoy\rmarkdown-str683c18c17c02.html" --mathjax --variable "mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" --lua-filter "C:/Users/erhla/Documents/R/win-library/3.6/rmarkdown/rmd/lua/pagebreak.lua" --lua-filter "C:/Users/erhla/Documents/R/win-library/3.6/rmarkdown/rmd/lua/latex-div.lua" --filter "C:/Program Files/RStudio/bin/pandoc/pandoc-citeproc.exe"
+#> 
+#> Output created: C:/Users/erhla/Desktop//Cook County, Illinois.html
+#> [1] "Report created at C:/Users/erhla/Desktop//Cook County, Illinois.html"
+```
