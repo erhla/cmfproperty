@@ -1,12 +1,13 @@
 #' @import ggplot2
+#' @importFrom rlang .data
 
 
 adj_for_inflation <- function(df) {
   fred <- #within sysdata.rda
-    fred %>% tidyr::separate(DATE, c("Year", "Month", "Day")) %>%
+    fred %>% tidyr::separate(.data$DATE, c("Year", "Month", "Day")) %>%
     dplyr::mutate_all(as.numeric) %>%
-    dplyr::group_by(Year) %>%
-    dplyr::summarize(CPIHOSNS = mean(CPIHOSNS))
+    dplyr::group_by(.data$Year) %>%
+    dplyr::summarize(CPIHOSNS = mean(.data$CPIHOSNS))
 
   max_yr <- max(df$SALE_YEAR)
   if (max_yr > max(fred$Year)) {
@@ -15,17 +16,17 @@ adj_for_inflation <- function(df) {
   print(paste0("Inflation adjusted to ", max_yr))
 
   final_indx_value <-
-    fred %>% dplyr::filter(Year == max_yr) %>% dplyr::select(CPIHOSNS)
+    fred %>% dplyr::filter(.data$Year == max_yr) %>% dplyr::select(.data$CPIHOSNS)
   fred <-
-    fred %>% dplyr::mutate(percent_adj = as.numeric(final_indx_value) / CPIHOSNS) %>%
-    dplyr::group_by(Year) %>%
-    dplyr::summarize(percent_adj = mean(percent_adj))
+    fred %>% dplyr::mutate(percent_adj = as.numeric(final_indx_value) / .data$CPIHOSNS) %>%
+    dplyr::group_by(.data$Year) %>%
+    dplyr::summarize(percent_adj = mean(.data$percent_adj))
 
   df <- df %>% dplyr::left_join(fred, by = c("TAX_YEAR" = "Year"))
 
   df["SALE_PRICE_ADJ"] <- df["SALE_PRICE"] * df["percent_adj"]
   df["ASSESSED_VALUE_ADJ"] <- df["ASSESSED_VALUE"] * df["percent_adj"]
-  df <- df %>% dplyr::select(-percent_adj)
+  df <- df %>% dplyr::select(-.data$percent_adj)
   return(df)
 }
 

@@ -39,26 +39,22 @@ reformat_data <-
     # add ratio
     df <-
       df %>% dplyr::mutate(RATIO = ifelse(
-        !is.na(SALE_PRICE),
-        ifelse(SALE_PRICE > 100, ASSESSED_VALUE / SALE_PRICE, NA),
+        !is.na(.data$SALE_PRICE),
+        ifelse(.data$SALE_PRICE > 100, .data$ASSESSED_VALUE / .data$SALE_PRICE, NA),
         NA
       ))
     # add arm's length
     df <-
-      df %>% dplyr::group_by(SALE_YEAR) %>% dplyr::mutate(arms_length_transaction = ifelse(!is.na(RATIO), ifelse((
-        RATIO >
-          stats::quantile(RATIO, na.rm = TRUE)[[4]] + 1.5 * stats::IQR(RATIO, na.rm = TRUE)
-      ) | (
-        RATIO < stats::quantile(RATIO,
-                                na.rm = TRUE)[[2]] - 1.5 * stats::IQR(RATIO, na.rm = TRUE)
-      ),
-      0,
-      1
-      ), NA))
+      df %>% dplyr::group_by(.data$SALE_YEAR) %>%
+      dplyr::mutate(arms_length_transaction = ifelse(!is.na(.data$RATIO), ifelse(
+        (.data$RATIO > stats::quantile(.data$RATIO, na.rm = TRUE)[[4]] + 1.5 * stats::IQR(.data$RATIO, na.rm = TRUE)) |
+        (.data$RATIO < stats::quantile(.data$RATIO, na.rm = TRUE)[[2]] - 1.5 * stats::IQR(.data$RATIO, na.rm = TRUE)),
+      0, 1),
+      NA))
 
     if (filter_data) {
       df <-
-        df %>% dplyr::filter(arms_length_transaction == 1,!is.na(RATIO))
+        df %>% dplyr::filter(.data$arms_length_transaction == 1,!is.na(.data$RATIO))
       print("Filtered out non-arm's length transactions")
     }
     #adjust for inflation

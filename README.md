@@ -165,11 +165,11 @@ ratios <-
 stats <- cmfproperty::calc_iaao_stats(ratios)
 head(stats)
 #>       N     COD COD_SE    PRD PRD_SE     PRB PRB_SE  q1_ratio median_ratio
-#> 1 51879 19.1173 5.9888 1.0801 0.0039 -0.0514 0.0012 0.7758364    0.9093448
-#> 2 62852 20.7519 6.3019 1.0656 0.0033 -0.0462 0.0011 0.7705720    0.9001375
-#> 3 65961 19.8789 6.1441 1.0513 0.0040 -0.0269 0.0011 0.7428108    0.8732099
-#> 4 65298 19.2052 6.0299 1.0095 0.0067  0.0133 0.0010 0.7470336    0.8856039
-#> 5 62041 17.1030 4.8863 1.0145 0.0053  0.0098 0.0010 0.7681042    0.9035000
+#> 1 51879 17.3999 6.2998 1.0509 0.0164 -0.0514 0.0012 0.7758364    0.9093448
+#> 2 62852 19.3270 6.4174 1.0726 0.0027 -0.0462 0.0011 0.7705720    0.9001375
+#> 3 65961 19.0936 6.1161 1.0540 0.0022 -0.0269 0.0011 0.7428108    0.8732099
+#> 4 65298 19.2335 5.9038 1.0097 0.0062  0.0133 0.0010 0.7470336    0.8856039
+#> 5 62041 18.2744 4.5088 1.0236 0.0023  0.0098 0.0010 0.7681042    0.9035000
 #>   q3_ratio q1_sale median_sale q3_sale q1_assessed_value median_assessed_value
 #> 1 1.057180  148000      230000  375000          136670.0                213430
 #> 2 1.060422  148000      229900  365000          133940.0                209150
@@ -396,7 +396,7 @@ cmfproperty::make_report(ratios,
 #>   |                                                                              |......................................................................| 100%
 #>   ordinary text without R code
 #> output file: report.knit.md
-#> "C:/Program Files/RStudio/bin/pandoc/pandoc" +RTS -K512m -RTS report.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash+smart --output pandoc683c53d911fc.html --email-obfuscation none --self-contained --standalone --section-divs --table-of-contents --toc-depth 2 --variable toc_float=1 --variable toc_selectors=h1,h2 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template "C:\Users\erhla\Documents\R\win-library\3.6\rmarkdown\rmd\h\default.html" --no-highlight --variable highlightjs=1 --number-sections --variable "theme:sandstone" --include-in-header "C:\Users\erhla\AppData\Local\Temp\RtmpWaNUoy\rmarkdown-str683c18c17c02.html" --mathjax --variable "mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" --lua-filter "C:/Users/erhla/Documents/R/win-library/3.6/rmarkdown/rmd/lua/pagebreak.lua" --lua-filter "C:/Users/erhla/Documents/R/win-library/3.6/rmarkdown/rmd/lua/latex-div.lua" --filter "C:/Program Files/RStudio/bin/pandoc/pandoc-citeproc.exe"
+#> "C:/Program Files/RStudio/bin/pandoc/pandoc" +RTS -K512m -RTS report.utf8.md --to html4 --from markdown+autolink_bare_uris+tex_math_single_backslash+smart --output pandoc8207fd86de4.html --email-obfuscation none --self-contained --standalone --section-divs --table-of-contents --toc-depth 2 --variable toc_float=1 --variable toc_selectors=h1,h2 --variable toc_collapsed=1 --variable toc_smooth_scroll=1 --variable toc_print=1 --template "C:\Users\erhla\Documents\R\win-library\3.6\rmarkdown\rmd\h\default.html" --no-highlight --variable highlightjs=1 --number-sections --variable "theme:sandstone" --include-in-header "C:\Users\erhla\AppData\Local\Temp\RtmpGMvxfl\rmarkdown-str82033a46de5.html" --mathjax --variable "mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" --lua-filter "C:/Users/erhla/Documents/R/win-library/3.6/rmarkdown/rmd/lua/pagebreak.lua" --lua-filter "C:/Users/erhla/Documents/R/win-library/3.6/rmarkdown/rmd/lua/latex-div.lua" --filter "C:/Program Files/RStudio/bin/pandoc/pandoc-citeproc.exe"
 #> 
 #> Output created: C:/Users/erhla/Desktop//Cook County, Illinois.html
 #> [1] "Report created at C:/Users/erhla/Desktop//Cook County, Illinois.html"

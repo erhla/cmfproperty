@@ -21,11 +21,11 @@ iaao_graphs <-  function(stats, ratios, min_reporting_yr, max_reporting_yr, juri
   cod_text <- paste0("For ", max_reporting_yr, ", the COD in ", jurisdiction_name, " was ", round(max_stats$COD, 2), " which <b>",
                      cod_standard, " meet</b> the IAAO standard for uniformity. ")
 
-  cod_plot <- ggplot(data = stats, aes(x = Year)) +
-    geom_line(aes(y = COD), color = "#2C4894", size = 1.5) +
-    geom_point(aes(y = COD), color = "#2C4894", size = 3) +
-    geom_line(aes(y = COD + 1.96 * COD_SE), linetype = "dashed") +
-    geom_line(aes(y = COD - 1.96 * COD_SE), linetype = "dashed") +
+  cod_plot <- ggplot(data = stats, aes(x = .data$Year)) +
+    geom_line(aes(y = .data$COD), color = "#2C4894", size = 1.5) +
+    geom_point(aes(y = .data$COD), color = "#2C4894", size = 3) +
+    geom_line(aes(y = .data$COD + 1.96 * .data$COD_SE), linetype = "dashed") +
+    geom_line(aes(y = .data$COD - 1.96 * .data$COD_SE), linetype = "dashed") +
     my_theme_rotated +
     labs(caption = "IAAO Benchmark: 15 or below (shaded). Dotted lines represent the 95% Confidence Interval.", y = "COD", x = "Year") +
     annotate("rect", xmin = as.numeric(min_reporting_yr), xmax = as.numeric(max_reporting_yr),
@@ -37,11 +37,11 @@ iaao_graphs <-  function(stats, ratios, min_reporting_yr, max_reporting_yr, juri
                      round(max_stats$PRD, 3), " which <b>", ifelse(dplyr::between(max_stats$PRD, 0.98, 1.03), "meets ", "does not meet "),
                      "</b> the IAAO standard for vertical equity.")
 
-  prd_plot <- ggplot(data = stats, aes(x = Year)) +
-    geom_line(aes(y = PRD), color = "#2C4894", size = 1.5) +
-    geom_point(aes(y = PRD), color = "#2C4894", size = 3) +
-    geom_line(aes(y = PRD - 1.96 * PRD_SE), linetype = "dashed") +
-    geom_line(aes(y = PRD + 1.96 * PRD_SE), linetype = "dashed") +
+  prd_plot <- ggplot(data = stats, aes(x = .data$Year)) +
+    geom_line(aes(y = .data$PRD), color = "#2C4894", size = 1.5) +
+    geom_point(aes(y = .data$PRD), color = "#2C4894", size = 3) +
+    geom_line(aes(y = .data$PRD - 1.96 * .data$PRD_SE), linetype = "dashed") +
+    geom_line(aes(y = .data$PRD + 1.96 * .data$PRD_SE), linetype = "dashed") +
     my_theme_rotated +
     annotate("rect", xmin = as.numeric(min_reporting_yr), xmax = as.numeric(max_reporting_yr),
              ymin = 0.98, ymax = 1.03, alpha = rect_alpha) +
@@ -53,11 +53,11 @@ iaao_graphs <-  function(stats, ratios, min_reporting_yr, max_reporting_yr, juri
                      ifelse(max_stats$PRB > 0, "increase", "decrease"), " by ", scales::percent(abs(max_stats$PRB), 0.1), " when home values double.",
                      " This <b>", ifelse(dplyr::between(max_stats$PRB, -0.05, 0.05), "meets ", "does not meet "), "</b>the IAAO standard.")
 
-  prb_plot <- ggplot(data = stats, aes(x = Year)) +
-    geom_line(aes(y = PRB), color = "#2C4894", size = 1.5) +
-    geom_point(aes(y = PRB), color = "#2C4894", size = 3) +
-    geom_line(aes(y = PRB - 1.96 * PRB_SE), linetype = "dashed") +
-    geom_line(aes(y = PRB + 1.96 * PRB_SE), linetype = "dashed") +
+  prb_plot <- ggplot(data = stats, aes(x = .data$Year)) +
+    geom_line(aes(y = .data$PRB), color = "#2C4894", size = 1.5) +
+    geom_point(aes(y = .data$PRB), color = "#2C4894", size = 3) +
+    geom_line(aes(y = .data$PRB - 1.96 * .data$PRB_SE), linetype = "dashed") +
+    geom_line(aes(y = .data$PRB + 1.96 * .data$PRB_SE), linetype = "dashed") +
     my_theme_rotated +
     labs(caption = "IAAO Benchmark: +/- 0.05 (shaded). Dotted lines represent the 95% Confidence Interval.", y = "PRB", x = "Year") +
     annotate("rect", xmin = as.numeric(min_reporting_yr), xmax = as.numeric(max_reporting_yr),

@@ -11,15 +11,15 @@
 regression_tests <- function(ratios, return_model_objs = FALSE, produce_table = FALSE) {
 
     ratios <-
-        ratios %>% dplyr::group_by(TAX_YEAR) %>% dplyr::mutate(
-            SALE_PRICE_SQD = SALE_PRICE ^ 2,
-            price_tercile = dplyr::ntile(SALE_PRICE,
+        ratios %>% dplyr::group_by(.data$TAX_YEAR) %>% dplyr::mutate(
+            SALE_PRICE_SQD = .data$SALE_PRICE ^ 2,
+            price_tercile = dplyr::ntile(.data$SALE_PRICE,
                                          3),
-            av_tercile = dplyr::ntile(ASSESSED_VALUE, 3),
-            low = ifelse(price_tercile == 1, 1, 0),
-            high = ifelse(price_tercile == 3, 1, 0)
+            av_tercile = dplyr::ntile(.data$ASSESSED_VALUE, 3),
+            low = ifelse(.data$price_tercile == 1, 1, 0),
+            high = ifelse(.data$price_tercile == 3, 1, 0)
             ) %>%
-        dplyr::filter(ASSESSED_VALUE != 0 & SALE_PRICE != 0)
+        dplyr::filter(.data$ASSESSED_VALUE != 0 & .data$SALE_PRICE != 0)
 
     model_ls <- c("paglin72", "cheng74", "IAAO78", "kochin82", "bell84", "sunderman90")
     results_df <- data.frame(Model = character(), coef_value = numeric(), test = character(), coef_t_stat = numeric(), conclusion = character())
@@ -102,7 +102,7 @@ regression_tests <- function(ratios, return_model_objs = FALSE, produce_table = 
                              digits = 2, omit.stat=c("f", "ser"))
     }
     if (return_model_objs) {
-        return(list(paglin72, cheng74, IAAO78, kochin82, bell84, sunderman90, clapp90))
+        return(list(paglin72, cheng74, IAAO78, kochin82, bell84, sunderman90))
     } else {
         return(results_df)
     }

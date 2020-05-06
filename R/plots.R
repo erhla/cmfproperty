@@ -14,11 +14,18 @@ plots <- function(ratios, min_reporting_yr, max_reporting_yr, jurisdiction_name)
     ii <- min_reporting_yr:max_reporting_yr
 
     #binned scatter, using inflation adjusted dollars
-    ratios <- ratios %>% dplyr::filter(dplyr::between(SALE_YEAR, min_reporting_yr, max_reporting_yr))
-    ratios <- ratios %>% dplyr::group_by(SALE_YEAR) %>% dplyr::mutate(sale_decile_bin = dplyr::ntile(SALE_PRICE, 10))
-    sale_ratio_decile_tbl <- ratios %>% dplyr::group_by(sale_decile_bin) %>% dplyr::summarize(ratio_mean = mean(RATIO), sale_mean = mean(SALE_PRICE_ADJ))
-    all_yr_tbl <- ratios %>% dplyr::group_by(TAX_YEAR, sale_decile_bin) %>% dplyr::summarize(ratio_mean = mean(RATIO), sale_mean = mean(SALE_PRICE_ADJ))
-    max_yr_tbl <- all_yr_tbl %>% dplyr::filter(TAX_YEAR == max_reporting_yr)
+    ratios <-
+        ratios %>% dplyr::filter(dplyr::between(.data$SALE_YEAR, min_reporting_yr, max_reporting_yr))
+    ratios <-
+        ratios %>% dplyr::group_by(.data$SALE_YEAR) %>% dplyr::mutate(sale_decile_bin = dplyr::ntile(.data$SALE_PRICE, 10))
+    sale_ratio_decile_tbl <-
+        ratios %>% dplyr::group_by(.data$sale_decile_bin) %>% dplyr::summarize(ratio_mean = mean(.data$RATIO),
+                                                                         sale_mean = mean(.data$SALE_PRICE_ADJ))
+    all_yr_tbl <-
+        ratios %>% dplyr::group_by(.data$TAX_YEAR, .data$sale_decile_bin) %>% dplyr::summarize(ratio_mean = mean(.data$RATIO),
+                                                                                   sale_mean = mean(.data$SALE_PRICE_ADJ))
+    max_yr_tbl <-
+        all_yr_tbl %>% dplyr::filter(.data$TAX_YEAR == max_reporting_yr)
 
     # captions
     binned_scatter_caption <-
@@ -33,7 +40,7 @@ plots <- function(ratios, min_reporting_yr, max_reporting_yr, jurisdiction_name)
                       " times</b> the rate applied to the most expensive homes.")
 
     # plots
-    binned_scatter <- ggplot(data = sale_ratio_decile_tbl) + aes(x = sale_mean, y = ratio_mean) + geom_point(size = 3, color = "grey") +
+    binned_scatter <- ggplot(data = sale_ratio_decile_tbl) + aes(x = .data$sale_mean, y = .data$ratio_mean) + geom_point(size = 3, color = "grey") +
         geom_line(size = 1.5, color = "grey", linetype = "dashed") + geom_point(data = max_yr_tbl, size = 3) + geom_line(data = max_yr_tbl,
         size = 1.5) + scale_x_continuous(labels = scales::dollar_format()) + labs(x = paste("Sale Price (", max_reporting_yr,
         "dollars)"), y = "Sales Ratio", caption = paste0(max_reporting_yr, " (solid). Full sample average (dashed).")) + my_theme
@@ -41,22 +48,24 @@ plots <- function(ratios, min_reporting_yr, max_reporting_yr, jurisdiction_name)
 
     #percent over/under assessed
     avg_ratio_by_year <-
-        ratios %>% dplyr::group_by(TAX_YEAR) %>% dplyr::summarize(avg_ratio = median(RATIO))
+        ratios %>% dplyr::group_by(.data$TAX_YEAR) %>% dplyr::summarize(avg_ratio = median(.data$RATIO))
     ratios <- ratios %>% dplyr::left_join(avg_ratio_by_year)
     ratios <-
         ratios %>% dplyr::mutate(
-            over_avg = ifelse(RATIO > avg_ratio, 1, 0),
-            under_avg = ifelse(RATIO < avg_ratio, 1, 0)
+            over_avg = ifelse(.data$RATIO > .data$avg_ratio, 1, 0),
+            under_avg = ifelse(.data$RATIO < .data$avg_ratio, 1, 0)
         )
 
     over_under_data <-
-        ratios %>% dplyr::group_by(sale_decile_bin) %>% dplyr::summarize(Overassessed = sum(over_avg) / dplyr::n(),
-                                                                         Underassessed = sum(under_avg) / dplyr::n()) %>%
-        tidyr::pivot_longer(-sale_decile_bin, names_to = "variable", values_to = "count")
+        ratios %>% dplyr::group_by(.data$sale_decile_bin) %>% dplyr::summarize(
+            Overassessed = sum(.data$over_avg) / dplyr::n(),
+            Underassessed = sum(.data$under_avg) / dplyr::n()
+        ) %>%
+        tidyr::pivot_longer(-.data$sale_decile_bin, names_to = "variable", values_to = "count")
 
     pct_over_underassessed <-
         ggplot(over_under_data,
-               aes(fill = variable, x = sale_decile_bin, y = count)) +
+               aes(fill = .data$variable, x = .data$sale_decile_bin, y = .data$count)) +
         geom_bar(position = "dodge",
                  stat = "identity",
                  width = 0.75) + scale_y_continuous(labels = scales::percent_format()) + scale_x_continuous(breaks = 1:10) +
