@@ -1,5 +1,4 @@
 ---
-author: "Center for Municipal Finance"
 output:
   html_document:
     toc: true
@@ -28,8 +27,6 @@ nocite: |
 
 ```{r options, echo=FALSE, out.width = "175px"}
 library(cmfproperty)
-
-knitr::include_graphics(system.file("rmd", "harrislogo.jpg", package = "cmfproperty"))
 
 knitr::opts_chunk$set(
   echo = FALSE,
@@ -326,5 +323,9 @@ models <- cmfproperty::regression_tests(ratios, FALSE, TRUE)
 ```
 
 <P style="page-break-before: always"> 
+
+# Source
+
+This report was produced using `cmfproperty`, a package produced by the [Center for Municipal Finance](https://harris.uchicago.edu/research-impact/centers-institutes/center-municipal-finance). More information about the package can be found on [Github](https://github.com/erhla/cmfproperty).
 
 # Citations
