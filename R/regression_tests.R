@@ -5,7 +5,7 @@
 #' @param produce_table boolean, if true will return a summary table produced using stargazer
 #' @return a list of model objects or a summary data.frame of results
 
-#' @importFrom stats approxfun lm rnorm
+#' @importFrom stats approxfun lm rnorm median
 
 #'@export
 regression_tests <- function(ratios, return_model_objs = FALSE, produce_table = FALSE) {

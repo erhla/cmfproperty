@@ -9,7 +9,6 @@
 
 #' @importFrom magrittr %>%
 
-
 #' @export
 iaao_graphs <-  function(stats, ratios, min_reporting_yr, max_reporting_yr, jurisdiction_name){
   ii <- min_reporting_yr:max_reporting_yr

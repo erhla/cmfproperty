@@ -1,3 +1,6 @@
+#' @import ggplot2
+
+
 adj_for_inflation <- function(df) {
   fred <- #within sysdata.rda
     fred %>% tidyr::separate(DATE, c("Year", "Month", "Day")) %>%

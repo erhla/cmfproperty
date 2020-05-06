@@ -8,7 +8,6 @@
 
 #' @return a list of plots (cod, prd, prb, binned_scatter)
 
-#' @import ggplot2
 
 #' @export
 plots <- function(ratios, min_reporting_yr, max_reporting_yr, jurisdiction_name) {

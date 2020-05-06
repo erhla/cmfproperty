@@ -1,57 +1,9 @@
 #' Conducts a monte carlo simulation, which approximates the impacts of random factors in regressivity statistics
 #'
 #' @param ratios a dataframe with assessment, sales, and time data which has been processed by reformat_data
-#' @param return_model_objs boolean, if true will return a list of model objects
-#' @param produce_table boolean, if true will return a summary table produced using stargazer
-#' @return a list of model objects or a summary data.frame of results
+#' @return a list of six graphs for COD, PRB, PRD, paglin72, cheng74, and IAAO78 (see README for example)
 
-
-paglin_cheng_IAAO_coefs <- function(ratios){
-  ratios <- ratios %>% dplyr::mutate(logsp = log(SALE_PRICE + 1),
-                              logav = log(ASSESSED_VALUE + 1))
-
-  paglin72 <- stats::lm(ASSESSED_VALUE ~ SALE_PRICE, data = ratios)$coefficients[[2]]
-  cheng74 <- stats::lm(logav ~ logsp, data = ratios)$coefficients[[2]]
-  IAAO78 <- stats::lm(RATIO ~ SALE_PRICE, data = ratios)$coefficients[[2]]
-  return(list(paglin72, cheng74, IAAO78))
-}
-
-monte_carlo_sim <- function(ratios, iters){
-  all_rslts <- data.frame()
-  ratios <- ratios %>% dplyr::filter(SALE_PRICE > 100 & ASSESSED_VALUE > 100)
-  for (shock_pct in seq(0, 0.25, by = 0.01)){
-    iter <- 0
-    while (iter < iters){
-      cur <- ratios %>% dplyr::mutate(shock = rnorm(dplyr::n(), 0, shock_pct),
-                                      SALE_PRICE = ASSESSED_VALUE * (1 + shock), #This is simulated SALE_PRICE
-                                      RATIO = ASSESSED_VALUE / SALE_PRICE)
-
-      cur <- cur %>% dplyr::filter(abs(shock) < 1)
-      tmp <- get_stats(as.data.frame(cur), 5)
-      tmp2 <- paglin_cheng_IAAO_coefs(cur)
-
-      tmp <- tmp %>% dplyr::mutate(shock_pct = shock_pct,
-                            iter = iter,
-                            paglin72 = tmp2[[1]],
-                            cheng74 = tmp2[[2]],
-                            IAAO78 = tmp2[[3]])
-
-      iter <- iter + 1
-      all_rslts <- rbind(all_rslts, tmp)
-    }
-  }
-  avg_stats <- all_rslts %>% dplyr::group_by(shock_pct) %>%
-    dplyr::summarize(COD = mean(COD),
-                     PRD = mean(PRD),
-                     PRB = mean(PRB),
-                     med_ratio = mean(median_ratio),
-                     paglin72 = mean(paglin72),
-                     cheng74 = mean(cheng74),
-                     IAAO78 = mean(IAAO78))
-  return(avg_stats)
-}
-
-#'@export
+#' @export
 monte_carlo_graphs<- function(ratios){
   avg_stats <- monte_carlo_sim(ratios, 2)
   comp_stats <- get_stats(ratios, 100)
@@ -111,3 +63,50 @@ monte_carlo_graphs<- function(ratios){
 
   return(list(COD_graph, PRB_graph, PRD_graph, paglin72_graph, cheng74_graph, IAAO78_graph))
 }
+
+paglin_cheng_IAAO_coefs <- function(ratios){
+  ratios <- ratios %>% dplyr::mutate(logsp = log(SALE_PRICE + 1),
+                              logav = log(ASSESSED_VALUE + 1))
+
+  paglin72 <- stats::lm(ASSESSED_VALUE ~ SALE_PRICE, data = ratios)$coefficients[[2]]
+  cheng74 <- stats::lm(logav ~ logsp, data = ratios)$coefficients[[2]]
+  IAAO78 <- stats::lm(RATIO ~ SALE_PRICE, data = ratios)$coefficients[[2]]
+  return(list(paglin72, cheng74, IAAO78))
+}
+
+monte_carlo_sim <- function(ratios, iters){
+  all_rslts <- data.frame()
+  ratios <- ratios %>% dplyr::filter(SALE_PRICE > 100 & ASSESSED_VALUE > 100)
+  for (shock_pct in seq(0, 0.25, by = 0.01)){
+    iter <- 0
+    while (iter < iters){
+      cur <- ratios %>% dplyr::mutate(shock = rnorm(dplyr::n(), 0, shock_pct),
+                                      SALE_PRICE = ASSESSED_VALUE * (1 + shock), #This is simulated SALE_PRICE
+                                      RATIO = ASSESSED_VALUE / SALE_PRICE)
+
+      cur <- cur %>% dplyr::filter(abs(shock) < 1)
+      tmp <- get_stats(as.data.frame(cur), 5)
+      tmp2 <- paglin_cheng_IAAO_coefs(cur)
+
+      tmp <- tmp %>% dplyr::mutate(shock_pct = shock_pct,
+                            iter = iter,
+                            paglin72 = tmp2[[1]],
+                            cheng74 = tmp2[[2]],
+                            IAAO78 = tmp2[[3]])
+
+      iter <- iter + 1
+      all_rslts <- rbind(all_rslts, tmp)
+    }
+  }
+  avg_stats <- all_rslts %>% dplyr::group_by(shock_pct) %>%
+    dplyr::summarize(COD = mean(COD),
+                     PRD = mean(PRD),
+                     PRB = mean(PRB),
+                     med_ratio = mean(median_ratio),
+                     paglin72 = mean(paglin72),
+                     cheng74 = mean(cheng74),
+                     IAAO78 = mean(IAAO78))
+  return(avg_stats)
+}
+
+
