@@ -30,7 +30,7 @@ reformat_data <-
     if (!is.null(tax_year_col)) {
       names(df)[names(df) == tax_year_col] <- "TAX_YEAR"
     } else {
-      df[["TAX_YEAR"]] <- df[[sale_year_col]]
+      df[["TAX_YEAR"]] <- df[["SALE_YEAR"]]
     }
     # rename Market Value if present
     if (!is.null(market_value_col)) {
