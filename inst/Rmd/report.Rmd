@@ -7,7 +7,7 @@ output:
     df_print: paged
     theme: sandstone
     number_sections: true
-bibliography: '`r system.file("rmd", "bibliography.bib", package = "cmfproperty")`'
+bibliography: '`r system.file("Rmd", "bibliography.bib", package = "cmfproperty")`'
 link-citations: true
 params:
   title:
