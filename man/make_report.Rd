@@ -4,7 +4,7 @@
 \alias{make_report}
 \title{Produces an HTML report in the current working directory to evaluate regressivity in the supplied jurisdiction}
 \usage{
-make_report(ratios, jurisdiction_name, output_dir = "")
+make_report(ratios, jurisdiction_name, output_dir = "", diagnostic = FALSE)
 }
 \arguments{
 \item{ratios}{a dataframe which has been preprocessed by \code{\link{reformat_data}}}
@@ -12,6 +12,8 @@ make_report(ratios, jurisdiction_name, output_dir = "")
 \item{jurisdiction_name}{the name of the jurisdiction being analyzed}
 
 \item{output_dir}{optional, specify a folder to save the output in}
+
+\item{diagnostic}{optional, if TRUE includes additional sections evaluating data quality}
 }
 \value{
 produces a file named `jurisdiction_name.html` in the working directory

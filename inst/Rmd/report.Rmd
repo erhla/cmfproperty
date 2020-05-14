@@ -17,6 +17,9 @@ params:
   inputdata:
     label: "DataFrame"
     value: ""
+  diagnostic:
+    label: "Diagnostic"
+    value: ""
 title: '`r paste("An Evaluation of Property Tax Regressivity in", params$title)`'
 ---
 
@@ -57,6 +60,13 @@ stats <- cmfproperty::calc_iaao_stats(ratios)
 
 #main plots
 results <- cmfproperty::plots(ratios, min_reporting_yr, max_reporting_yr, params$title)
+
+#diagnostic?
+if(params$diagnostic){
+  diagnostic <- TRUE
+} else {
+  diagnostic <- FALSE
+}
 
 ```
 
@@ -203,12 +213,13 @@ stats$cod_with_ci <- paste0(stats$COD, " \u00b1 ", round(1.96 * stats$COD_SE, 3)
 stats$prd_with_ci <- paste0(stats$PRD, " \u00b1 ", round(1.96 * stats$PRD_SE, 3))
 stats$prb_with_ci <- paste0(stats$PRB, " \u00b1 ", round(1.96 * stats$PRB_SE, 3))
 stats$med_sale <- scales::dollar(stats$median_sale)  
+stats$med_av <- scales::dollar(stats$median_assessed_value)
 
 all <- stats %>%
-  dplyr::select(Year, N, med_sale, cod_with_ci, prd_with_ci, prb_with_ci)
+  dplyr::select(Year, N, med_sale, med_av, cod_with_ci, prd_with_ci, prb_with_ci)
 
 kableExtra::kable(all, align = rep("c", 5),
-      col.names = c("Tax Year", "Arms Length Sales", "Average Sale Price", "COD", "PRD", "PRB"),
+      col.names = c("Tax Year", "Arms Length Sales", "Average Sale Price", "Average Assessed Value", "COD", "PRD", "PRB"),
       caption = "Calculated Values for COD, PRD, and PRB") %>%
   kableExtra::kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 
@@ -323,6 +334,26 @@ models <- cmfproperty::regression_tests(ratios, FALSE, TRUE)
 ```
 
 <P style="page-break-before: always"> 
+
+`r if(diagnostic){paste0("# Data Diagnostics" )}`
+
+`r if(diagnostic){paste0("The following graphs can be used to evaluate data quality for Sale Price and Assessed Value. These graphs should be relatively consistent year-to-year. If not, outliers or data quality issues may be present.")}`
+
+```{r diagnostics, eval=diagnostic}
+plots <- diagnostic_plots(stats, ratios, min_reporting_yr, max_reporting_yr)
+plots[[1]]
+plots[[2]]
+plots[[3]]
+plots[[4]]
+```
+
+`r if(diagnostic){paste0("The following graphs can be used to evaluate data quality for Ratios. These graphs should be relatively consistent year-to-year. If not, outliers or data quality issues may be present.")}`
+
+```{r diagnostics2, eval=diagnostic}
+plots[[5]]
+
+gridExtra::grid.arrange(plots[[6]], plots[[7]], plots[[8]], plots[[9]], ncol=2, nrow=2)
+```
 
 # Source
 

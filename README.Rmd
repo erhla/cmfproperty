@@ -47,8 +47,7 @@ ratios <-
   )
 
 cmfproperty::make_report(ratios, 
-                         jurisdiction_name = "Cook County, Illinois"
-                         )
+                         jurisdiction_name = "Cook County, Illinois")
 #to see the evaluated output---look at Report Evaluation Output at the end of this readme.
 ```
 
