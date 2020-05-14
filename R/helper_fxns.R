@@ -22,7 +22,7 @@ adj_for_inflation <- function(df) {
     dplyr::group_by(.data$Year) %>%
     dplyr::summarize(percent_adj = mean(.data$percent_adj))
 
-  df <- df %>% dplyr::left_join(fred, by = c("TAX_YEAR" = "Year"))
+  df <- df %>% dplyr::left_join(fred, by = c("SALE_YEAR" = "Year"))
 
   df["SALE_PRICE_ADJ"] <- df["SALE_PRICE"] * df["percent_adj"]
   df["ASSESSED_VALUE_ADJ"] <- df["ASSESSED_VALUE"] * df["percent_adj"]

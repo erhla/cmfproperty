@@ -5,8 +5,6 @@
 #' @param assessment_col the name of the column with assessment data
 #' @param sale_year_col the name of the column with the year of sale
 #' @param filter_data optional, default True. if True, keeps only arm's length sales. if False, keeps all data.
-#' @param market_value_col optional, the name of the column with market value data
-#' @param tax_year_col optional, the name of the column with tax year data. The default is to set to the sale year.
 #'
 #' @return a dataframe with appropriate column names and arm's length markings
 
@@ -18,24 +16,15 @@ reformat_data <-
            sale_col,
            assessment_col,
            sale_year_col,
-           filter_data = TRUE,
-           market_value_col = NULL,
-           tax_year_col = NULL) {
+           filter_data = TRUE) {
     # rename columns
-    names(df)[names(df) == sale_col] <- "SALE_PRICE"
-    names(df)[names(df) == assessment_col] <- "ASSESSED_VALUE"
-    names(df)[names(df) == sale_year_col] <- "SALE_YEAR"
+    df <- col_rename_helper(sale_col, "SALE_PRICE")
+    df <- col_rename_helper(assessment_col, "ASSESSED_VALUE")
+    df <- col_rename_helper(sale_year_col, "SALE_YEAR")
 
-    # create Tax Year if missing
-    if (!is.null(tax_year_col)) {
-      names(df)[names(df) == tax_year_col] <- "TAX_YEAR"
-    } else {
-      df[["TAX_YEAR"]] <- df[["SALE_YEAR"]]
-    }
-    # rename Market Value if present
-    if (!is.null(market_value_col)) {
-      names(df)[names(df) == market_value_col] <- "MARKET_VALUE"
-    }
+    # create Tax Year
+    df[["TAX_YEAR"]] <- df[["SALE_YEAR"]]
+
     # add ratio
     df <-
       df %>% dplyr::mutate(RATIO = ifelse(
@@ -62,4 +51,13 @@ reformat_data <-
     return(df %>% as.data.frame())
   }
 
+
+col_rename_helper <- function(current, rename_to){
+  if((rename_to %in% names(df)) & (current != rename_to)){
+    names(df)[names(df) == rename_to] <- paste0(rename_to, "_2")
+    print(paste0("Renaming already present column '", rename_to, "' to '", rename_to, "_2'."))
+  }
+  names(df)[names(df) == current] <- rename_to
+  return(df)
+}
 

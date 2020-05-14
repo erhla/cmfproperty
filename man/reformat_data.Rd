@@ -4,15 +4,7 @@
 \alias{reformat_data}
 \title{Reformats data for analysis by changing column names and filtering out non-arm's length sales.}
 \usage{
-reformat_data(
-  df,
-  sale_col,
-  assessment_col,
-  sale_year_col,
-  filter_data = TRUE,
-  market_value_col = NULL,
-  tax_year_col = NULL
-)
+reformat_data(df, sale_col, assessment_col, sale_year_col, filter_data = TRUE)
 }
 \arguments{
 \item{df}{a dataframe with assessment, sales, and time data}
@@ -24,10 +16,6 @@ reformat_data(
 \item{sale_year_col}{the name of the column with the year of sale}
 
 \item{filter_data}{optional, default True. if True, keeps only arm's length sales. if False, keeps all data.}
-
-\item{market_value_col}{optional, the name of the column with market value data}
-
-\item{tax_year_col}{optional, the name of the column with tax year data. The default is to set to the sale year.}
 }
 \value{
 a dataframe with appropriate column names and arm's length markings
