@@ -19,7 +19,7 @@ make_report <-
 
   output_loc <- paste0(file_loc, "/", jurisdiction_name, ".html")
 
-  rmarkdown::render(system.file("rmd", "report.Rmd", package = "cmfproperty"),
+  rmarkdown::render(system.file("Rmd", "report.Rmd", package = "cmfproperty"),
                     params = list(title = jurisdiction_name,
                                   inputdata = ratios,
                                   diagnostic = diagnostic),
