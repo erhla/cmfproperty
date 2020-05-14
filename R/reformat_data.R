@@ -18,9 +18,9 @@ reformat_data <-
            sale_year_col,
            filter_data = TRUE) {
     # rename columns
-    df <- col_rename_helper(sale_col, "SALE_PRICE")
-    df <- col_rename_helper(assessment_col, "ASSESSED_VALUE")
-    df <- col_rename_helper(sale_year_col, "SALE_YEAR")
+    df <- col_rename_helper(df, sale_col, "SALE_PRICE")
+    df <- col_rename_helper(df, assessment_col, "ASSESSED_VALUE")
+    df <- col_rename_helper(df, sale_year_col, "SALE_YEAR")
 
     # create Tax Year
     df[["TAX_YEAR"]] <- df[["SALE_YEAR"]]
@@ -52,8 +52,8 @@ reformat_data <-
   }
 
 
-col_rename_helper <- function(current, rename_to){
-  if((rename_to %in% names(df)) & (current != rename_to)){
+col_rename_helper <- function(df, current, rename_to){
+  if(is.element(rename_to, names(df)) & (current != rename_to)){
     names(df)[names(df) == rename_to] <- paste0(rename_to, "_2")
     print(paste0("Renaming already present column '", rename_to, "' to '", rename_to, "_2'."))
   }
