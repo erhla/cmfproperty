@@ -6,3 +6,30 @@ template:
 authors:
   Eric Langowski:
     href: "https://erhla.github.io/"
+
+reference:
+- title: "Data Preprocessing"
+  desc: >
+    Functions to process and manipulate data
+    for analysis
+- contents:
+  - reformat_data
+  - example_data
+- title: "Regressivity Tests"
+  desc: >
+    Functions to analyze processed data for
+    regressivity
+- contents:
+  - calc_iaao_stats
+  - regression_tests
+- title: "Visualizing Results"
+  desc: >
+    Functions which produce graphs of regressivity
+    for analysis
+
+  contents:
+  - iaao_graphs
+  - monte_carlo_graphs
+  - diagnostic_plots
+  - plots
+  - make_report
