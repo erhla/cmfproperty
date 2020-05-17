@@ -16,7 +16,7 @@ diagnostic_plots(stats, ratios, min_reporting_yr, max_reporting_yr)
 \item{max_reporting_yr}{the maximum year to ploy}
 }
 \value{
-a list of plots (cod, prd, prb, binned_scatter)
+a list of plots (num_prop, sale_plot, sale_ratio_plot, sp_vs_av, ratio_plot, past_ratios_hist, past_ratios_cdf, current_ratios_hist, current_ratios_cdf)
 }
 \description{
 Produces plots and tables helpful for data diagnostics

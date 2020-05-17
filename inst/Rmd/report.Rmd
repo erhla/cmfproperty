@@ -336,7 +336,7 @@ models <- cmfproperty::regression_tests(ratios, FALSE, TRUE)
 
 <P style="page-break-before: always"> 
 
-`r if(diagnostic){paste0("# Data Diagnostics" )}`
+`r if(diagnostic){paste0("# Data Diagnostics {#diagnostic}" )}`
 
 `r if(diagnostic){paste0("The following graphs can be used to evaluate data quality for Sale Price and Assessed Value. These graphs should be relatively consistent year-to-year. If not, outliers or data quality issues may be present.")}`
 

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">cmfproperty</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@
 <div id="preprocessing" class="section level1">
 <h1 class="hasAnchor">
 <a href="#preprocessing" class="anchor"></a>Preprocessing</h1>
-<p>In order to conduct a sales ratio study, data is required to have at least three columns: Sale Year, Sale Price, and Assessed Value. We want to compare the sale price to the assessed value at the time of sale. Here is the included example dataset:</p>
+<p>In order to conduct a sales ratio study, data is required to have at least three columns: Sale Year, Sale Price, and Assessed Value. We want to compare the sale price to the assessed value at the time of sale. Here is an example:</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="no"><a href="../reference/example_data.html">example_data</a></span>)
 <span class="co">#&gt;              PIN SALE_YEAR SALE_PRICE ASSESSED_VALUE</span>
 <span class="co">#&gt; 1 17273100931118      2015      53000          33860</span>
@@ -156,7 +156,7 @@
 <span class="co">#&gt; 4                       1      132854.54           92310.09</span>
 <span class="co">#&gt; 5                       1     3812122.01         3776871.45</span>
 <span class="co">#&gt; 6                       1      376080.37          291358.73</span></pre></body></html></div>
-<p>Our data is now in the appropriate form for further analysis. More information on the output of <code>reformat_data</code> can be found in XXXXXXX.</p>
+<p>Our data is now in the appropriate form for further analysis. More information on the output of <code>reformat_data</code> can be found on the <a href="cmfproperty.html">Getting started page</a>.</p>
 <p>Let’s look at an example. The <a href="https://www.cookcountyassessor.com/">Cook County Assessor’s Office</a>, which is the assessor for Cook County, Illinois, has an excellent open data portal which includes all the necessary information and is the source of the <code>example_data</code> from this package.</p>
 </div>
 <div id="example" class="section level1">

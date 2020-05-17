@@ -5,7 +5,7 @@
 #' @param min_reporting_yr the minimum year to plot
 #' @param max_reporting_yr the maximum year to ploy
 
-#' @return a list of plots (cod, prd, prb, binned_scatter)
+#' @return a list of plots (num_prop, sale_plot, sale_ratio_plot, sp_vs_av, ratio_plot, past_ratios_hist, past_ratios_cdf, current_ratios_hist, current_ratios_cdf)
 
 #' @importFrom scales comma dollar_format percent_format
 #' @importFrom stats quantile

@@ -29,7 +29,7 @@ The sales roll must consist of an **unique identifier** for each property, the *
 
 # Preprocessing
 
-In order to conduct a sales ratio study, data is required to have at least three columns: Sale Year, Sale Price, and Assessed Value. We want to compare the sale price to the assessed value at the time of sale. Here is the included example dataset:
+In order to conduct a sales ratio study, data is required to have at least three columns: Sale Year, Sale Price, and Assessed Value. We want to compare the sale price to the assessed value at the time of sale. Here is an example:
 
 ```{r dataoverview}
 head(cmfproperty::example_data)
@@ -52,7 +52,7 @@ ratios <-
 head(as.data.frame(ratios))
 ```
 
-Our data is now in the appropriate form for further analysis. More information on the output of `reformat_data` can be found in XXXXXXX.
+Our data is now in the appropriate form for further analysis. More information on the output of `reformat_data` can be found on the [Getting started page](cmfproperty.html).
 
 Let's look at an example. The [Cook County Assessor's Office](https://www.cookcountyassessor.com/), which is the assessor for Cook County, Illinois, has an excellent open data portal which includes all the necessary information and is the source of the `example_data` from this package.
 

@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">cmfproperty</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5</span>
       </span>
     </div>
 
@@ -103,11 +103,68 @@
     
 <div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">cmfproperty</span>)</pre></body></html></div>
 <p>This article produces a gallery of figures and tables produced by this package for reference.</p>
+<div id="calc_iaao_stats" class="section level1">
+<h1 class="hasAnchor">
+<a href="#calc_iaao_stats" class="anchor"></a>calc_iaao_stats</h1>
+</div>
+<div id="regression_tests" class="section level1">
+<h1 class="hasAnchor">
+<a href="#regression_tests" class="anchor"></a>regression_tests</h1>
+</div>
+<div id="iaao_graphs" class="section level1">
+<h1 class="hasAnchor">
+<a href="#iaao_graphs" class="anchor"></a>iaao_graphs</h1>
+</div>
+<div id="monte_carlo_graphs" class="section level1">
+<h1 class="hasAnchor">
+<a href="#monte_carlo_graphs" class="anchor"></a>monte_carlo_graphs</h1>
+</div>
+<div id="diagnostic_plots" class="section level1">
+<h1 class="hasAnchor">
+<a href="#diagnostic_plots" class="anchor"></a>diagnostic_plots</h1>
+</div>
+<div id="binned_scatter" class="section level1">
+<h1 class="hasAnchor">
+<a href="#binned_scatter" class="anchor"></a>binned_scatter</h1>
+</div>
+<div id="pct_over_under" class="section level1">
+<h1 class="hasAnchor">
+<a href="#pct_over_under" class="anchor"></a>pct_over_under</h1>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">iaao_rslt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/iaao_graphs.html">iaao_graphs</a></span>(<span class="no">stats</span>, <span class="no">ratios</span>, <span class="kw">min_reporting_yr</span> <span class="kw">=</span> <span class="fl">2015</span>, <span class="kw">max_reporting_yr</span> <span class="kw">=</span> <span class="fl">2019</span>, <span class="st">"Cook County, Illinois"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">2</span>]]</pre></body></html></div>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">4</span>]]</pre></body></html></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">6</span>]]</pre></body></html></div>
+<div id="advanced-regressivity-statistics" class="section level2">
+<h2 class="hasAnchor">
+<a href="#advanced-regressivity-statistics" class="anchor"></a>Advanced Regressivity Statistics</h2>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/regression_tests.html">regression_tests</a></span>(<span class="no">ratios</span>)</pre></body></html></div>
+</div>
+<div id="regressivity-plots" class="section level2">
+<h2 class="hasAnchor">
+<a href="#regressivity-plots" class="anchor"></a>Regressivity Plots</h2>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">plot_ls</span> <span class="kw">&lt;-</span>
+  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu">plots</span>(<span class="no">ratios</span>,
+                     <span class="kw">min_reporting_yr</span> <span class="kw">=</span> <span class="fl">2015</span>,
+                     <span class="kw">max_reporting_yr</span> <span class="kw">=</span> <span class="fl">2019</span>,
+                     <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, Illinois"</span>)
+<span class="co"># update to use binned_scatter and pct_over_under</span></pre></body></html></div>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">plot_ls</span><span class="kw">[[</span><span class="fl">2</span>]]</pre></body></html></div>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">plot_ls</span><span class="kw">[[</span><span class="fl">4</span>]]</pre></body></html></div>
+</div>
+<div id="monte-carlo-analysis" class="section level2">
+<h2 class="hasAnchor">
+<a href="#monte-carlo-analysis" class="anchor"></a>Monte Carlo Analysis</h2>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">m_rslts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/monte_carlo_graphs.html">monte_carlo_graphs</a></span>(<span class="no">ratios</span>)
+<span class="kw pkg">gridExtra</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span>(<span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">2</span>]], <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">3</span>]], <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">4</span>]], <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">5</span>]], <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">6</span>]], <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 

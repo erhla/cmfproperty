@@ -1,5 +1,5 @@
 ---
-title: "cmfproperty"
+title: "Getting Started"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{cmfproperty}
@@ -10,119 +10,90 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  eval=FALSE,
   comment = "#>"
 )
-```
-
-```{r setup}
 library(cmfproperty)
 ```
 
+# What and Who is `cmfproperty` for?
 
-# Ratios
+The property tax is the single largest source of locally generated revenue for American local governments. Cities, counties, school districts, and special districts raise roughly $500 billion per year in property taxes according to [The Urban Institute](https://www.urban.org/policy-centers/cross-center-initiatives/state-and-local-finance-initiative/projects/state-and-local-backgrounders/property-taxes).
 
-In this documentation, data which has been appropriately processed is referred to as `ratios` 
+Property taxes are supposed to be a *flat tax* where everyone pays the same rate regardless of how much their home is worth. In practice, property taxes are regressive in almost every single county in America, according to a [recent nationwide analysis](https://harris.uchicago.edu/research-impact/centers-institutes/center-municipal-finance) by the Center for Municipal Finance which analyzed 40 million property sales. Understanding how property taxes affect the average homeowner is relatively difficult. A homeowner only knows what their home is assessed for and only knows how *accurately* their home was assessed if it sells in a given year. 
 
+`cmfproperty` provides the necessary tools for the public to conduct effective oversight of government by removing subject-matter and technical barriers and producing automated contextualized reports.
 
-`reformat_data` also add the additional calculated fields needed to complete the study:
+# How do I use `cmfproperty`?
 
-* RATIO, which is the Sales Ratio (Sale Price / Assessed Value)
-* arms_length_transaction, an indicator that the property was sold in an arm's length transaction (calculated using the IAAO standard)
-* SALE_PRICE_ADJ, inflation adjusted sale price (adjusted to the last year of available data)
-* ASSESSED_VALUE_ADJ, inflation adjusted assessed value (adjusted to the last year of available data)
+First, check out the [article on preprocessing](Preprocessing.html) which outlines data requirements and examples. In order to analyze assessments, data is required to have at least three columns: Sale Year, Sale Price, and Assessed Value.
 
+```{r}
+head(cmfproperty::example_data)
+```
 
-Note: `ratios` refers to data which has been processed by `reformat_data`
+After gathering data in this form, we have to identify the three required columns (sales, assessments, and sale year) for the package using `cmfproperty::reformat_data`.
 
-
-
-# Other features
-
-## Calculate Regressivity Statistics
-
-This is the basic framework to conduct a sales ratio study:
-
-```{r example}
-df <- cmfproperty::example_data
+```{r}
 ratios <-
   cmfproperty::reformat_data(
-    df,
+    data = cmfproperty::example_data,
     sale_col = "SALE_PRICE",
     assessment_col = "ASSESSED_VALUE",
     sale_year_col = "SALE_YEAR",
   )
-stats <- cmfproperty::calc_iaao_stats(ratios)
-head(stats)
+head(as.data.frame(ratios))
 ```
 
-## Visualize Regressivity Statistics
+We denote data processed by `cmfproperty::reformat_data` as `ratios` throughout the documentation. `ratios` includes the additional calculated fields needed to complete the study.
 
-```{r example1}
-iaao_rslt <- iaao_graphs(stats, ratios, min_reporting_yr = 2015, max_reporting_yr = 2019, "Cook County, Illinois")
+There's one more step to get the automated report:
+
+```{r eval=FALSE}
+cmfproperty::make_report(ratios, 
+                         jurisdiction_name = "Cook County, Illinois")
 ```
 
-```{r codgraph}
-iaao_rslt[[2]]
-```
-  
-```{r prdgraph}
-iaao_rslt[[4]]
-```
+The report will be saved in your working directory or a specific directory can be provided.
 
-```{r prbgraph}
-iaao_rslt[[6]]
-```
-
-## Advanced Regressivity Statistics
-
-```{r example2}
-cmfproperty::regression_tests(ratios)
-```
-
-## Regressivity Plots
-
-```{r example3}
-plot_ls <-
-  cmfproperty::plots(ratios,
-                     min_reporting_yr = 2015,
-                     max_reporting_yr = 2019,
-                     jurisdiction_name = "Cook County, Illinois")
-
-```
-
-`r #plot_ls[[1]]`
-
-```{r plot1}
-plot_ls[[2]]
-```
-
-`r #plot_ls[[3]]`
-
-```{r plot2}
-plot_ls[[4]]
-```
-
-## Monte Carlo Analysis
-
-```{r montecarlo, fig.height=5}
-m_rslts <- monte_carlo_graphs(ratios)
-gridExtra::grid.arrange(m_rslts[[1]], m_rslts[[2]], m_rslts[[3]], m_rslts[[4]], m_rslts[[5]], m_rslts[[6]], nrow = 3)
-```
-
-## Report Evaluation Output
-```{r evaluatedreport, eval=FALSE}
-df <- cmfproperty::example_data
-
-ratios <-
-  cmfproperty::reformat_data(
-    df,
-    sale_col = "SALE_PRICE",
-    assessment_col = "ASSESSED_VALUE",
-    sale_year_col = "SALE_YEAR",
-  )
-
+```{r eval=FALSE}
 cmfproperty::make_report(ratios, 
                          jurisdiction_name = "Cook County, Illinois",
                          output_dir = "C:/Users/erhla/Desktop/")
 ```
+
+Check out an example report [here](https://erhla.github.io/Cook%20County,%20Illinois.html).
+
+# How does this work?
+
+Check out our [methods](Methods.html) and information on [figures](Figures.html) in addition to function-level [documentation](https://erhla.github.io/cmfproperty/reference/index.html). The core unit of analysis that we use (and is standard) is the Sales Ratio. A sales ratio is a calculated ratio between the sale price and assessed value at the time of sale for an individual property. Properties should be assessed at their **fair market value** which is defined as the sale price when sold between two unrelated parties in an **arm's length transaction**. We then apply the standard method to determine if a sale is arm's length from the International Association of Assessing Officers.
+
+If you would like to use our package to make your own report, simply take `ratios` and create `stats`.
+
+```{r}
+stats <- cmfproperty::calc_iaao_stats(ratios)
+head(stats)
+```
+
+With `stats` and `ratios`, you have the necessary tools for all the forms of analysis we present. For example,
+
+```{r}
+output <- diagnostic_plots(stats, 
+                           ratios, 
+                           min_reporting_yr = 2015, 
+                           max_reporting_yr = 2019)
+
+output[[1]]
+```
+
+# Report Diagnostic
+
+If you notice that some of the graphs have unexpected changes year-to-year, there may be outliers or something unusual going on with your data. The standard report also includes an optional diagnostic section which can be created as follows.
+
+```{r eval=FALSE}
+cmfproperty::make_report(ratios, 
+                         jurisdiction_name = "Cook County, Illinois Diagnostic",
+                         output_dir = "~/../Documents/GitHub/erhla.github.io/",
+                         diagnostic = TRUE)
+```
+
+Check out a report on the example data with a diagnostic section [here](https://erhla.github.io/Cook%20County%2C%20Illinois%20Diagnostic.html#5_data_diagnostics).

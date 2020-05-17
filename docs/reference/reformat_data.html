@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">cmfproperty</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5</span>
       </span>
     </div>
 
@@ -141,13 +141,19 @@
     <p>Reformats data for analysis by changing column names and filtering out non-arm's length sales.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>reformat_data</span>(<span class='no'>df</span>, <span class='no'>sale_col</span>, <span class='no'>assessment_col</span>, <span class='no'>sale_year_col</span>, <span class='kw'>filter_data</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>reformat_data</span>(
+  <span class='no'>data</span>,
+  <span class='no'>sale_col</span>,
+  <span class='no'>assessment_col</span>,
+  <span class='no'>sale_year_col</span>,
+  <span class='kw'>filter_data</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>df</th>
+      <th>data</th>
       <td><p>a dataframe with assessment, sales, and time data</p></td>
     </tr>
     <tr>

@@ -4,10 +4,16 @@
 \alias{reformat_data}
 \title{Reformats data for analysis by changing column names and filtering out non-arm's length sales.}
 \usage{
-reformat_data(df, sale_col, assessment_col, sale_year_col, filter_data = TRUE)
+reformat_data(
+  data,
+  sale_col,
+  assessment_col,
+  sale_year_col,
+  filter_data = TRUE
+)
 }
 \arguments{
-\item{df}{a dataframe with assessment, sales, and time data}
+\item{data}{a dataframe with assessment, sales, and time data}
 
 \item{sale_col}{the name of the column with sales data}
 
