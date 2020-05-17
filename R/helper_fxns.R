@@ -24,6 +24,9 @@ adj_for_inflation <- function(df) {
 
   df <- df %>% dplyr::left_join(fred, by = c("SALE_YEAR" = "Year"))
 
+  #for when data is more recent than fred
+  df <- df %>% tidyr::replace_na(list(percent_adj = 1))
+
   df["SALE_PRICE_ADJ"] <- df["SALE_PRICE"] * df["percent_adj"]
   df["ASSESSED_VALUE_ADJ"] <- df["ASSESSED_VALUE"] * df["percent_adj"]
   df <- df %>% dplyr::select(-.data$percent_adj)
