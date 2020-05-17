@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Produces an HTML report in the current working directory to evaluate regressivity in the supplied jurisdiction — make_report • cmfproperty</title>
+<title>Produces a key visualization of assessment regressivity, the binned scatter plot — binned_scatter • cmfproperty</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Produces an HTML report in the current working directory to evaluate regressivity in the supplied jurisdiction — make_report" />
-<meta property="og:description" content="Produces an HTML report in the current working directory to evaluate regressivity in the supplied jurisdiction" />
+<meta property="og:title" content="Produces a key visualization of assessment regressivity, the binned scatter plot — binned_scatter" />
+<meta property="og:description" content="Produces a key visualization of assessment regressivity, the binned scatter plot" />
 
 
 
@@ -132,41 +132,41 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Produces an HTML report in the current working directory to evaluate regressivity in the supplied jurisdiction</h1>
-    <small class="dont-index">Source: <a href='https://github.com/erhla/cmfproperty/blob/master/R/make_report.R'><code>R/make_report.R</code></a></small>
-    <div class="hidden name"><code>make_report.Rd</code></div>
+    <h1>Produces a key visualization of assessment regressivity, the binned scatter plot</h1>
+    <small class="dont-index">Source: <a href='https://github.com/erhla/cmfproperty/blob/master/R/binned_scatter.R'><code>R/binned_scatter.R</code></a></small>
+    <div class="hidden name"><code>binned_scatter.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Produces an HTML report in the current working directory to evaluate regressivity in the supplied jurisdiction</p>
+    <p>Produces a key visualization of assessment regressivity, the binned scatter plot</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_report</span>(<span class='no'>ratios</span>, <span class='no'>jurisdiction_name</span>, <span class='kw'>output_dir</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>diagnostic</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>binned_scatter</span>(<span class='no'>ratios</span>, <span class='no'>min_reporting_yr</span>, <span class='no'>max_reporting_yr</span>, <span class='no'>jurisdiction_name</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ratios</th>
-      <td><p>a dataframe which has been preprocessed by <code><a href='reformat_data.html'>reformat_data</a></code></p></td>
+      <td><p>the output of reformat_data</p></td>
+    </tr>
+    <tr>
+      <th>min_reporting_yr</th>
+      <td><p>the minimum year to plot</p></td>
+    </tr>
+    <tr>
+      <th>max_reporting_yr</th>
+      <td><p>the maximum year to ploy</p></td>
     </tr>
     <tr>
       <th>jurisdiction_name</th>
-      <td><p>the name of the jurisdiction being analyzed</p></td>
-    </tr>
-    <tr>
-      <th>output_dir</th>
-      <td><p>optional, default is working directory</p></td>
-    </tr>
-    <tr>
-      <th>diagnostic</th>
-      <td><p>optional, if TRUE includes additional sections evaluating data quality</p></td>
+      <td><p>the name of the jurisdiction analyzed</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>produces a file named `jurisdiction_name.html` in output_dir</p>
+    <p>a list (caption, plot)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

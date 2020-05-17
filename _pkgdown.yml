@@ -6,6 +6,20 @@ template:
 authors:
   Eric Langowski:
     href: "https://erhla.github.io/"
+navbar:
+  components:
+    Example:
+      text: "Report Example"
+      href: https://erhla.github.io/Cook%20County,%20Illinois.html
+    articles:
+      text: Articles
+      menu:
+      - text: Preprocessing
+        href: articles/Preprocessing.html
+      - text: Methods (Reference Only)
+        href: articles/Methods.html
+      - text: List of Figures
+        href: articles/Figures.html
 
 reference:
 - title: "Data Preprocessing"
@@ -26,10 +40,10 @@ reference:
   desc: >
     Functions which produce graphs of regressivity
     for analysis
-
   contents:
   - iaao_graphs
   - monte_carlo_graphs
   - diagnostic_plots
-  - plots
+  - binned_scatter
+  - pct_over_under
   - make_report

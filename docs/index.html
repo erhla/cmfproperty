@@ -58,15 +58,18 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/Figures.html">Figures</a>
-    </li>
-    <li>
-      <a href="articles/Methods.html">Methods</a>
-    </li>
-    <li>
       <a href="articles/Preprocessing.html">Preprocessing</a>
     </li>
+    <li>
+      <a href="articles/Methods.html">Methods (Reference Only)</a>
+    </li>
+    <li>
+      <a href="articles/Figures.html">List of Figures</a>
+    </li>
   </ul>
+</li>
+<li>
+  <a href="https://erhla.github.io/Cook%20County,%20Illinois.html">Report Example</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -125,8 +128,12 @@
     <span class="kw">sale_year_col</span> <span class="kw">=</span> <span class="st">"SALE_YEAR"</span>,
   )
 
+
 <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="reference/make_report.html">make_report</a></span>(<span class="no">ratios</span>,
-                         <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, Illinois"</span>)</pre></div>
+                         <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, Illinois"</span>,
+                         <span class="kw">output_dir</span> <span class="kw">=</span> <span class="st">"~/../Documents/GitHub/erhla.github.io/"</span>)
+
+<span class="co">#output_dir is the directory in which report is saved; default is working directory</span></pre></div>
 </div>
 </div>
   </div>

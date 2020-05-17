@@ -10,6 +10,7 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  eval=FALSE,
   comment = "#>"
 )
 ```
@@ -90,13 +91,13 @@ plot_ls <-
 
 ```
 
-`r plot_ls[[1]]`
+`r #plot_ls[[1]]`
 
 ```{r plot1}
 plot_ls[[2]]
 ```
 
-`r plot_ls[[3]]`
+`r #plot_ls[[3]]`
 
 ```{r plot2}
 plot_ls[[4]]

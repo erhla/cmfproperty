@@ -59,7 +59,8 @@ ratios <- as.data.frame(ratios)
 stats <- cmfproperty::calc_iaao_stats(ratios)
 
 #main plots
-results <- cmfproperty::plots(ratios, min_reporting_yr, max_reporting_yr, params$title)
+binned <- cmfproperty::binned_scatter(ratios, min_reporting_yr, max_reporting_yr, params$title)
+pct_over <- cmfproperty::pct_over_under(ratios, min_reporting_yr, max_reporting_yr, params$title)
 
 #diagnostic?
 if(params$diagnostic){
@@ -89,24 +90,24 @@ For this graph, property sales have been sorted into deciles (10 bins of equal s
 If sale prices are a fair indication of market value and if assessments were fair and accurate, Figure 2.1 would be a flat line indicating that sales ratios do not vary systematically according to sale price. A downward sloping line indicates that less expensive homes are over-assessed compared to more expensive homes and is evidence of regressivity.
 
 
-`r results[[1]]`
+`r binned[[1]]`
 
 <h3>Figure 2.1</h3>
   
 ```{r mainbinnedscatter}
-results[[2]]
+binned[[2]]
 ```
 
 <P style="page-break-before: always"> 
 
 Figure 2.2 shows the share of properties in each decile that were overassessed or underassessed. relative to the median rate of assessment. That is, a property is classified as overassessed if its sales ratio is above the median sales ratio for the jurisdiction, and classified as underassessed if its sales ratio is below the median. If errors were made randomly, each decile would have 50% of properties overassessed and 50% underassessed. When lower value homes are more likely to be overassessed than higher value homes, it is evidence of regressivity.
 
-`r results[[3]]`
+`r pct_over[[1]]`
 
 <h3>Figure 2.2</h3>
   
 ```{r over under bar}
-results[[4]]
+pct_over[[2]]
 ```
 
 <P style="page-break-before: always"> 

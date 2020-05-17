@@ -56,8 +56,13 @@ ratios <-
     sale_year_col = "SALE_YEAR",
   )
 
+
 cmfproperty::make_report(ratios, 
-                         jurisdiction_name = "Cook County, Illinois")
+                         jurisdiction_name = "Cook County, Illinois",
+                         output_dir = "~/../Documents/GitHub/erhla.github.io/") 
+
+#output_dir is the directory in which report is saved; default is working directory
+
 ```
 
 

@@ -2,10 +2,10 @@
 #'
 #' @param ratios a dataframe which has been preprocessed by \code{\link{reformat_data}}
 #' @param jurisdiction_name the name of the jurisdiction being analyzed
-#' @param output_dir optional, specify a folder to save the output in
+#' @param output_dir optional, default is working directory
 #' @param diagnostic optional, if TRUE includes additional sections evaluating data quality
 #'
-#' @return produces a file named `jurisdiction_name.html` in the working directory
+#' @return produces a file named `jurisdiction_name.html` in output_dir
 
 #' @export
 make_report <-
@@ -24,5 +24,8 @@ make_report <-
                                   inputdata = ratios,
                                   diagnostic = diagnostic),
                     output_file = output_loc)
+  print("~~~~~~~~~~~~")
+  print("geom warnings can be disregarded") #these warnings are from data filtering
   print(paste0("Report created at ", output_loc))
+
 }

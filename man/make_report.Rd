@@ -11,12 +11,12 @@ make_report(ratios, jurisdiction_name, output_dir = "", diagnostic = FALSE)
 
 \item{jurisdiction_name}{the name of the jurisdiction being analyzed}
 
-\item{output_dir}{optional, specify a folder to save the output in}
+\item{output_dir}{optional, default is working directory}
 
 \item{diagnostic}{optional, if TRUE includes additional sections evaluating data quality}
 }
 \value{
-produces a file named `jurisdiction_name.html` in the working directory
+produces a file named `jurisdiction_name.html` in output_dir
 }
 \description{
 Produces an HTML report in the current working directory to evaluate regressivity in the supplied jurisdiction
