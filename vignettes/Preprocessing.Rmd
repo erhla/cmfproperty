@@ -1,0 +1,103 @@
+---
+title: "Preprocessing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Preprocessing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+# What type of data do I need?
+
+Getting the correct data is most of the challenge. You'll need the 'assessment roll' and the 'sales roll'. Every jurisdiction releases this data slightly differently (ranging from three thousand page pdfs to csv files on open data portals) so this guide tries to capture most situations.
+
+## The Assessment Roll
+
+The assessment roll must consist of an **unique identifier** for each property, the **year** of assessment, and the **value** of assessment. Each row is then an assessment for one property in one year.
+
+## The Sales Roll
+
+The sales roll must consist of an **unique identifier** for each property, the **year** of sale, and the **value** of the sale. Each row is then a unique sale of one property in one year.
+
+# Preprocessing
+
+In order to conduct a sales ratio study, data is required to have at least three columns: Sale Year, Sale Price, and Assessed Value. We want to compare the sale price to the assessed value at the time of sale. Here is the included example dataset:
+
+```{r dataoverview}
+head(cmfproperty::example_data)
+```
+
+Each row in this dataset should match a sale and an assessment from the same year for a single property.
+
+After gathering data in this form, we have to identify the three required columns (sales, assessments, and sale year) for the package using `reformat_data`.
+
+```{r reformatoverview}
+library(cmfproperty)
+df <- cmfproperty::example_data
+ratios <-
+  cmfproperty::reformat_data(
+    df,
+    sale_col = "SALE_PRICE",
+    assessment_col = "ASSESSED_VALUE",
+    sale_year_col = "SALE_YEAR",
+  )
+head(as.data.frame(ratios))
+```
+
+Our data is now in the appropriate form for further analysis. More information on the output of `reformat_data` can be found in XXXXXXX.
+
+Let's look at an example. The [Cook County Assessor's Office](https://www.cookcountyassessor.com/), which is the assessor for Cook County, Illinois, has an excellent open data portal which includes all the necessary information and is the source of the `example_data` from this package.
+
+# Example
+
+Cook County releases both the sales roll and the assessment roll on their open data portal. Sales were found [here](https://datacatalog.cookcountyil.gov/Property-Taxation/Cook-County-Assessor-s-Residential-Sales-Data/5pge-nu6u) and assessments were found [here](https://datacatalog.cookcountyil.gov/Property-Taxation/Cook-County-Assessor-s-Residential-Assessments/uqb9-r7vn). These files can be downloaded manually or via `RSocrata`.
+
+Here we download the files manually:
+
+```{r eval=FALSE}
+library(data.table)
+library(tidyverse)
+
+sales <- fread("~/../Downloads/Cook_County_Assessor_s_Residential_Sales_Data.csv", 
+               colClasses = "character") #from 2013 to 2019
+assessments <- fread("~/../Downloads/Cook_County_Assessor_s_Residential_Assessments.csv", 
+                     colClasses = "character") #from 2015 to 2019
+```
+
+Then filter the data to select only the columns we need and to remove some sales which are clearly not between two independent parties:
+
+```{r eval=FALSE}
+sales <- sales %>% select(PIN, `Sale Year`, `Sale Price`, `Deed No.`) %>%
+  filter(`Sale Year` > 2014)
+
+assessments <- assessments %>% select(PIN, YEAR, CERTIFIED)
+
+# Filtering data to remove duplicate sales and low value sales
+sales <- sales %>% distinct(`Deed No.`, .keep_all = TRUE) %>% select(-`Deed No.`)
+sales <- sales %>% filter(as.numeric(`Sale Price`) > 2500)
+```
+
+Finally, we conduct a left join of assessments on sales matching sales to assessment by unique identifier (PIN) and year.
+
+```{r eval=FALSE}
+# Join assessments to sales based on PIN (a unique identifier) and Year.
+joined <- sales %>% left_join(assessments, by=c("PIN"="PIN", "Sale Year"="YEAR"))
+
+# Remove spaces from column names (not necessary)
+joined <- joined %>% rename(SALE_YEAR = `Sale Year`, SALE_PRICE = `Sale Price`, ASSESSED_VALUE = CERTIFIED)
+```
+
+This dataset is then identical to `example_data`:
+
+```{r}
+head(cmfproperty::example_data)
+```
+

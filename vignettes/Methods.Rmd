@@ -1,0 +1,41 @@
+---
+title: "Methods"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Methods}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(cmfproperty)
+```
+
+This article is a reference section to verify that this package calculates various metrics correctly.
+
+# IAAO Functions
+
+## COD
+## PRD
+## PRB
+## Arms-Length Measure
+
+# Other Measures
+
+## From paper X
+
+### Paglin
+### Cheng
+### IAAO
+### Kochin
+### Bell
+### Sunderman
+
+## Inflation Adjustment

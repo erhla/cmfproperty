@@ -13,9 +13,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-# cmfproperty
+# Transparency & Equity in Property Assessments
 
-This package analyzes property tax regressivity and produces various tables and figures for a sales ratio study.
+This package analyzes the accuracy of property assessments and produces graphs, tables, and reports designed for general use. This package is produced by the [Center for Municipal Finance](https://harris.uchicago.edu/research-impact/centers-institutes/center-municipal-finance), a research institute at the Harris School of Public Policy, University of Chicago.
+
+For a detailed guide on how to use this package check out our [**Get started page**](https://erhla.github.io/cmfproperty/articles/cmfproperty.html).
 
 ## Installation
 
@@ -25,7 +27,8 @@ You can install the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("erhla/cmfproperty")
 ```
-## Example
+
+## Basic Usage
 
 First import `cmfproperty`.
 
@@ -33,7 +36,14 @@ First import `cmfproperty`.
 library(cmfproperty)
 ```
 
-Then, preprocess your data with `reformat_data` and call `make_report`. The report will be created in your current working directory by default unless specified otherwise with parameter `output_dir`. The report from the example below can be found [here](https://erhla.github.io/Cook County, Illinois.html).
+To conduct our study, we need data where every roll is a unique property's sale price and assessed value for a given year.
+
+```{r}
+head(cmfproperty::example_data)
+```
+
+
+Then, preprocess your data with `reformat_data` and call `make_report`. The report from the example below can be found [here](https://erhla.github.io/Cook County, Illinois.html).
 
 ```{r reportexample, eval=FALSE}
 df <- cmfproperty::example_data
@@ -48,156 +58,6 @@ ratios <-
 
 cmfproperty::make_report(ratios, 
                          jurisdiction_name = "Cook County, Illinois")
-#to see the evaluated output---look at Report Evaluation Output at the end of this readme.
 ```
 
 
-Let's break down each of the steps above. First, what kind of data do you need?
-
-In order to conduct a sales ratio study, data is required to have at least three columns: Sale Year, Sale Price, and Assessed Value. We want to compare the sale price to the assessed value at the time of sale.
-
-```{r dataoverview}
-head(cmfproperty::example_data)
-```
-
-In most cases, producing this data will require a sales roll consisting of all properties which sold in a given year and an assessment roll which consists of all properties assessed in a given year. For example, the `example_data` above was produced from the Cook County Open Data Portal. Sales were found [here](https://datacatalog.cookcountyil.gov/Property-Taxation/Cook-County-Assessor-s-Residential-Sales-Data/5pge-nu6u) and assessments were found [here](https://datacatalog.cookcountyil.gov/Property-Taxation/Cook-County-Assessor-s-Residential-Assessments/uqb9-r7vn). These files can be downloaded manually or via `RSocrata`:
-
-```{r eval=FALSE}
-library(data.table)
-library(tidyverse)
-
-sales <- fread("~/../Downloads/Cook_County_Assessor_s_Residential_Sales_Data.csv", 
-               colClasses = "character") #from 2013 to 2019
-assessments <- fread("~/../Downloads/Cook_County_Assessor_s_Residential_Assessments.csv", 
-                     colClasses = "character") #from 2015 to 2019
-
-sales <- sales %>% select(PIN, `Sale Year`, `Sale Price`, `Deed No.`) %>%
-  filter(`Sale Year` > 2014)
-
-assessments <- assessments %>% select(PIN, YEAR, CERTIFIED)
-
-# Filtering data to remove duplicate sales and low value sales
-sales <- sales %>% distinct(`Deed No.`, .keep_all = TRUE) %>% select(-`Deed No.`)
-sales <- sales %>% filter(as.numeric(`Sale Price`) > 2500)
-
-# Join assessments to sales based on PIN (a unique identifier) and Year.
-joined <- sales %>% left_join(assessments, by=c("PIN"="PIN", "Sale Year"="YEAR"))
-joined <- joined %>% rename(SALE_YEAR = `Sale Year`, SALE_PRICE = `Sale Price`, ASSESSED_VALUE = CERTIFIED)
-
-fwrite(joined, paste0("~/../Downloads/example_data.csv"))
-```
-
-Then, we need to let the package know which of our columns represent sales, assessments, and sale year.
-
-```{r reformatoverview}
-df <- cmfproperty::example_data
-ratios <-
-  cmfproperty::reformat_data(
-    df,
-    sale_col = "SALE_PRICE",
-    assessment_col = "ASSESSED_VALUE",
-    sale_year_col = "SALE_YEAR",
-  )
-head(as.data.frame(ratios)) #just to print all the columns
-```
-
-
-`reformat_data` also add the additional calculated fields needed to complete the study:
-
-* RATIO, which is the Sales Ratio (Sale Price / Assessed Value)
-* arms_length_transaction, an indicator that the property was sold in an arm's length transaction (calculated using the IAAO standard)
-* SALE_PRICE_ADJ, inflation adjusted sale price (adjusted to the last year of available data)
-* ASSESSED_VALUE_ADJ, inflation adjusted assessed value (adjusted to the last year of available data)
-
-
-Note: `ratios` refers to data which has been processed by `reformat_data`
-
-# Other features
-
-## Calculate Regressivity Statistics
-
-This is the basic framework to conduct a sales ratio study:
-
-```{r example}
-df <- cmfproperty::example_data
-ratios <-
-  cmfproperty::reformat_data(
-    df,
-    sale_col = "SALE_PRICE",
-    assessment_col = "ASSESSED_VALUE",
-    sale_year_col = "SALE_YEAR",
-  )
-stats <- cmfproperty::calc_iaao_stats(ratios)
-head(stats)
-```
-
-## Visualize Regressivity Statistics
-
-```{r example1}
-iaao_rslt <- iaao_graphs(stats, ratios, min_reporting_yr = 2015, max_reporting_yr = 2019, "Cook County, Illinois")
-```
-
-```{r codgraph}
-iaao_rslt[[2]]
-```
-  
-```{r prdgraph}
-iaao_rslt[[4]]
-```
-
-```{r prbgraph}
-iaao_rslt[[6]]
-```
-
-## Advanced Regressivity Statistics
-
-```{r example2}
-cmfproperty::regression_tests(ratios)
-```
-
-## Regressivity Plots
-
-```{r example3}
-plot_ls <-
-  cmfproperty::plots(ratios,
-                     min_reporting_yr = 2015,
-                     max_reporting_yr = 2019,
-                     jurisdiction_name = "Cook County, Illinois")
-
-```
-
-`r plot_ls[[1]]`
-
-```{r plot1}
-plot_ls[[2]]
-```
-
-`r plot_ls[[3]]`
-
-```{r plot2}
-plot_ls[[4]]
-```
-
-## Monte Carlo Analysis
-
-```{r montecarlo, fig.height=5}
-m_rslts <- monte_carlo_graphs(ratios)
-gridExtra::grid.arrange(m_rslts[[1]], m_rslts[[2]], m_rslts[[3]], m_rslts[[4]], m_rslts[[5]], m_rslts[[6]], nrow = 3)
-```
-
-## Report Evaluation Output
-```{r evaluatedreport}
-df <- cmfproperty::example_data
-
-ratios <-
-  cmfproperty::reformat_data(
-    df,
-    sale_col = "SALE_PRICE",
-    assessment_col = "ASSESSED_VALUE",
-    sale_year_col = "SALE_YEAR",
-  )
-
-cmfproperty::make_report(ratios, 
-                         jurisdiction_name = "Cook County, Illinois",
-                         output_dir = "C:/Users/erhla/Desktop/")
-```

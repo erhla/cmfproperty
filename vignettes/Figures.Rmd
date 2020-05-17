@@ -1,8 +1,8 @@
 ---
-title: "Visualizing_Results"
+title: "Figures"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Visualizing_Results}
+  %\VignetteIndexEntry{Figures}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,3 +17,5 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(cmfproperty)
 ```
+
+This article produces a gallery of figures and tables produced by this package for reference.
