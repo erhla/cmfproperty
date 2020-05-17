@@ -1,1 +1,8 @@
 destination: docs
+template:
+  params:
+    bootswatch: flatly
+
+authors:
+  Eric Langowski:
+    href: "https://erhla.github.io/"
