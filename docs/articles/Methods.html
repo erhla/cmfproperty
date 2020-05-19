@@ -101,62 +101,62 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">cmfproperty</span>)</pre></body></html></div>
 <p>This article is a reference section to verify that this package calculates various metrics correctly.</p>
-<div id="iaao-functions" class="section level1">
+<div id="calc_iaao_stats" class="section level1">
 <h1 class="hasAnchor">
-<a href="#iaao-functions" class="anchor"></a>IAAO Functions</h1>
-<div id="cod" class="section level2">
-<h2 class="hasAnchor">
-<a href="#cod" class="anchor"></a>COD</h2>
+<a href="#calc_iaao_stats" class="anchor"></a><code>calc_iaao_stats</code>
+</h1>
+<div id="coefficient-of-dispersion-cod" class="section level3">
+<h3 class="hasAnchor">
+<a href="#coefficient-of-dispersion-cod" class="anchor"></a>Coefficient of Dispersion (COD)</h3>
+<p><span class="math display">\[100 * \frac{\sum_{i=1}^N(SalesRatio_i - SalesRatio_{Median})}{N * SalesRatio_{Median}}\]</span></p>
 </div>
-<div id="prd" class="section level2">
-<h2 class="hasAnchor">
-<a href="#prd" class="anchor"></a>PRD</h2>
+<div id="price-related-differential-prd" class="section level3">
+<h3 class="hasAnchor">
+<a href="#price-related-differential-prd" class="anchor"></a>Price-Related Differential (PRD)</h3>
+<p><span class="math display">\[\frac{\frac{\sum_{n=1}^NSalesRatio_i}{N}} {\frac{\sum_{n=1}^N(SalesRatio_i*SalePrice_i)}{N}}\]</span></p>
 </div>
-<div id="prb" class="section level2">
-<h2 class="hasAnchor">
-<a href="#prb" class="anchor"></a>PRB</h2>
+<div id="coefficient-of-price-related-bias-prb" class="section level3">
+<h3 class="hasAnchor">
+<a href="#coefficient-of-price-related-bias-prb" class="anchor"></a>Coefficient of Price-Related Bias (PRB)</h3>
 </div>
-<div id="arms-length-measure" class="section level2">
-<h2 class="hasAnchor">
-<a href="#arms-length-measure" class="anchor"></a>Arms-Length Measure</h2>
+<div id="arms-length-measure" class="section level3">
+<h3 class="hasAnchor">
+<a href="#arms-length-measure" class="anchor"></a>Arms-Length Measure</h3>
 </div>
 </div>
-<div id="other-measures" class="section level1">
+<div id="regression_tests-from-hodge-2017" class="section level1">
 <h1 class="hasAnchor">
-<a href="#other-measures" class="anchor"></a>Other Measures</h1>
-<div id="from-paper-x" class="section level2">
-<h2 class="hasAnchor">
-<a href="#from-paper-x" class="anchor"></a>From paper X</h2>
+<a href="#regression_tests-from-hodge-2017" class="anchor"></a><code>regression_tests</code> (from Hodge 2017)</h1>
 <div id="paglin" class="section level3">
 <h3 class="hasAnchor">
 <a href="#paglin" class="anchor"></a>Paglin</h3>
+<p><span class="math display">\[ AssessedValue = \alpha_0 + \alpha_1SalesPrice + \epsilon \]</span></p>
 </div>
 <div id="cheng" class="section level3">
 <h3 class="hasAnchor">
 <a href="#cheng" class="anchor"></a>Cheng</h3>
+<p><span class="math display">\[ ln(AssessedValue) = \alpha_0 + \alpha_1ln(SalesPrice) + \epsilon \]</span></p>
 </div>
 <div id="iaao" class="section level3">
 <h3 class="hasAnchor">
 <a href="#iaao" class="anchor"></a>IAAO</h3>
+<p><span class="math display">\[ AssessedRatio = \alpha_0 + \alpha_1SalesPrice + \epsilon \]</span></p>
 </div>
 <div id="kochin" class="section level3">
 <h3 class="hasAnchor">
 <a href="#kochin" class="anchor"></a>Kochin</h3>
+<p><span class="math display">\[ ln(SalesPrice) = \alpha_0 + \alpha_1ln(Assessed Value) + \epsilon \]</span></p>
 </div>
 <div id="bell" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bell" class="anchor"></a>Bell</h3>
+<p><span class="math display">\[ AssessedValue = \alpha_0 + \alpha_1SP + \alpha_2SP^2 + \epsilon\]</span></p>
 </div>
 <div id="sunderman" class="section level3">
 <h3 class="hasAnchor">
 <a href="#sunderman" class="anchor"></a>Sunderman</h3>
-</div>
-</div>
-<div id="inflation-adjustment" class="section level2">
-<h2 class="hasAnchor">
-<a href="#inflation-adjustment" class="anchor"></a>Inflation Adjustment</h2>
+<p><span class="math display">\[ AssessedValue = \alpha_{00} + \alpha_{10}SalesPrice + \alpha_{01}Low + \alpha_{02}High + \alpha_{11}LowSalesPrice + \alpha_{12}HighSalesPrice + \epsilon \]</span></p>
 </div>
 </div>
   </div>
