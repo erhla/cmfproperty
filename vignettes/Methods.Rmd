@@ -22,9 +22,15 @@ This article is a reference section to verify that this package calculates vario
 
 # IAAO Functions
 
-## COD
-## PRD
-## PRB
+## Coefficient of Dispersion (COD)
+
+$$100 * \frac{\sum_{i=1}^N(SalesRatio_i - SalesRatio_{Median})}{N * SalesRatio_{Median}}$$
+
+## Price-Related Differential (PRD)
+
+$\frac{\frac{\sum_{n=1}^NSalesRatio_i}{N}} {\frac{\sum_{n=1}^N(SalesRatio_i*SalePrice_i)} {N}}$
+
+## Coefficient of Price-Related Bias (PRB)
 ## Arms-Length Measure
 
 # Other Measures
@@ -32,10 +38,22 @@ This article is a reference section to verify that this package calculates vario
 ## From paper X
 
 ### Paglin
+
+$$ AssessedValue = \alpha_0 + \alpha_1SalesPrice + \epsilon $$
 ### Cheng
+
+$$ ln(AssessedValue) = \alpha_0 + \alpha_1ln(SalesPrice) + \epsilon $$
 ### IAAO
+
+$$ AssessedRatio = \alpha_0 + \alpha_1SalesPrice + \epsilon $$
 ### Kochin
+
+$$ ln(SalesPrice) = \alpha_0 + \alpha_1ln(Assessed Value) + \epsilon $$
 ### Bell
+
+$$ AssessedValue = \alpha_0 + \alpha_1SP + \alpha_2SP^2 + \epsilon$$
 ### Sunderman
+
+$$ AssessedValue = \alpha_{00} + \alpha_{10}SalesPrice + \alpha_{01}Low + \alpha_{02}High + \alpha_{11}LowSalesPrice + \alpha_{12}HighSalesPrice + \epsilon $$
 
 ## Inflation Adjustment
