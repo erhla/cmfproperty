@@ -105,8 +105,8 @@
 <h1 class="hasAnchor">
 <a href="#what-and-who-is-cmfproperty-for" class="anchor"></a>What and Who is <code>cmfproperty</code> for?</h1>
 <p>The property tax is the single largest source of locally generated revenue for American local governments. Cities, counties, school districts, and special districts raise roughly $500 billion per year in property taxes according to <a href="https://www.urban.org/policy-centers/cross-center-initiatives/state-and-local-finance-initiative/projects/state-and-local-backgrounders/property-taxes">The Urban Institute</a>.</p>
-<p>Property taxes are supposed to be a <em>flat tax</em> where everyone pays the same rate regardless of how much their home is worth. In practice, property taxes are regressive in almost every single county in America, according to a <a href="https://harris.uchicago.edu/research-impact/centers-institutes/center-municipal-finance">recent nationwide analysis</a> by the Center for Municipal Finance which analyzed 40 million property sales. Understanding how property taxes affect the average homeowner is relatively difficult. A homeowner only knows what their home is assessed for and only knows how <em>accurately</em> their home was assessed if it sells in a given year.</p>
-<p><code>cmfproperty</code> provides the necessary tools for the public to conduct effective oversight of government by removing subject-matter and technical barriers and producing automated contextualized reports.</p>
+<p>Property taxes are supposed to be a <em>flat tax</em> where everyone pays the same rate regardless of how much their home is worth. In practice, property taxes are regressive in almost every single county in America, according to a <a href="https://harris.uchicago.edu/research-impact/centers-institutes/center-municipal-finance">recent nationwide analysis</a> by the Center for Municipal Finance which analyzed 40 million property sales. For an individual homeowner, understanding if their home was assessed fairly is relatively difficult. A homeowner only knows what their home is assessed for and only knows how <em>accurately</em> their home was assessed if it sells in a given year.</p>
+<p><code>cmfproperty</code> provides the necessary tools for the public, assessors, and public interest groups to evaluate the effectiveness of assessment systems by removing subject-matter and technical barriers and producing automated contextualized reports. These reports analyze the assessor’s own data using industry standards and visualizations designed to illustrate inequities <strong>and</strong> package the information in an easy to use format.</p>
 </div>
 <div id="how-do-i-use-cmfproperty" class="section level1">
 <h1 class="hasAnchor">
@@ -163,11 +163,11 @@
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">stats</span> <span class="kw">&lt;-</span> <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/calc_iaao_stats.html">calc_iaao_stats</a></span>(<span class="no">ratios</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">stats</span>)
 <span class="co">#&gt;       N     COD COD_SE    PRD PRD_SE     PRB PRB_SE  q1_ratio median_ratio</span>
-<span class="co">#&gt; 1 51879 19.0854 6.1765 1.0768 0.0097 -0.0514 0.0012 0.7758364    0.9093448</span>
-<span class="co">#&gt; 2 62852 20.1153 6.6232 1.0350 0.0167 -0.0462 0.0011 0.7705720    0.9001375</span>
-<span class="co">#&gt; 3 65961 19.6065 6.0839 1.0380 0.0086 -0.0269 0.0011 0.7428108    0.8732099</span>
-<span class="co">#&gt; 4 65298 18.5457 6.0727 1.0615 0.0303  0.0133 0.0010 0.7470336    0.8856039</span>
-<span class="co">#&gt; 5 62041 17.7422 5.0195 1.0168 0.0125  0.0098 0.0010 0.7681042    0.9035000</span>
+<span class="co">#&gt; 1 51879 19.0876 6.1000 1.0602 0.0057 -0.0514 0.0012 0.7758364    0.9093448</span>
+<span class="co">#&gt; 2 62852 19.8216 5.8849 1.0565 0.0057 -0.0462 0.0011 0.7705720    0.9001375</span>
+<span class="co">#&gt; 3 65961 19.5578 5.9047 1.0759 0.0133 -0.0269 0.0011 0.7428108    0.8732099</span>
+<span class="co">#&gt; 4 65298 18.7182 5.4933 1.0269 0.0035  0.0133 0.0010 0.7470336    0.8856039</span>
+<span class="co">#&gt; 5 62041 17.5562 4.9515 1.0277 0.0052  0.0098 0.0010 0.7681042    0.9035000</span>
 <span class="co">#&gt;   q3_ratio q1_sale median_sale q3_sale q1_assessed_value median_assessed_value</span>
 <span class="co">#&gt; 1 1.057180  148000      230000  375000          136670.0                213430</span>
 <span class="co">#&gt; 2 1.060422  148000      229900  365000          133940.0                209150</span>
@@ -192,7 +192,7 @@
 <div id="report-diagnostic" class="section level1">
 <h1 class="hasAnchor">
 <a href="#report-diagnostic" class="anchor"></a>Report Diagnostic</h1>
-<p>If you notice that some of the graphs have unexpected changes year-to-year, there may be outliers or something unusual going on with your data. The standard report also includes an optional diagnostic section which can be created as follows.</p>
+<p>We also present a series of diagnostic graphs to evaluate data quality, especialy unexpected year-to-year changes. The diagnostic section can optionally be included as an appendix to the report as follows.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/make_report.html">make_report</a></span>(<span class="no">ratios</span>,
                          <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, Illinois Diagnostic"</span>,
                          <span class="kw">output_dir</span> <span class="kw">=</span> <span class="st">"~/../Documents/GitHub/erhla.github.io/"</span>,

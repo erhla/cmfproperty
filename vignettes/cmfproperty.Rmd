@@ -19,9 +19,9 @@ library(cmfproperty)
 
 The property tax is the single largest source of locally generated revenue for American local governments. Cities, counties, school districts, and special districts raise roughly $500 billion per year in property taxes according to [The Urban Institute](https://www.urban.org/policy-centers/cross-center-initiatives/state-and-local-finance-initiative/projects/state-and-local-backgrounders/property-taxes).
 
-Property taxes are supposed to be a *flat tax* where everyone pays the same rate regardless of how much their home is worth. In practice, property taxes are regressive in almost every single county in America, according to a [recent nationwide analysis](https://harris.uchicago.edu/research-impact/centers-institutes/center-municipal-finance) by the Center for Municipal Finance which analyzed 40 million property sales. Understanding how property taxes affect the average homeowner is relatively difficult. A homeowner only knows what their home is assessed for and only knows how *accurately* their home was assessed if it sells in a given year. 
+Property taxes are supposed to be a *flat tax* where everyone pays the same rate regardless of how much their home is worth. In practice, property taxes are regressive in almost every single county in America, according to a [recent nationwide analysis](https://harris.uchicago.edu/research-impact/centers-institutes/center-municipal-finance) by the Center for Municipal Finance which analyzed 40 million property sales. For an individual homeowner, understanding if their home was assessed fairly is relatively difficult. A homeowner only knows what their home is assessed for and only knows how *accurately* their home was assessed if it sells in a given year.
 
-`cmfproperty` provides the necessary tools for the public to conduct effective oversight of government by removing subject-matter and technical barriers and producing automated contextualized reports.
+`cmfproperty` provides the necessary tools for the public, assessors, and public interest groups to evaluate the effectiveness of assessment systems by removing subject-matter and technical barriers and producing automated contextualized reports. These reports analyze the assessor's own data using industry standards and visualizations designed to illustrate inequities **and** package the information in an easy to use format.
 
 # How do I use `cmfproperty`?
 
@@ -87,7 +87,7 @@ output[[1]]
 
 # Report Diagnostic
 
-If you notice that some of the graphs have unexpected changes year-to-year, there may be outliers or something unusual going on with your data. The standard report also includes an optional diagnostic section which can be created as follows.
+We also present a series of diagnostic graphs to evaluate data quality, especialy unexpected year-to-year changes. The diagnostic section  can optionally be included as an appendix to the report as follows.
 
 ```{r eval=FALSE}
 cmfproperty::make_report(ratios, 
