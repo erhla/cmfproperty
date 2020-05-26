@@ -5,7 +5,7 @@
 #' @param min_reporting_yr the minimum year to plot
 #' @param max_reporting_yr the maximum year to ploy
 #' @param jurisdiction_name the name of the jurisdiction analyzed
-#' @return a list of plots (cod, prd, prb, binned_scatter)
+#' @return a list of captions and associated plots (cod_text, cod_plot, prd_text, prd_plot, prb_text, prb_plot)
 
 #' @importFrom magrittr %>%
 

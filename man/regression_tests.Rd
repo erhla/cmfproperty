@@ -2,7 +2,7 @@
 % Please edit documentation in R/regression_tests.R
 \name{regression_tests}
 \alias{regression_tests}
-\title{Offers various tests for regressivity.}
+\title{Offers various tests for regressivity. See https://erhla.github.io/cmfproperty/Methods for more info.}
 \usage{
 regression_tests(ratios, return_model_objs = FALSE, produce_table = FALSE)
 }
@@ -14,8 +14,8 @@ regression_tests(ratios, return_model_objs = FALSE, produce_table = FALSE)
 \item{produce_table}{boolean, if true will return a summary table produced using stargazer}
 }
 \value{
-a list of model objects or a summary data.frame of results
+a summary data.frame of results or, if return_model_objs is True a list of model objects
 }
 \description{
-Offers various tests for regressivity.
+Offers various tests for regressivity. See https://erhla.github.io/cmfproperty/Methods for more info.
 }

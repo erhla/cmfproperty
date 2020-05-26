@@ -24,7 +24,7 @@ iaao_graphs(
 \item{jurisdiction_name}{the name of the jurisdiction analyzed}
 }
 \value{
-a list of plots (cod, prd, prb, binned_scatter)
+a list of captions and associated plots (cod_text, cod_plot, prd_text, prd_plot, prb_text, prb_plot)
 }
 \description{
 Produces graphs of IAAO standards over time

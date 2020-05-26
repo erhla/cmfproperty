@@ -1,9 +1,9 @@
-#' Offers various tests for regressivity.
+#' Offers various tests for regressivity. See https://erhla.github.io/cmfproperty/Methods for more info.
 #'
 #' @param ratios a dataframe with assessment, sales, and time data which has been processed by reformat_data
 #' @param return_model_objs boolean, if true will return a list of model objects
 #' @param produce_table boolean, if true will return a summary table produced using stargazer
-#' @return a list of model objects or a summary data.frame of results
+#' @return a summary data.frame of results or, if return_model_objs is True a list of model objects
 
 #' @importFrom stats approxfun lm rnorm median
 
