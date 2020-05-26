@@ -21,8 +21,6 @@ This article produces a gallery of figures and tables produced by this package f
 
 ```{r setup}
 library(cmfproperty)
-library(kableExtra)
-library(data.table)
 
 ratios <-
   cmfproperty::reformat_data(
@@ -48,7 +46,7 @@ summary_info <-
 ```
 
 ```{r}
-kable(summary_info)
+kableExtra::kable(summary_info)
 ```
 
 

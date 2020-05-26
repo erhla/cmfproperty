@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">cmfproperty</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.9.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -88,7 +88,8 @@
 
       
 
-      </header><div class="row">
+      </header><link href="Figures_files/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="Figures_files/pagedtable-1.1/js/pagedtable.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Figures</h1>
@@ -101,62 +102,517 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">cmfproperty</span>)</pre></body></html></div>
 <p>This article produces a gallery of figures and tables produced by this package for reference.</p>
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">cmfproperty</span>)
+
+<span class="no">ratios</span> <span class="kw">&lt;-</span>
+  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/reformat_data.html">reformat_data</a></span>(
+    <span class="kw">data</span> <span class="kw">=</span> <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="no"><a href="../reference/example_data.html">example_data</a></span>,
+    <span class="kw">sale_col</span> <span class="kw">=</span> <span class="st">"SALE_PRICE"</span>,
+    <span class="kw">assessment_col</span> <span class="kw">=</span> <span class="st">"ASSESSED_VALUE"</span>,
+    <span class="kw">sale_year_col</span> <span class="kw">=</span> <span class="st">"SALE_YEAR"</span>,
+  )
+<span class="co">#&gt; [1] "Filtered out non-arm's length transactions"</span>
+<span class="co">#&gt; [1] "Inflation adjusted to 2019"</span>
+<span class="no">stats</span> <span class="kw">&lt;-</span> <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/calc_iaao_stats.html">calc_iaao_stats</a></span>(<span class="no">ratios</span>)</pre></body></html></div>
 <div id="calc_iaao_stats" class="section level1">
 <h1 class="hasAnchor">
 <a href="#calc_iaao_stats" class="anchor"></a>calc_iaao_stats</h1>
+<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="kw pkg">rmarkdown</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/rmarkdown/man/paged_table.html">paged_table</a></span>(<span class="no">stats</span>)</pre></body></html></div>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["N"],"name":[1],"type":["int"],"align":["right"]},{"label":["COD"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["COD_SE"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["PRD"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["PRD_SE"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["PRB"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["PRB_SE"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["q1_ratio"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["median_ratio"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["q3_ratio"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["q1_sale"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["median_sale"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["q3_sale"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["q1_assessed_value"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["median_assessed_value"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["q3_assessed_value"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["Year"],"name":[17],"type":["dbl"],"align":["right"]}],"data":[{"1":"51879","2":"19.2795","3":"5.8963","4":"1.0563","5":"0.0108","6":"-0.0514","7":"0.0012","8":"0.7758364","9":"0.9093448","10":"1.057180","11":"148000","12":"230000","13":"375000","14":"136670.0","15":"213430","16":"331235.0","17":"2015"},{"1":"62852","2":"19.6673","3":"6.2137","4":"1.0917","5":"0.0107","6":"-0.0462","7":"0.0011","8":"0.7705720","9":"0.9001375","10":"1.060422","11":"148000","12":"229900","13":"365000","14":"133940.0","15":"209150","16":"321720.0","17":"2016"},{"1":"65961","2":"19.9115","3":"6.0360","4":"1.0488","5":"0.0112","6":"-0.0269","7":"0.0011","8":"0.7428108","9":"0.8732099","10":"1.031267","11":"155000","12":"235000","13":"365000","14":"136960.0","15":"209380","16":"316300.0","17":"2017"},{"1":"65298","2":"18.5810","3":"5.7050","4":"1.0286","5":"0.0051","6":"0.0133","7":"0.0010","8":"0.7470336","9":"0.8856039","10":"1.021504","11":"159642","12":"239900","13":"370000","14":"132382.5","15":"210645","16":"331257.5","17":"2018"},{"1":"62041","2":"17.3901","3":"5.2465","4":"1.0060","5":"0.0063","6":"0.0098","7":"0.0010","8":"0.7681042","9":"0.9035000","10":"1.036399","11":"164900","12":"245000","13":"372000","14":"140220.0","15":"217690","16":"336480.0","17":"2019"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 <div id="regression_tests" class="section level1">
 <h1 class="hasAnchor">
 <a href="#regression_tests" class="anchor"></a>regression_tests</h1>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">summary_info</span> <span class="kw">&lt;-</span>
+  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/regression_tests.html">regression_tests</a></span>(<span class="no">ratios</span>, <span class="kw">produce_table</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<table class="table">
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td colspan="3">
+Dependent Variable
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="3" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+ASSESSED_VALUE
+</td>
+<td>
+log(ASSESSED_VALUE)
+</td>
+<td>
+RATIO
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(1)
+</td>
+<td>
+(2)
+</td>
+<td>
+(3)
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+SALE_PRICE
+</td>
+<td>
+0.77<sup>***</sup>
+</td>
+<td>
+</td>
+<td>
+-0.0000<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.001)
+</td>
+<td>
+</td>
+<td>
+(0.00)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+log(SALE_PRICE)
+</td>
+<td>
+</td>
+<td>
+0.91<sup>***</sup>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+(0.001)
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+34,702.12<sup>***</sup>
+</td>
+<td>
+0.95<sup>***</sup>
+</td>
+<td>
+0.96<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(256.32)
+</td>
+<td>
+(0.01)
+</td>
+<td>
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+308,031
+</td>
+<td>
+308,031
+</td>
+<td>
+308,031
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+R<sup>2</sup>
+</td>
+<td>
+0.84
+</td>
+<td>
+0.86
+</td>
+<td>
+0.03
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Adjusted R<sup>2</sup>
+</td>
+<td>
+0.84
+</td>
+<td>
+0.86
+</td>
+<td>
+0.03
+</td>
+</tr>
+<tr>
+<td colspan="4" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td colspan="3" style="text-align:right">
+<sup><em></em></sup>p&lt;0.1; <sup><strong></strong></sup>p&lt;0.05; <sup></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="kw pkg">kableExtra</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/reexports.html">kable</a></span>(<span class="no">summary_info</span>)</pre></body></html></div>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+Model
+</th>
+<th style="text-align:right;">
+Value
+</th>
+<th style="text-align:left;">
+Test
+</th>
+<th style="text-align:right;">
+T Statistic
+</th>
+<th style="text-align:left;">
+Conclusion
+</th>
+<th style="text-align:left;">
+Model Description
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+paglin72
+</td>
+<td style="text-align:right;">
+34702.1237052
+</td>
+<td style="text-align:left;">
+&gt; 0
+</td>
+<td style="text-align:right;">
+135.385620
+</td>
+<td style="text-align:left;">
+Regressive
+</td>
+<td style="text-align:left;">
+AV ~ SP
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cheng74
+</td>
+<td style="text-align:right;">
+0.9136623
+</td>
+<td style="text-align:left;">
+&lt; 1
+</td>
+<td style="text-align:right;">
+1348.353690
+</td>
+<td style="text-align:left;">
+Regressive
+</td>
+<td style="text-align:left;">
+ln(AV) ~ ln(SP)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+IAAO78
+</td>
+<td style="text-align:right;">
+-0.0000001
+</td>
+<td style="text-align:left;">
+&lt; 0
+</td>
+<td style="text-align:right;">
+-97.596795
+</td>
+<td style="text-align:left;">
+Regressive
+</td>
+<td style="text-align:left;">
+RATIO ~ SP
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+kochin82
+</td>
+<td style="text-align:right;">
+0.9359248
+</td>
+<td style="text-align:left;">
+&lt; 1
+</td>
+<td style="text-align:right;">
+1348.353690
+</td>
+<td style="text-align:left;">
+Regressive
+</td>
+<td style="text-align:left;">
+ln(SP) ~ ln(AV)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+bell84
+</td>
+<td style="text-align:right;">
+20314.8672457
+</td>
+<td style="text-align:left;">
+&gt; 0
+</td>
+<td style="text-align:right;">
+77.266036
+</td>
+<td style="text-align:left;">
+Regressive
+</td>
+<td style="text-align:left;">
+AV ~ SP + SP^2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:left;">
+&lt; 0
+</td>
+<td style="text-align:right;">
+-157.626702
+</td>
+<td style="text-align:left;">
+Regressive
+</td>
+<td style="text-align:left;">
+AV ~ SP + SP^2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+sunderman90
+</td>
+<td style="text-align:right;">
+11111.3515478
+</td>
+<td style="text-align:left;">
+&gt; 0
+</td>
+<td style="text-align:right;">
+5.063213
+</td>
+<td style="text-align:left;">
+Regressive
+</td>
+<td style="text-align:left;">
+AV ~ SP + low + high + low * SP + high * SP
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="iaao_graphs" class="section level1">
 <h1 class="hasAnchor">
 <a href="#iaao_graphs" class="anchor"></a>iaao_graphs</h1>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">iaao_rslt</span> <span class="kw">&lt;-</span>
+  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/iaao_graphs.html">iaao_graphs</a></span>(
+    <span class="no">stats</span>,
+    <span class="no">ratios</span>,
+    <span class="kw">min_reporting_yr</span> <span class="kw">=</span> <span class="fl">2015</span>,
+    <span class="kw">max_reporting_yr</span> <span class="kw">=</span> <span class="fl">2019</span>,
+    <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, Illinois"</span>
+  )</pre></body></html></div>
+<div id="coefficient-of-dispersion-cod" class="section level2">
+<h2 class="hasAnchor">
+<a href="#coefficient-of-dispersion-cod" class="anchor"></a>Coefficient of Dispersion (COD)</h2>
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">1</span>]])
+<span class="co">#&gt; [1] "For 2019, the COD in Cook County, Illinois was 17.39 which &lt;b&gt;did not meet&lt;/b&gt; the IAAO standard for uniformity. "</span>
+<span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">2</span>]]</pre></body></html></div>
+<p><img src="Figures_files/figure-html/codgraph-1.png" width="576"></p>
+</div>
+<div id="price-related-differential-prd" class="section level2">
+<h2 class="hasAnchor">
+<a href="#price-related-differential-prd" class="anchor"></a>Price-Related Differential (PRD)</h2>
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">3</span>]])
+<span class="co">#&gt; [1] " In 2019, the PRD in  Cook County, Illinois, was 1.006 which &lt;b&gt;meets &lt;/b&gt; the IAAO standard for vertical equity."</span>
+<span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">4</span>]]</pre></body></html></div>
+<p><img src="Figures_files/figure-html/prdgraph-1.png" width="576"></p>
+</div>
+<div id="coefficient-of-price-related-bias-prb" class="section level2">
+<h2 class="hasAnchor">
+<a href="#coefficient-of-price-related-bias-prb" class="anchor"></a>Coefficient of Price-Related Bias (PRB)</h2>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">5</span>]])
+<span class="co">#&gt; [1] "In 2019, the PRB in Cook County, Illinois was 0.01 which indicates that sales ratios increase by 1.0% when home values double. This &lt;b&gt;meets &lt;/b&gt;the IAAO standard."</span>
+<span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">6</span>]]</pre></body></html></div>
+<p><img src="Figures_files/figure-html/prbgraph-1.png" width="576"></p>
+</div>
 </div>
 <div id="monte_carlo_graphs" class="section level1">
 <h1 class="hasAnchor">
 <a href="#monte_carlo_graphs" class="anchor"></a>monte_carlo_graphs</h1>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">m_rslts</span> <span class="kw">&lt;-</span> <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/monte_carlo_graphs.html">monte_carlo_graphs</a></span>(<span class="no">ratios</span>)
+<span class="kw pkg">gridExtra</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span>(<span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">1</span>]],
+                        <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">2</span>]],
+                        <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">3</span>]],
+                        <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">4</span>]],
+                        <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">5</span>]],
+                        <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">6</span>]],
+                        <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
+<p><img src="Figures_files/figure-html/montecarlo_graphs-1.png" width="576"></p>
 </div>
 <div id="diagnostic_plots" class="section level1">
 <h1 class="hasAnchor">
 <a href="#diagnostic_plots" class="anchor"></a>diagnostic_plots</h1>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">plots</span> <span class="kw">&lt;-</span>
+  <span class="fu"><a href="../reference/diagnostic_plots.html">diagnostic_plots</a></span>(<span class="no">stats</span>,
+                   <span class="no">ratios</span>,
+                   <span class="kw">min_reporting_yr</span> <span class="kw">=</span> <span class="fl">2015</span>,
+                   <span class="kw">max_reporting_yr</span> <span class="kw">=</span> <span class="fl">2019</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">plots</span><span class="kw">[[</span><span class="fl">1</span>]]</pre></body></html></div>
+<p><img src="Figures_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">plots</span><span class="kw">[[</span><span class="fl">2</span>]]</pre></body></html></div>
+<p><img src="Figures_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">plots</span><span class="kw">[[</span><span class="fl">3</span>]]</pre></body></html></div>
+<p><img src="Figures_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">plots</span><span class="kw">[[</span><span class="fl">4</span>]]</pre></body></html></div>
+<p><img src="Figures_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">plots</span><span class="kw">[[</span><span class="fl">5</span>]]</pre></body></html></div>
+<p><img src="Figures_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="kw pkg">gridExtra</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span>(<span class="no">plots</span><span class="kw">[[</span><span class="fl">6</span>]],
+                        <span class="no">plots</span><span class="kw">[[</span><span class="fl">7</span>]],
+                        <span class="no">plots</span><span class="kw">[[</span><span class="fl">8</span>]],
+                        <span class="no">plots</span><span class="kw">[[</span><span class="fl">9</span>]],
+                        <span class="kw">ncol</span> <span class="kw">=</span> <span class="fl">2</span>,
+                        <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">2</span>)</pre></body></html></div>
+<p><img src="Figures_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
 <div id="binned_scatter" class="section level1">
 <h1 class="hasAnchor">
 <a href="#binned_scatter" class="anchor"></a>binned_scatter</h1>
+<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">binned</span> <span class="kw">&lt;-</span>
+  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/binned_scatter.html">binned_scatter</a></span>(
+    <span class="no">ratios</span>,
+    <span class="kw">min_reporting_yr</span> <span class="kw">=</span> <span class="fl">2015</span>,
+    <span class="kw">max_reporting_yr</span> <span class="kw">=</span> <span class="fl">2019</span>,
+    <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, IL"</span>
+  )
+
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">binned</span><span class="kw">[[</span><span class="fl">1</span>]])
+<span class="co">#&gt; [1] "In 2019, the most expensive homes (the top decile) were assessed at 87.1% of their value and the least expensive homes (the bottom decile) were assessed at 102.0%. In other words, the least expensive homes were assessed at &lt;b&gt;1.17 times&lt;/b&gt; the rate applied to the most expensive homes. Across our sample from 2015 to 2019, the most expensive homes were assessed at 83.4% of their value and the least expensive homes were assessed at 109.4%, which is &lt;b&gt;1.31 times&lt;/b&gt; the rate applied to the most expensive homes."</span>
+<span class="no">binned</span><span class="kw">[[</span><span class="fl">2</span>]]</pre></body></html></div>
+<p><img src="Figures_files/figure-html/binned-1.png" width="672"></p>
 </div>
 <div id="pct_over_under" class="section level1">
 <h1 class="hasAnchor">
 <a href="#pct_over_under" class="anchor"></a>pct_over_under</h1>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">iaao_rslt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/iaao_graphs.html">iaao_graphs</a></span>(<span class="no">stats</span>, <span class="no">ratios</span>, <span class="kw">min_reporting_yr</span> <span class="kw">=</span> <span class="fl">2015</span>, <span class="kw">max_reporting_yr</span> <span class="kw">=</span> <span class="fl">2019</span>, <span class="st">"Cook County, Illinois"</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">2</span>]]</pre></body></html></div>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">4</span>]]</pre></body></html></div>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">6</span>]]</pre></body></html></div>
-<div id="advanced-regressivity-statistics" class="section level2">
-<h2 class="hasAnchor">
-<a href="#advanced-regressivity-statistics" class="anchor"></a>Advanced Regressivity Statistics</h2>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/regression_tests.html">regression_tests</a></span>(<span class="no">ratios</span>)</pre></body></html></div>
-</div>
-<div id="regressivity-plots" class="section level2">
-<h2 class="hasAnchor">
-<a href="#regressivity-plots" class="anchor"></a>Regressivity Plots</h2>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">plot_ls</span> <span class="kw">&lt;-</span>
-  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu">plots</span>(<span class="no">ratios</span>,
-                     <span class="kw">min_reporting_yr</span> <span class="kw">=</span> <span class="fl">2015</span>,
-                     <span class="kw">max_reporting_yr</span> <span class="kw">=</span> <span class="fl">2019</span>,
-                     <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, Illinois"</span>)
-<span class="co"># update to use binned_scatter and pct_over_under</span></pre></body></html></div>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">plot_ls</span><span class="kw">[[</span><span class="fl">2</span>]]</pre></body></html></div>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">plot_ls</span><span class="kw">[[</span><span class="fl">4</span>]]</pre></body></html></div>
-</div>
-<div id="monte-carlo-analysis" class="section level2">
-<h2 class="hasAnchor">
-<a href="#monte-carlo-analysis" class="anchor"></a>Monte Carlo Analysis</h2>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">m_rslts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/monte_carlo_graphs.html">monte_carlo_graphs</a></span>(<span class="no">ratios</span>)
-<span class="kw pkg">gridExtra</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span>(<span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">1</span>]], <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">2</span>]], <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">3</span>]], <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">4</span>]], <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">5</span>]], <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">6</span>]], <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
-</div>
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">pct_over</span> <span class="kw">&lt;-</span>
+  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/pct_over_under.html">pct_over_under</a></span>(
+    <span class="no">ratios</span>,
+    <span class="kw">min_reporting_yr</span> <span class="kw">=</span> <span class="fl">2015</span>,
+    <span class="kw">max_reporting_yr</span> <span class="kw">=</span> <span class="fl">2019</span>,
+    <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, IL"</span>
+  )
+
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">pct_over</span><span class="kw">[[</span><span class="fl">1</span>]])
+<span class="co">#&gt; [1] "In Cook County, IL, &lt;b&gt;68%&lt;/b&gt; of the lowest value homes are overassessed and &lt;b&gt;39%&lt;/b&gt; of the highest value homes are overassessed."</span>
+<span class="no">pct_over</span><span class="kw">[[</span><span class="fl">2</span>]]</pre></body></html></div>
+<p><img src="Figures_files/figure-html/pct_over-1.png" width="700"></p>
 </div>
   </div>
 
