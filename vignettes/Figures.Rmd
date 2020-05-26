@@ -10,16 +10,18 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
   comment = "#>"
 )
 ```
 
-```{r setup, results='hide', message=FALSE, echo=FALSE, warning = FALSE}
-knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+This article produces a gallery of figures and tables produced by this package for reference.
+
+
+```{r setup}
 library(cmfproperty)
-library(knitr)
 library(kableExtra)
-library(rmarkdown)
 library(data.table)
 
 ratios <-
@@ -32,119 +34,134 @@ ratios <-
 stats <- cmfproperty::calc_iaao_stats(ratios)
 ```
 
-This article produces a gallery of figures and tables produced by this package for reference.
-
 # calc_iaao_stats
-``` {r iaao_stats, echo=FALSE}
-stats_colnames_copy <- copy(stats)
-names(stats_colnames_copy) <- tolower(names(stats))
-paged_table(stats_colnames_copy)
+
+```{r iaao_stats}
+rmarkdown::paged_table(stats)
 ```
 
 # regression_tests
-``` {r regression_tests, fig.width=6, echo=FALSE}
-models <- cmfproperty::regression_tests(ratios, TRUE, TRUE)
-plots <- diagnostic_plots(stats, ratios, min_reporting_yr = 2015, max_reporting_yr = 2019)
-plots[[1]]
-plots[[2]]
-plots[[3]]
-plots[[4]]
-plots[[5]]
-gridExtra::grid.arrange(plots[[6]], plots[[7]], plots[[8]], plots[[9]], ncol=2, nrow=2)
+
+```{r regression_tests, fig.width=6, results='asis'}
+summary_info <-
+  cmfproperty::regression_tests(ratios, produce_table = TRUE)
+```
+
+```{r}
+kable(summary_info)
 ```
 
 
 # iaao_graphs
-```{r example1, message=FALSE, echo=FALSE}
-iaao_rslt <- cmfproperty::iaao_graphs(stats, ratios, min_reporting_yr = 2015, max_reporting_yr = 2019, "Cook County, Illinois")
+```{r example1}
+iaao_rslt <-
+  cmfproperty::iaao_graphs(
+    stats,
+    ratios,
+    min_reporting_yr = 2015,
+    max_reporting_yr = 2019,
+    jurisdiction_name = "Cook County, Illinois"
+  )
 ```
 
 ## Coefficient of Dispersion (COD)
-```{r codgraph, echo=FALSE, fig.width=6, fig.height=3}
+
+```{r codgraph, fig.width=6, fig.height=3}
+print(iaao_rslt[[1]])
 iaao_rslt[[2]]
 ```
 
 ## Price-Related Differential (PRD)
-```{r prdgraph, echo=FALSE, fig.width=6, fig.height=3}
+```{r prdgraph, fig.width=6, fig.height=3}
+print(iaao_rslt[[3]])
 iaao_rslt[[4]]
 ```
 
 ## Coefficient of Price-Related Bias (PRB)
-```{r prbgraph, echo=FALSE, fig.width=6, fig.height=3}
+```{r prbgraph, fig.width=6, fig.height=3}
+print(iaao_rslt[[5]])
 iaao_rslt[[6]]
 ```
 
 
 # monte_carlo_graphs
-```{r montecarlo_graphs, echo=FALSE, fig.width=6, fig.height=5}
+```{r montecarlo_graphs, fig.width=6, fig.height=5}
 m_rslts <- cmfproperty::monte_carlo_graphs(ratios)
-gridExtra::grid.arrange(m_rslts[[1]], m_rslts[[2]], m_rslts[[3]], m_rslts[[4]], m_rslts[[5]], m_rslts[[6]], nrow = 3)
+gridExtra::grid.arrange(m_rslts[[1]],
+                        m_rslts[[2]],
+                        m_rslts[[3]],
+                        m_rslts[[4]],
+                        m_rslts[[5]],
+                        m_rslts[[6]],
+                        nrow = 3)
 ```
 
 # diagnostic_plots
-``` {r diagnostic, echo=FALSE, fig.width=6, fig.height=4}
-plots <- diagnostic_plots(stats, ratios, min_reporting_yr = 2015, max_reporting_yr = 2019)
+```{r diagnostic, fig.width=6, fig.height=4}
+plots <-
+  diagnostic_plots(stats,
+                   ratios,
+                   min_reporting_yr = 2015,
+                   max_reporting_yr = 2019)
+```
+
+```{r}
 plots[[1]]
+```
+
+```{r}
 plots[[2]]
+```
+
+```{r}
 plots[[3]]
+```
+
+```{r}
 plots[[4]]
 ```
 
+```{r}
+plots[[5]]
+```
+
+```{r}
+gridExtra::grid.arrange(plots[[6]],
+                        plots[[7]],
+                        plots[[8]],
+                        plots[[9]],
+                        ncol = 2,
+                        nrow = 2)
+```
+
+
 # binned_scatter
-``` {r binned, echo=FALSE, fig.width=7, fig.height=4}
-binned <- cmfproperty::binned_scatter(ratios, 
-                                      min_reporting_yr = 2015,
-                                      max_reporting_yr = 2019,
-                                      params$title)
+```{r binned, fig.width=7, fig.height=4}
+binned <- 
+  cmfproperty::binned_scatter(
+    ratios,
+    min_reporting_yr = 2015,
+    max_reporting_yr = 2019,
+    jurisdiction_name = "Cook County, IL"
+  )
+
+print(binned[[1]])
 binned[[2]]
 ```
 
 
 # pct_over_under
-``` {r pct_over}
-# pct_over <- cmfproperty::pct_over_under(ratios,
-#                                         min_reporting_yr = 2015,
-#                                         max_reporting_yr = 2019,
-#                                         params$title)
+```{r pct_over}
+pct_over <-
+  cmfproperty::pct_over_under(
+    ratios,
+    min_reporting_yr = 2015,
+    max_reporting_yr = 2019,
+    jurisdiction_name = "Cook County, IL"
+  )
+
+print(pct_over[[1]])
+pct_over[[2]]
 ```
-
-
-
-
-
-## Advanced Regressivity Statistics
-
-```{r example2, echo=FALSE}
-paged_table(cmfproperty::regression_tests(ratios))
-```
-
-## Regressivity Plots
-
-```{r example3}
-# plot_ls <-
-#   cmfproperty::plots(ratios,
-#                      min_reporting_yr = 2015,
-#                      max_reporting_yr = 2019,
-#                      jurisdiction_name = "Cook County, Illinois")
-# update to use binned_scatter and pct_over_under
-```
-
-## Monte Carlo Analysis
-
-```{r montecarlo, fig.width=5, fig.height=5}
-# m_rslts <- monte_carlo_graphs(ratios)
-# gridExtra::grid.arrange(m_rslts[[1]], m_rslts[[2]], m_rslts[[3]], m_rslts[[4]], m_rslts[[5]], m_rslts[[6]], nrow = 3)
-```
-
-
-
-
-
-
-
-
-
-
-
 
 
