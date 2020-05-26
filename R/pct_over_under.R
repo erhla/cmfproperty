@@ -15,6 +15,10 @@ pct_over_under <- function(ratios, min_reporting_yr, max_reporting_yr, jurisdict
 
     avg_ratio_by_year <-
         ratios %>% dplyr::group_by(.data$TAX_YEAR) %>% dplyr::summarize(avg_ratio = median(.data$RATIO))
+
+    ratios <-
+        ratios %>% dplyr::group_by(.data$SALE_YEAR) %>% dplyr::mutate(sale_decile_bin = dplyr::ntile(.data$SALE_PRICE, 10))
+
     ratios <- ratios %>% dplyr::left_join(avg_ratio_by_year)
     ratios <-
         ratios %>% dplyr::mutate(
