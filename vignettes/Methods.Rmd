@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 This article is a reference section to verify that this package calculates various metrics correctly.
 
-# The following come from `cmfproperty::calc_iaao_stats`
+## calc_iaao_stats
 
 ### Coefficient of Dispersion (COD)
 
@@ -33,7 +33,7 @@ $$\frac{\frac{\sum_{n=1}^NSalesRatio_i}{N}} {\frac{\sum_{n=1}^N(SalesRatio_i*Sal
 $$Percentile_{25}(SalesRatio) - (1.5 * IQR(SalesRatio)) < SalesRatio_i < Percentile_{75}(SalesRatio) + (1.5 * IQR(SalesRatio)) $$
 
 
-# The following definitions are used in `cmfproperty::regression_tests` (from Hodge 2017)
+## regression_tests (from Hodge 2017)
 
 ### Paglin
 
