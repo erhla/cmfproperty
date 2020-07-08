@@ -58,14 +58,14 @@ The report will be saved in your working directory or a specific directory can b
 ```{r eval=FALSE}
 cmfproperty::make_report(ratios, 
                          jurisdiction_name = "Cook County, Illinois",
-                         output_dir = "C:/Users/erhla/Desktop/")
+                         output_dir = "~/Desktop/")
 ```
 
-Check out an example report [here](https://erhla.github.io/Cook%20County,%20Illinois.html).
+Check out an example report [here](https://cmf-uchicago.github.io/Cook%20County,%20Illinois.html).
 
 # How does this work?
 
-Check out our [methods](Methods.html) and information on [figures](Figures.html) in addition to function-level [documentation](https://erhla.github.io/cmfproperty/reference/index.html). The core unit of analysis that we use (and is standard) is the Sales Ratio. A sales ratio is a calculated ratio between the sale price and assessed value at the time of sale for an individual property. Properties should be assessed at their **fair market value** which is defined as the sale price when sold between two unrelated parties in an **arm's length transaction**. We then apply the standard method to determine if a sale is arm's length from the International Association of Assessing Officers.
+Check out our [methods](Methods.html) and information on [figures](Figures.html) in addition to function-level [documentation](https://cmf-uchicago.github.io/cmfproperty/reference/index.html). The core unit of analysis that we use (and is standard) is the Sales Ratio. A sales ratio is a calculated ratio between the sale price and assessed value at the time of sale for an individual property. Properties should be assessed at their **fair market value** which is defined as the sale price when sold between two unrelated parties in an **arm's length transaction**. We then apply the standard method to determine if a sale is arm's length from the International Association of Assessing Officers.
 
 If you would like to use our package to make your own report, simply take `ratios` and create `stats`.
 
@@ -87,13 +87,13 @@ output[[1]]
 
 # Report Diagnostic
 
-We also present a series of diagnostic graphs to evaluate data quality, especialy unexpected year-to-year changes. The diagnostic section  can optionally be included as an appendix to the report as follows.
+We also present a series of diagnostic graphs to evaluate data quality, especially unexpected year-to-year changes. The diagnostic section  can optionally be included as an appendix to the report as follows.
 
 ```{r eval=FALSE}
 cmfproperty::make_report(ratios, 
                          jurisdiction_name = "Cook County, Illinois Diagnostic",
-                         output_dir = "~/../Documents/GitHub/erhla.github.io/",
+                         output_dir = "~/../Documents/GitHub/cmf-uchicago.github.io/",
                          diagnostic = TRUE)
 ```
 
-Check out a report on the example data with a diagnostic section [here](https://erhla.github.io/Cook%20County%2C%20Illinois%20Diagnostic.html#5_data_diagnostics).
+Check out a report on the example data with a diagnostic section [here](https://cmf-uchicago.github.io/Cook%20County%2C%20Illinois%20Diagnostic.html#5_data_diagnostics).

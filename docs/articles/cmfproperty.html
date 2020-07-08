@@ -68,7 +68,7 @@
   </ul>
 </li>
 <li>
-  <a href="https://erhla.github.io/Cook%20County,%20Illinois.html">Report Example</a>
+  <a href="https://cmf-uchicago.github.io/Cook%20County,%20Illinois.html">Report Example</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -152,22 +152,22 @@
 <p>The report will be saved in your working directory or a specific directory can be provided.</p>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/make_report.html">make_report</a></span>(<span class="no">ratios</span>,
                          <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, Illinois"</span>,
-                         <span class="kw">output_dir</span> <span class="kw">=</span> <span class="st">"C:/Users/erhla/Desktop/"</span>)</pre></body></html></div>
-<p>Check out an example report <a href="https://erhla.github.io/Cook%20County,%20Illinois.html">here</a>.</p>
+                         <span class="kw">output_dir</span> <span class="kw">=</span> <span class="st">"~/Desktop/"</span>)</pre></body></html></div>
+<p>Check out an example report <a href="https://cmf-uchicago.github.io/Cook%20County,%20Illinois.html">here</a>.</p>
 </div>
 <div id="how-does-this-work" class="section level1">
 <h1 class="hasAnchor">
 <a href="#how-does-this-work" class="anchor"></a>How does this work?</h1>
-<p>Check out our <a href="Methods.html">methods</a> and information on <a href="Figures.html">figures</a> in addition to function-level <a href="https://erhla.github.io/cmfproperty/reference/index.html">documentation</a>. The core unit of analysis that we use (and is standard) is the Sales Ratio. A sales ratio is a calculated ratio between the sale price and assessed value at the time of sale for an individual property. Properties should be assessed at their <strong>fair market value</strong> which is defined as the sale price when sold between two unrelated parties in an <strong>arm’s length transaction</strong>. We then apply the standard method to determine if a sale is arm’s length from the International Association of Assessing Officers.</p>
+<p>Check out our <a href="Methods.html">methods</a> and information on <a href="Figures.html">figures</a> in addition to function-level <a href="https://cmf-uchicago.github.io/cmfproperty/reference/index.html">documentation</a>. The core unit of analysis that we use (and is standard) is the Sales Ratio. A sales ratio is a calculated ratio between the sale price and assessed value at the time of sale for an individual property. Properties should be assessed at their <strong>fair market value</strong> which is defined as the sale price when sold between two unrelated parties in an <strong>arm’s length transaction</strong>. We then apply the standard method to determine if a sale is arm’s length from the International Association of Assessing Officers.</p>
 <p>If you would like to use our package to make your own report, simply take <code>ratios</code> and create <code>stats</code>.</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">stats</span> <span class="kw">&lt;-</span> <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/calc_iaao_stats.html">calc_iaao_stats</a></span>(<span class="no">ratios</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">stats</span>)
 <span class="co">#&gt;       N     COD COD_SE    PRD PRD_SE     PRB PRB_SE  q1_ratio median_ratio</span>
-<span class="co">#&gt; 1 51879 19.1510 6.0944 1.0814 0.0126 -0.0514 0.0012 0.7758364    0.9093448</span>
-<span class="co">#&gt; 2 62852 20.0748 6.0589 1.0666 0.0072 -0.0462 0.0011 0.7705720    0.9001375</span>
-<span class="co">#&gt; 3 65961 19.8466 5.9027 1.0502 0.0060 -0.0269 0.0011 0.7428108    0.8732099</span>
-<span class="co">#&gt; 4 65298 19.0111 5.3839 1.0257 0.0050  0.0133 0.0010 0.7470336    0.8856039</span>
-<span class="co">#&gt; 5 62041 17.4388 5.4710 1.0006 0.0061  0.0098 0.0010 0.7681042    0.9035000</span>
+<span class="co">#&gt; 1 51879 19.2645 6.1766 1.0651 0.0060 -0.0514 0.0012 0.7758364    0.9093448</span>
+<span class="co">#&gt; 2 62852 19.7658 6.1809 1.0640 0.0143 -0.0462 0.0011 0.7705720    0.9001375</span>
+<span class="co">#&gt; 3 65961 19.9967 6.0671 1.0384 0.0046 -0.0269 0.0011 0.7428108    0.8732099</span>
+<span class="co">#&gt; 4 65298 18.9788 5.4804 1.0196 0.0072  0.0133 0.0010 0.7470336    0.8856039</span>
+<span class="co">#&gt; 5 62041 17.6421 5.1189 1.0328 0.0051  0.0098 0.0010 0.7681042    0.9035000</span>
 <span class="co">#&gt;   q3_ratio q1_sale median_sale q3_sale q1_assessed_value median_assessed_value</span>
 <span class="co">#&gt; 1 1.057180  148000      230000  375000          136670.0                213430</span>
 <span class="co">#&gt; 2 1.060422  148000      229900  365000          133940.0                209150</span>
@@ -192,12 +192,12 @@
 <div id="report-diagnostic" class="section level1">
 <h1 class="hasAnchor">
 <a href="#report-diagnostic" class="anchor"></a>Report Diagnostic</h1>
-<p>We also present a series of diagnostic graphs to evaluate data quality, especialy unexpected year-to-year changes. The diagnostic section can optionally be included as an appendix to the report as follows.</p>
+<p>We also present a series of diagnostic graphs to evaluate data quality, especially unexpected year-to-year changes. The diagnostic section can optionally be included as an appendix to the report as follows.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/make_report.html">make_report</a></span>(<span class="no">ratios</span>,
                          <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, Illinois Diagnostic"</span>,
-                         <span class="kw">output_dir</span> <span class="kw">=</span> <span class="st">"~/../Documents/GitHub/erhla.github.io/"</span>,
+                         <span class="kw">output_dir</span> <span class="kw">=</span> <span class="st">"~/../Documents/GitHub/cmf-uchicago.github.io/"</span>,
                          <span class="kw">diagnostic</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
-<p>Check out a report on the example data with a diagnostic section <a href="https://erhla.github.io/Cook%20County%2C%20Illinois%20Diagnostic.html#5_data_diagnostics">here</a>.</p>
+<p>Check out a report on the example data with a diagnostic section <a href="https://cmf-uchicago.github.io/Cook%20County%2C%20Illinois%20Diagnostic.html#5_data_diagnostics">here</a>.</p>
 </div>
   </div>
 

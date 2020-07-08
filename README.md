@@ -12,7 +12,7 @@ of Chicago.
 
 For a detailed guide on how to use this package check out our [**Get
 started
-page**](https://erhla.github.io/cmfproperty/articles/cmfproperty.html).
+page**](https://cmf-uchicago.github.io/cmfproperty/articles/cmfproperty.html).
 
 ## Installation
 
@@ -21,7 +21,7 @@ You can install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("erhla/cmfproperty")
+devtools::install_github("cmf-uchicago/cmfproperty")
 ```
 
 ## Basic Usage
@@ -48,7 +48,7 @@ head(cmfproperty::example_data)
 
 Then, preprocess your data with `reformat_data` and call `make_report`.
 The report from the example below can be found
-[here](https://erhla.github.io/Cook%20County,%20Illinois.html).
+[here](https://cmf-uchicago.github.io/Cook%20County,%20Illinois.html).
 
 ``` r
 df <- cmfproperty::example_data
@@ -61,10 +61,9 @@ ratios <-
     sale_year_col = "SALE_YEAR",
   )
 
-
 cmfproperty::make_report(ratios, 
                          jurisdiction_name = "Cook County, Illinois",
-                         output_dir = "~/../Documents/GitHub/erhla.github.io/") 
+                         output_dir = "~/../Documents/GitHub/cmf-uchicago.github.io/") 
 
 #output_dir is the directory in which report is saved; default is working directory
 ```

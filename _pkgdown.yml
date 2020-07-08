@@ -10,7 +10,7 @@ navbar:
   components:
     Example:
       text: "Report Example"
-      href: https://erhla.github.io/Cook%20County,%20Illinois.html
+      href: https://cmf-uchicago.github.io/Cook%20County,%20Illinois.html
     articles:
       text: Articles
       menu:
