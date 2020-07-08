@@ -29,8 +29,6 @@ nocite: |
 ...
 
 ```{r options, echo=FALSE, out.width = "175px"}
-library(cmfproperty)
-
 knitr::opts_chunk$set(
   echo = FALSE,
   warning = FALSE,
@@ -42,6 +40,8 @@ knitr::opts_chunk$set(
 
 
 ```{r setup, include=FALSE}
+library(cmfproperty)
+
 df <- params$inputdata
 min_reporting_yr <- min(df$SALE_YEAR)
 max_reporting_yr <- max(df$SALE_YEAR)
