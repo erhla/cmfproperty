@@ -95,7 +95,7 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#transparency--equity-in-property-assessments" class="anchor"></a>Transparency &amp; Equity in Property Assessments</h1></div>
 <p>This package analyzes the accuracy of property assessments and produces graphs, tables, and reports designed for general use. This package is produced by the <a href="https://harris.uchicago.edu/research-impact/centers-institutes/center-municipal-finance">Center for Municipal Finance</a>, a research institute at the Harris School of Public Policy, University of Chicago.</p>
-<p>For a detailed guide on how to use this package check out our <a href="https://erhla.github.io/cmfproperty/articles/cmfproperty.html"><strong>Get started page</strong></a>.</p>
+<p>For a detailed guide on how to use this package check out our <a href="https://cmf-uchicago.github.io/cmfproperty/articles/cmfproperty.html"><strong>Get started page</strong></a>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -117,7 +117,7 @@
 <span class="co">#&gt; 4 13093160601015      2017     125500          87200</span>
 <span class="co">#&gt; 5 14322110150000      2018    3705000        3670740</span>
 <span class="co">#&gt; 6 27021200080000      2016     345000         267280</span></pre></div>
-<p>Then, preprocess your data with <code>reformat_data</code> and call <code>make_report</code>. The report from the example below can be found <a href="https://erhla.github.io/Cook%20County,%20Illinois.html">here</a>.</p>
+<p>Then, preprocess your data with <code>reformat_data</code> and call <code>make_report</code>. The report from the example below can be found <a href="https://cmf-uchicago.github.io/Cook%20County,%20Illinois.html">here</a>.</p>
 <div class="sourceCode" id="cb4"><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="no"><a href="reference/example_data.html">example_data</a></span>
 
 <span class="no">ratios</span> <span class="kw">&lt;-</span>
@@ -127,7 +127,6 @@
     <span class="kw">assessment_col</span> <span class="kw">=</span> <span class="st">"ASSESSED_VALUE"</span>,
     <span class="kw">sale_year_col</span> <span class="kw">=</span> <span class="st">"SALE_YEAR"</span>,
   )
-
 
 <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="reference/make_report.html">make_report</a></span>(<span class="no">ratios</span>,
                          <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, Illinois"</span>,
