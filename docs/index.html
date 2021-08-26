@@ -40,7 +40,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -74,8 +74,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/erhla/cmfproperty/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/cmf-uchicago/cmfproperty/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -100,39 +100,43 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install.packages("devtools")</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"cmf-uchicago/cmfproperty"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"cmf-uchicago/cmfproperty"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="basic-usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#basic-usage" class="anchor"></a>Basic Usage</h2>
 <p>First import <code>cmfproperty</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">cmfproperty</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cmf-uchicago/cmfproperty">cmfproperty</a></span><span class="op">)</span></code></pre></div>
 <p>To conduct our study, we need data where every roll is a unique property’s sale price and assessed value for a given year.</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="no"><a href="reference/example_data.html">example_data</a></span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu">cmfproperty</span><span class="fu">::</span><span class="va"><a href="reference/example_data.html">example_data</a></span><span class="op">)</span>
 <span class="co">#&gt;              PIN SALE_YEAR SALE_PRICE ASSESSED_VALUE</span>
 <span class="co">#&gt; 1 17273100931118      2015      53000          33860</span>
 <span class="co">#&gt; 2 18013090421010      2018      80000          60390</span>
 <span class="co">#&gt; 3 12111190201042      2018     118000         108300</span>
 <span class="co">#&gt; 4 13093160601015      2017     125500          87200</span>
 <span class="co">#&gt; 5 14322110150000      2018    3705000        3670740</span>
-<span class="co">#&gt; 6 27021200080000      2016     345000         267280</span></pre></div>
+<span class="co">#&gt; 6 27021200080000      2016     345000         267280</span></code></pre></div>
 <p>Then, preprocess your data with <code>reformat_data</code> and call <code>make_report</code>. The report from the example below can be found <a href="https://cmf-uchicago.github.io/Cook%20County,%20Illinois.html">here</a>.</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="no">df</span> <span class="kw">&lt;-</span> <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="no"><a href="reference/example_data.html">example_data</a></span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">cmfproperty</span><span class="fu">::</span><span class="va"><a href="reference/example_data.html">example_data</a></span>
 
-<span class="no">ratios</span> <span class="kw">&lt;-</span>
-  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="reference/reformat_data.html">reformat_data</a></span>(
-    <span class="no">df</span>,
-    <span class="kw">sale_col</span> <span class="kw">=</span> <span class="st">"SALE_PRICE"</span>,
-    <span class="kw">assessment_col</span> <span class="kw">=</span> <span class="st">"ASSESSED_VALUE"</span>,
-    <span class="kw">sale_year_col</span> <span class="kw">=</span> <span class="st">"SALE_YEAR"</span>,
-  )
+<span class="va">ratios</span> <span class="op">&lt;-</span>
+  <span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="reference/reformat_data.html">reformat_data</a></span><span class="op">(</span>
+    <span class="va">df</span>,
+    sale_col <span class="op">=</span> <span class="st">"SALE_PRICE"</span>,
+    assessment_col <span class="op">=</span> <span class="st">"ASSESSED_VALUE"</span>,
+    sale_year_col <span class="op">=</span> <span class="st">"SALE_YEAR"</span>,
+  <span class="op">)</span>
 
-<span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="reference/make_report.html">make_report</a></span>(<span class="no">ratios</span>,
-                         <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, Illinois"</span>,
-                         <span class="kw">output_dir</span> <span class="kw">=</span> <span class="st">"~/../Documents/GitHub/cmf-uchicago.github.io/"</span>)
+<span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="reference/make_report.html">make_report</a></span><span class="op">(</span><span class="va">ratios</span>, 
+                         jurisdiction_name <span class="op">=</span> <span class="st">"Cook County, Illinois"</span>,
+                         output_dir <span class="op">=</span> <span class="st">"~/../Documents/GitHub/cmf-uchicago.github.io/"</span><span class="op">)</span> 
 
-<span class="co">#output_dir is the directory in which report is saved; default is working directory</span></pre></div>
+<span class="co">#output_dir is the directory in which report is saved; default is working directory</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -141,9 +145,9 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/erhla/cmfproperty/">https://​github.com/​erhla/​cmfproperty/​</a>
+<li>Browse source code at <br><a href="https://github.com/cmf-uchicago/cmfproperty/">https://​github.com/​cmf-uchicago/​cmfproperty/​</a>
 </li>
-<li>Report a bug at <br><a href="https://github.com/erhla/cmfproperty/issues">https://​github.com/​erhla/​cmfproperty/​issues</a>
+<li>Report a bug at <br><a href="https://github.com/cmf-uchicago/cmfproperty/issues">https://​github.com/​cmf-uchicago/​cmfproperty/​issues</a>
 </li>
 </ul>
 </div>
@@ -171,7 +175,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

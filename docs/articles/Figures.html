@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -73,8 +73,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/erhla/cmfproperty/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/cmf-uchicago/cmfproperty/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -88,14 +88,14 @@
 
       
 
-      </header><link href="Figures_files/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+      </header><script src="Figures_files/header-attrs-2.7/header-attrs.js"></script><link href="Figures_files/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
 <script src="Figures_files/pagedtable-1.1/js/pagedtable.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Figures</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/erhla/cmfproperty/blob/master/vignettes/Figures.Rmd"><code>vignettes/Figures.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cmf-uchicago/cmfproperty/blob/master/vignettes/Figures.Rmd"><code>vignettes/Figures.Rmd</code></a></small>
       <div class="hidden name"><code>Figures.Rmd</code></div>
 
     </div>
@@ -103,33 +103,36 @@
     
     
 <p>This article produces a gallery of figures and tables produced by this package for reference.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">cmfproperty</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cmf-uchicago/cmfproperty">cmfproperty</a></span><span class="op">)</span>
 
-<span class="no">ratios</span> <span class="kw">&lt;-</span>
-  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/reformat_data.html">reformat_data</a></span>(
-    <span class="kw">data</span> <span class="kw">=</span> <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="no"><a href="../reference/example_data.html">example_data</a></span>,
-    <span class="kw">sale_col</span> <span class="kw">=</span> <span class="st">"SALE_PRICE"</span>,
-    <span class="kw">assessment_col</span> <span class="kw">=</span> <span class="st">"ASSESSED_VALUE"</span>,
-    <span class="kw">sale_year_col</span> <span class="kw">=</span> <span class="st">"SALE_YEAR"</span>,
-  )
+<span class="va">ratios</span> <span class="op">&lt;-</span>
+  <span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="../reference/reformat_data.html">reformat_data</a></span><span class="op">(</span>
+    data <span class="op">=</span> <span class="fu">cmfproperty</span><span class="fu">::</span><span class="va"><a href="../reference/example_data.html">example_data</a></span>,
+    sale_col <span class="op">=</span> <span class="st">"SALE_PRICE"</span>,
+    assessment_col <span class="op">=</span> <span class="st">"ASSESSED_VALUE"</span>,
+    sale_year_col <span class="op">=</span> <span class="st">"SALE_YEAR"</span>,
+  <span class="op">)</span>
 <span class="co">#&gt; [1] "Filtered out non-arm's length transactions"</span>
 <span class="co">#&gt; [1] "Inflation adjusted to 2019"</span>
-<span class="no">stats</span> <span class="kw">&lt;-</span> <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/calc_iaao_stats.html">calc_iaao_stats</a></span>(<span class="no">ratios</span>)</pre></body></html></div>
+<span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="../reference/calc_iaao_stats.html">calc_iaao_stats</a></span><span class="op">(</span><span class="va">ratios</span><span class="op">)</span></code></pre></div>
 <div id="calc_iaao_stats" class="section level1">
 <h1 class="hasAnchor">
 <a href="#calc_iaao_stats" class="anchor"></a>calc_iaao_stats</h1>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="kw pkg">rmarkdown</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/rmarkdown/man/paged_table.html">paged_table</a></span>(<span class="no">stats</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">rmarkdown</span><span class="fu">::</span><span class="fu"><a href="https://pkgs.rstudio.com/rmarkdown/reference/paged_table.html">paged_table</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span></code></pre></div>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["N"],"name":[1],"type":["int"],"align":["right"]},{"label":["COD"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["COD_SE"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["PRD"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["PRD_SE"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["PRB"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["PRB_SE"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["q1_ratio"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["median_ratio"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["q3_ratio"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["q1_sale"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["median_sale"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["q3_sale"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["q1_assessed_value"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["median_assessed_value"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["q3_assessed_value"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["Year"],"name":[17],"type":["dbl"],"align":["right"]}],"data":[{"1":"51879","2":"19.2819","3":"6.2316","4":"1.0886","5":"0.0104","6":"-0.0514","7":"0.0012","8":"0.7758364","9":"0.9093448","10":"1.057180","11":"148000","12":"230000","13":"375000","14":"136670.0","15":"213430","16":"331235.0","17":"2015"},{"1":"62852","2":"19.6647","3":"6.1276","4":"1.0434","5":"0.0117","6":"-0.0462","7":"0.0011","8":"0.7705720","9":"0.9001375","10":"1.060422","11":"148000","12":"229900","13":"365000","14":"133940.0","15":"209150","16":"321720.0","17":"2016"},{"1":"65961","2":"19.7333","3":"6.5582","4":"1.0633","5":"0.0065","6":"-0.0269","7":"0.0011","8":"0.7428108","9":"0.8732099","10":"1.031267","11":"155000","12":"235000","13":"365000","14":"136960.0","15":"209380","16":"316300.0","17":"2017"},{"1":"65298","2":"18.5759","3":"5.6745","4":"1.0072","5":"0.0097","6":"0.0133","7":"0.0010","8":"0.7470336","9":"0.8856039","10":"1.021504","11":"159642","12":"239900","13":"370000","14":"132382.5","15":"210645","16":"331257.5","17":"2018"},{"1":"62041","2":"18.1057","3":"5.3542","4":"1.0211","5":"0.0073","6":"0.0098","7":"0.0010","8":"0.7681042","9":"0.9035000","10":"1.036399","11":"164900","12":"245000","13":"372000","14":"140220.0","15":"217690","16":"336480.0","17":"2019"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+{"columns":[{"label":["N"],"name":[1],"type":["int"],"align":["right"]},{"label":["COD"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["COD_SE"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["PRD"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["PRD_SE"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["PRB"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["PRB_SE"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["q1_ratio"],"name":[8],"type":["dbl"],"align":["right"]},{"label":["median_ratio"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["q3_ratio"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["q1_sale"],"name":[11],"type":["dbl"],"align":["right"]},{"label":["median_sale"],"name":[12],"type":["dbl"],"align":["right"]},{"label":["q3_sale"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["q1_assessed_value"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["median_assessed_value"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["q3_assessed_value"],"name":[16],"type":["dbl"],"align":["right"]},{"label":["Year"],"name":[17],"type":["dbl"],"align":["right"]}],"data":[{"1":"51879","2":"19.2421","3":"5.8254","4":"1.1094","5":"0.0152","6":"-0.0514","7":"0.0012","8":"0.7758364","9":"0.9093448","10":"1.057180","11":"148000","12":"230000","13":"375000","14":"136670.0","15":"213430","16":"331235.0","17":"2015"},{"1":"62852","2":"19.7309","3":"6.4748","4":"1.0880","5":"0.0175","6":"-0.0462","7":"0.0011","8":"0.7705720","9":"0.9001375","10":"1.060422","11":"148000","12":"229900","13":"365000","14":"133940.0","15":"209150","16":"321720.0","17":"2016"},{"1":"65961","2":"19.8891","3":"5.9671","4":"1.0588","5":"0.0088","6":"-0.0269","7":"0.0011","8":"0.7428108","9":"0.8732099","10":"1.031267","11":"155000","12":"235000","13":"365000","14":"136960.0","15":"209380","16":"316300.0","17":"2017"},{"1":"65298","2":"18.5963","3":"5.5838","4":"1.0266","5":"0.0099","6":"0.0133","7":"0.0010","8":"0.7470336","9":"0.8856039","10":"1.021504","11":"159642","12":"239900","13":"370000","14":"132382.5","15":"210645","16":"331257.5","17":"2018"},{"1":"62041","2":"18.0511","3":"4.9163","4":"1.0176","5":"0.0060","6":"0.0098","7":"0.0010","8":"0.7681042","9":"0.9035000","10":"1.036399","11":"164900","12":"245000","13":"372000","14":"140220.0","15":"217690","16":"336480.0","17":"2019"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
   </script>
 </div>
 </div>
 <div id="regression_tests" class="section level1">
 <h1 class="hasAnchor">
 <a href="#regression_tests" class="anchor"></a>regression_tests</h1>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">summary_info</span> <span class="kw">&lt;-</span>
-  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/regression_tests.html">regression_tests</a></span>(<span class="no">ratios</span>, <span class="kw">produce_table</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">summary_info</span> <span class="op">&lt;-</span>
+  <span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="../reference/regression_tests.html">regression_tests</a></span><span class="op">(</span><span class="va">ratios</span>, produce_table <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <tr>
 <td colspan="4" style="border-bottom: 1px solid black">
@@ -342,7 +345,8 @@ Adjusted R<sup>2</sup>
 </td>
 </tr>
 </table>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="kw pkg">kableExtra</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/kableExtra/man/reexports.html">kable</a></span>(<span class="no">summary_info</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">kableExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span><span class="va">summary_info</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
@@ -510,108 +514,122 @@ AV ~ SP + low + high + low * SP + high * SP
 <div id="iaao_graphs" class="section level1">
 <h1 class="hasAnchor">
 <a href="#iaao_graphs" class="anchor"></a>iaao_graphs</h1>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">iaao_rslt</span> <span class="kw">&lt;-</span>
-  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/iaao_graphs.html">iaao_graphs</a></span>(
-    <span class="no">stats</span>,
-    <span class="no">ratios</span>,
-    <span class="kw">min_reporting_yr</span> <span class="kw">=</span> <span class="fl">2015</span>,
-    <span class="kw">max_reporting_yr</span> <span class="kw">=</span> <span class="fl">2019</span>,
-    <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, Illinois"</span>
-  )</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">iaao_rslt</span> <span class="op">&lt;-</span>
+  <span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="../reference/iaao_graphs.html">iaao_graphs</a></span><span class="op">(</span>
+    <span class="va">stats</span>,
+    <span class="va">ratios</span>,
+    min_reporting_yr <span class="op">=</span> <span class="fl">2015</span>,
+    max_reporting_yr <span class="op">=</span> <span class="fl">2019</span>,
+    jurisdiction_name <span class="op">=</span> <span class="st">"Cook County, Illinois"</span>
+  <span class="op">)</span></code></pre></div>
 <div id="coefficient-of-dispersion-cod" class="section level2">
 <h2 class="hasAnchor">
 <a href="#coefficient-of-dispersion-cod" class="anchor"></a>Coefficient of Dispersion (COD)</h2>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">1</span>]])
-<span class="co">#&gt; [1] "For 2019, the COD in Cook County, Illinois was 18.11 which &lt;b&gt;did not meet&lt;/b&gt; the IAAO standard for uniformity. "</span>
-<span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">2</span>]]</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">iaao_rslt</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; [1] "For 2019, the COD in Cook County, Illinois was 18.05 which &lt;b&gt;did not meet&lt;/b&gt; the IAAO standard for uniformity. "</span>
+<span class="va">iaao_rslt</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <p><img src="Figures_files/figure-html/codgraph-1.png" width="576"></p>
 </div>
 <div id="price-related-differential-prd" class="section level2">
 <h2 class="hasAnchor">
 <a href="#price-related-differential-prd" class="anchor"></a>Price-Related Differential (PRD)</h2>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">3</span>]])
-<span class="co">#&gt; [1] " In 2019, the PRD in  Cook County, Illinois, was 1.021 which &lt;b&gt;meets &lt;/b&gt; the IAAO standard for vertical equity."</span>
-<span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">4</span>]]</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">iaao_rslt</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
+<span class="co">#&gt; [1] " In 2019, the PRD in  Cook County, Illinois, was 1.018 which &lt;b&gt;meets &lt;/b&gt; the IAAO standard for vertical equity."</span>
+<span class="va">iaao_rslt</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <p><img src="Figures_files/figure-html/prdgraph-1.png" width="576"></p>
 </div>
 <div id="coefficient-of-price-related-bias-prb" class="section level2">
 <h2 class="hasAnchor">
 <a href="#coefficient-of-price-related-bias-prb" class="anchor"></a>Coefficient of Price-Related Bias (PRB)</h2>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">5</span>]])
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">iaao_rslt</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
 <span class="co">#&gt; [1] "In 2019, the PRB in Cook County, Illinois was 0.01 which indicates that sales ratios increase by 1.0% when home values double. This &lt;b&gt;meets &lt;/b&gt;the IAAO standard."</span>
-<span class="no">iaao_rslt</span><span class="kw">[[</span><span class="fl">6</span>]]</pre></body></html></div>
+<span class="va">iaao_rslt</span><span class="op">[[</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <p><img src="Figures_files/figure-html/prbgraph-1.png" width="576"></p>
 </div>
 </div>
 <div id="monte_carlo_graphs" class="section level1">
 <h1 class="hasAnchor">
 <a href="#monte_carlo_graphs" class="anchor"></a>monte_carlo_graphs</h1>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">m_rslts</span> <span class="kw">&lt;-</span> <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/monte_carlo_graphs.html">monte_carlo_graphs</a></span>(<span class="no">ratios</span>)
-<span class="kw pkg">gridExtra</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span>(<span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">1</span>]],
-                        <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">2</span>]],
-                        <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">3</span>]],
-                        <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">4</span>]],
-                        <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">5</span>]],
-                        <span class="no">m_rslts</span><span class="kw">[[</span><span class="fl">6</span>]],
-                        <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">m_rslts</span> <span class="op">&lt;-</span> <span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="../reference/monte_carlo_graphs.html">monte_carlo_graphs</a></span><span class="op">(</span><span class="va">ratios</span><span class="op">)</span>
+<span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">m_rslts</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,
+                        <span class="va">m_rslts</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>,
+                        <span class="va">m_rslts</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span>,
+                        <span class="va">m_rslts</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span>,
+                        <span class="va">m_rslts</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span>,
+                        <span class="va">m_rslts</span><span class="op">[[</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span>,
+                        nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <p><img src="Figures_files/figure-html/montecarlo_graphs-1.png" width="576"></p>
 </div>
 <div id="diagnostic_plots" class="section level1">
 <h1 class="hasAnchor">
 <a href="#diagnostic_plots" class="anchor"></a>diagnostic_plots</h1>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">plots</span> <span class="kw">&lt;-</span>
-  <span class="fu"><a href="../reference/diagnostic_plots.html">diagnostic_plots</a></span>(<span class="no">stats</span>,
-                   <span class="no">ratios</span>,
-                   <span class="kw">min_reporting_yr</span> <span class="kw">=</span> <span class="fl">2015</span>,
-                   <span class="kw">max_reporting_yr</span> <span class="kw">=</span> <span class="fl">2019</span>)</pre></body></html></div>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">plots</span><span class="kw">[[</span><span class="fl">1</span>]]</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plots</span> <span class="op">&lt;-</span>
+  <span class="fu"><a href="../reference/diagnostic_plots.html">diagnostic_plots</a></span><span class="op">(</span><span class="va">stats</span>,
+                   <span class="va">ratios</span>,
+                   min_reporting_yr <span class="op">=</span> <span class="fl">2015</span>,
+                   max_reporting_yr <span class="op">=</span> <span class="fl">2019</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plots</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <p><img src="Figures_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">plots</span><span class="kw">[[</span><span class="fl">2</span>]]</pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plots</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <p><img src="Figures_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">plots</span><span class="kw">[[</span><span class="fl">3</span>]]</pre></body></html></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plots</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <p><img src="Figures_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">plots</span><span class="kw">[[</span><span class="fl">4</span>]]</pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plots</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <p><img src="Figures_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">plots</span><span class="kw">[[</span><span class="fl">5</span>]]</pre></body></html></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">plots</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <p><img src="Figures_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="kw pkg">gridExtra</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span>(<span class="no">plots</span><span class="kw">[[</span><span class="fl">6</span>]],
-                        <span class="no">plots</span><span class="kw">[[</span><span class="fl">7</span>]],
-                        <span class="no">plots</span><span class="kw">[[</span><span class="fl">8</span>]],
-                        <span class="no">plots</span><span class="kw">[[</span><span class="fl">9</span>]],
-                        <span class="kw">ncol</span> <span class="kw">=</span> <span class="fl">2</span>,
-                        <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">2</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html">grid.arrange</a></span><span class="op">(</span><span class="va">plots</span><span class="op">[[</span><span class="fl">6</span><span class="op">]</span><span class="op">]</span>,
+                        <span class="va">plots</span><span class="op">[[</span><span class="fl">7</span><span class="op">]</span><span class="op">]</span>,
+                        <span class="va">plots</span><span class="op">[[</span><span class="fl">8</span><span class="op">]</span><span class="op">]</span>,
+                        <span class="va">plots</span><span class="op">[[</span><span class="fl">9</span><span class="op">]</span><span class="op">]</span>,
+                        ncol <span class="op">=</span> <span class="fl">2</span>,
+                        nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
 <p><img src="Figures_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
 <div id="binned_scatter" class="section level1">
 <h1 class="hasAnchor">
 <a href="#binned_scatter" class="anchor"></a>binned_scatter</h1>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="no">binned</span> <span class="kw">&lt;-</span>
-  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/binned_scatter.html">binned_scatter</a></span>(
-    <span class="no">ratios</span>,
-    <span class="kw">min_reporting_yr</span> <span class="kw">=</span> <span class="fl">2015</span>,
-    <span class="kw">max_reporting_yr</span> <span class="kw">=</span> <span class="fl">2019</span>,
-    <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, IL"</span>
-  )
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">binned</span> <span class="op">&lt;-</span> 
+  <span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="../reference/binned_scatter.html">binned_scatter</a></span><span class="op">(</span>
+    <span class="va">ratios</span>,
+    min_reporting_yr <span class="op">=</span> <span class="fl">2015</span>,
+    max_reporting_yr <span class="op">=</span> <span class="fl">2019</span>,
+    jurisdiction_name <span class="op">=</span> <span class="st">"Cook County, IL"</span>
+  <span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">binned</span><span class="kw">[[</span><span class="fl">1</span>]])
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">binned</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
 <span class="co">#&gt; [1] "In 2019, the most expensive homes (the top decile) were assessed at 87.1% of their value and the least expensive homes (the bottom decile) were assessed at 102.0%. In other words, the least expensive homes were assessed at &lt;b&gt;1.17 times&lt;/b&gt; the rate applied to the most expensive homes. Across our sample from 2015 to 2019, the most expensive homes were assessed at 83.4% of their value and the least expensive homes were assessed at 109.4%, which is &lt;b&gt;1.31 times&lt;/b&gt; the rate applied to the most expensive homes."</span>
-<span class="no">binned</span><span class="kw">[[</span><span class="fl">2</span>]]</pre></body></html></div>
+<span class="va">binned</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <p><img src="Figures_files/figure-html/binned-1.png" width="672"></p>
 </div>
 <div id="pct_over_under" class="section level1">
 <h1 class="hasAnchor">
 <a href="#pct_over_under" class="anchor"></a>pct_over_under</h1>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">pct_over</span> <span class="kw">&lt;-</span>
-  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/pct_over_under.html">pct_over_under</a></span>(
-    <span class="no">ratios</span>,
-    <span class="kw">min_reporting_yr</span> <span class="kw">=</span> <span class="fl">2015</span>,
-    <span class="kw">max_reporting_yr</span> <span class="kw">=</span> <span class="fl">2019</span>,
-    <span class="kw">jurisdiction_name</span> <span class="kw">=</span> <span class="st">"Cook County, IL"</span>
-  )
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pct_over</span> <span class="op">&lt;-</span>
+  <span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="../reference/pct_over_under.html">pct_over_under</a></span><span class="op">(</span>
+    <span class="va">ratios</span>,
+    min_reporting_yr <span class="op">=</span> <span class="fl">2015</span>,
+    max_reporting_yr <span class="op">=</span> <span class="fl">2019</span>,
+    jurisdiction_name <span class="op">=</span> <span class="st">"Cook County, IL"</span>
+  <span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span>(<span class="no">pct_over</span><span class="kw">[[</span><span class="fl">1</span>]])
+<span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">pct_over</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>
 <span class="co">#&gt; [1] "In Cook County, IL, &lt;b&gt;68%&lt;/b&gt; of the lowest value homes are overassessed and &lt;b&gt;39%&lt;/b&gt; of the highest value homes are overassessed."</span>
-<span class="no">pct_over</span><span class="kw">[[</span><span class="fl">2</span>]]</pre></body></html></div>
+<span class="va">pct_over</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></code></pre></div>
 <p><img src="Figures_files/figure-html/pct_over-1.png" width="700"></p>
 </div>
   </div>
@@ -631,7 +649,7 @@ AV ~ SP + low + high + low * SP + high * SP
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
