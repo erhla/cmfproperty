@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 This package analyzes the accuracy of property assessments and produces graphs, tables, and reports designed for general use. This package is produced by the [Center for Municipal Finance](https://harris.uchicago.edu/research-impact/centers-institutes/center-municipal-finance), a research institute at the Harris School of Public Policy, University of Chicago.
 
-For a detailed guide on how to use this package check out our [**Get started page**](https://erhla.github.io/cmfproperty/articles/cmfproperty.html).
+For a detailed guide on how to use this package check out our [**Get started page**](https://cmf-uchicago.github.io/cmfproperty/articles/cmfproperty.html).
 
 ## Installation
 
@@ -25,7 +25,7 @@ You can install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("erhla/cmfproperty")
+devtools::install_github("cmf-uchicago/cmfproperty")
 ```
 
 ## Basic Usage
@@ -43,7 +43,7 @@ head(cmfproperty::example_data)
 ```
 
 
-Then, preprocess your data with `reformat_data` and call `make_report`. The report from the example below can be found [here](https://erhla.github.io/Cook County, Illinois.html).
+Then, preprocess your data with `reformat_data` and call `make_report`. The report from the example below can be found [here](https://cmf-uchicago.github.io/Cook County, Illinois.html).
 
 ```{r reportexample, eval=FALSE}
 df <- cmfproperty::example_data
@@ -58,7 +58,7 @@ ratios <-
 
 cmfproperty::make_report(ratios, 
                          jurisdiction_name = "Cook County, Illinois",
-                         output_dir = "~/../Documents/GitHub/erhla.github.io/") 
+                         output_dir = "~/../Documents/GitHub/cmf-uchicago.github.io/") 
 
 #output_dir is the directory in which report is saved; default is working directory
 

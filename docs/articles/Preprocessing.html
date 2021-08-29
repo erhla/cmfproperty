@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -65,16 +65,19 @@
     <li>
       <a href="../articles/Figures.html">List of Figures</a>
     </li>
+    <li>
+      <a href="../articles/About.html">About</a>
+    </li>
   </ul>
 </li>
 <li>
-  <a href="https://erhla.github.io/Cook%20County,%20Illinois.html">Report Example</a>
+  <a href="https://cmf-uchicago.github.io/Cook%20County,%20Illinois.html">Report Example</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/erhla/cmfproperty/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/cmf-uchicago/cmfproperty/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -88,13 +91,13 @@
 
       
 
-      </header><div class="row">
+      </header><script src="Preprocessing_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Preprocessing</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/erhla/cmfproperty/blob/master/vignettes/Preprocessing.Rmd"><code>vignettes/Preprocessing.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/cmf-uchicago/cmfproperty/blob/master/vignettes/Preprocessing.Rmd"><code>vignettes/Preprocessing.Rmd</code></a></small>
       <div class="hidden name"><code>Preprocessing.Rmd</code></div>
 
     </div>
@@ -120,28 +123,30 @@
 <h1 class="hasAnchor">
 <a href="#preprocessing" class="anchor"></a>Preprocessing</h1>
 <p>In order to conduct a sales ratio study, data is required to have at least three columns: Sale Year, Sale Price, and Assessed Value. We want to compare the sale price to the assessed value at the time of sale. Here is an example:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="no"><a href="../reference/example_data.html">example_data</a></span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu">cmfproperty</span><span class="fu">::</span><span class="va"><a href="../reference/example_data.html">example_data</a></span><span class="op">)</span>
 <span class="co">#&gt;              PIN SALE_YEAR SALE_PRICE ASSESSED_VALUE</span>
 <span class="co">#&gt; 1 17273100931118      2015      53000          33860</span>
 <span class="co">#&gt; 2 18013090421010      2018      80000          60390</span>
 <span class="co">#&gt; 3 12111190201042      2018     118000         108300</span>
 <span class="co">#&gt; 4 13093160601015      2017     125500          87200</span>
 <span class="co">#&gt; 5 14322110150000      2018    3705000        3670740</span>
-<span class="co">#&gt; 6 27021200080000      2016     345000         267280</span></pre></body></html></div>
+<span class="co">#&gt; 6 27021200080000      2016     345000         267280</span></code></pre></div>
 <p>Each row in this dataset should match a sale and an assessment from the same year for a single property.</p>
 <p>After gathering data in this form, we have to identify the three required columns (sales, assessments, and sale year) for the package using <code>reformat_data</code>.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">cmfproperty</span>)
-<span class="no">df</span> <span class="kw">&lt;-</span> <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="no"><a href="../reference/example_data.html">example_data</a></span>
-<span class="no">ratios</span> <span class="kw">&lt;-</span>
-  <span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="fu"><a href="../reference/reformat_data.html">reformat_data</a></span>(
-    <span class="no">df</span>,
-    <span class="kw">sale_col</span> <span class="kw">=</span> <span class="st">"SALE_PRICE"</span>,
-    <span class="kw">assessment_col</span> <span class="kw">=</span> <span class="st">"ASSESSED_VALUE"</span>,
-    <span class="kw">sale_year_col</span> <span class="kw">=</span> <span class="st">"SALE_YEAR"</span>,
-  )
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cmf-uchicago/cmfproperty">cmfproperty</a></span><span class="op">)</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">cmfproperty</span><span class="fu">::</span><span class="va"><a href="../reference/example_data.html">example_data</a></span>
+<span class="va">ratios</span> <span class="op">&lt;-</span>
+  <span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="../reference/reformat_data.html">reformat_data</a></span><span class="op">(</span>
+    <span class="va">df</span>,
+    sale_col <span class="op">=</span> <span class="st">"SALE_PRICE"</span>,
+    assessment_col <span class="op">=</span> <span class="st">"ASSESSED_VALUE"</span>,
+    sale_year_col <span class="op">=</span> <span class="st">"SALE_YEAR"</span>,
+  <span class="op">)</span>
 <span class="co">#&gt; [1] "Filtered out non-arm's length transactions"</span>
 <span class="co">#&gt; [1] "Inflation adjusted to 2019"</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span>(<span class="no">ratios</span>))
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">as.data.frame</a></span><span class="op">(</span><span class="va">ratios</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;              PIN SALE_YEAR SALE_PRICE ASSESSED_VALUE TAX_YEAR     RATIO</span>
 <span class="co">#&gt; 1 17273100931118      2015      53000          33860     2015 0.6388679</span>
 <span class="co">#&gt; 2 18013090421010      2018      80000          60390     2018 0.7548750</span>
@@ -155,7 +160,7 @@
 <span class="co">#&gt; 3                       1      121411.71          111431.26</span>
 <span class="co">#&gt; 4                       1      132854.54           92310.09</span>
 <span class="co">#&gt; 5                       1     3812122.01         3776871.45</span>
-<span class="co">#&gt; 6                       1      376080.37          291358.73</span></pre></body></html></div>
+<span class="co">#&gt; 6                       1      376080.37          291358.73</span></code></pre></div>
 <p>Our data is now in the appropriate form for further analysis. More information on the output of <code>reformat_data</code> can be found on the <a href="cmfproperty.html">Getting started page</a>.</p>
 <p>Let’s look at an example. The <a href="https://www.cookcountyassessor.com/">Cook County Assessor’s Office</a>, which is the assessor for Cook County, Illinois, has an excellent open data portal which includes all the necessary information and is the source of the <code>example_data</code> from this package.</p>
 </div>
@@ -164,37 +169,41 @@
 <a href="#example" class="anchor"></a>Example</h1>
 <p>Cook County releases both the sales roll and the assessment roll on their open data portal. Sales were found <a href="https://datacatalog.cookcountyil.gov/Property-Taxation/Cook-County-Assessor-s-Residential-Sales-Data/5pge-nu6u">here</a> and assessments were found <a href="https://datacatalog.cookcountyil.gov/Property-Taxation/Cook-County-Assessor-s-Residential-Assessments/uqb9-r7vn">here</a>. These files can be downloaded manually or via <code>RSocrata</code>.</p>
 <p>Here we download the files manually:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">data.table</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyverse</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com">data.table</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 
-<span class="no">sales</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html">fread</a></span>(<span class="st">"~/../Downloads/Cook_County_Assessor_s_Residential_Sales_Data.csv"</span>,
-               <span class="kw">colClasses</span> <span class="kw">=</span> <span class="st">"character"</span>) <span class="co">#from 2013 to 2019</span>
-<span class="no">assessments</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html">fread</a></span>(<span class="st">"~/../Downloads/Cook_County_Assessor_s_Residential_Assessments.csv"</span>,
-                     <span class="kw">colClasses</span> <span class="kw">=</span> <span class="st">"character"</span>) <span class="co">#from 2015 to 2019</span></pre></body></html></div>
+<span class="va">sales</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html">fread</a></span><span class="op">(</span><span class="st">"~/../Downloads/Cook_County_Assessor_s_Residential_Sales_Data.csv"</span>, 
+               colClasses <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span> <span class="co">#from 2013 to 2019</span>
+<span class="va">assessments</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/fread.html">fread</a></span><span class="op">(</span><span class="st">"~/../Downloads/Cook_County_Assessor_s_Residential_Assessments.csv"</span>, 
+                     colClasses <span class="op">=</span> <span class="st">"character"</span><span class="op">)</span> <span class="co">#from 2015 to 2019</span></code></pre></div>
 <p>Then filter the data to select only the columns we need and to remove some sales which are clearly not between two independent parties:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">sales</span> <span class="kw">&lt;-</span> <span class="no">sales</span> <span class="kw">%&gt;%</span> <span class="fu">select</span>(<span class="no">PIN</span>, <span class="no">`Sale Year`</span>, <span class="no">`Sale Price`</span>, <span class="no">`Deed No.`</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="no">`Sale Year`</span> <span class="kw">&gt;</span> <span class="fl">2014</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sales</span> <span class="op">&lt;-</span> <span class="va">sales</span> <span class="op">%&gt;%</span> <span class="fu">select</span><span class="op">(</span><span class="va">PIN</span>, <span class="va">`Sale Year`</span>, <span class="va">`Sale Price`</span>, <span class="va">`Deed No.`</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">`Sale Year`</span> <span class="op">&gt;</span> <span class="fl">2014</span><span class="op">)</span>
 
-<span class="no">assessments</span> <span class="kw">&lt;-</span> <span class="no">assessments</span> <span class="kw">%&gt;%</span> <span class="fu">select</span>(<span class="no">PIN</span>, <span class="no">YEAR</span>, <span class="no">CERTIFIED</span>)
+<span class="va">assessments</span> <span class="op">&lt;-</span> <span class="va">assessments</span> <span class="op">%&gt;%</span> <span class="fu">select</span><span class="op">(</span><span class="va">PIN</span>, <span class="va">YEAR</span>, <span class="va">CERTIFIED</span><span class="op">)</span>
 
 <span class="co"># Filtering data to remove duplicate sales and low value sales</span>
-<span class="no">sales</span> <span class="kw">&lt;-</span> <span class="no">sales</span> <span class="kw">%&gt;%</span> <span class="fu">distinct</span>(<span class="no">`Deed No.`</span>, <span class="kw">.keep_all</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span> <span class="fu">select</span>(-<span class="no">`Deed No.`</span>)
-<span class="no">sales</span> <span class="kw">&lt;-</span> <span class="no">sales</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>(<span class="no">`Sale Price`</span>) <span class="kw">&gt;</span> <span class="fl">2500</span>)</pre></body></html></div>
+<span class="va">sales</span> <span class="op">&lt;-</span> <span class="va">sales</span> <span class="op">%&gt;%</span> <span class="fu">distinct</span><span class="op">(</span><span class="va">`Deed No.`</span>, .keep_all <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">`Deed No.`</span><span class="op">)</span>
+<span class="va">sales</span> <span class="op">&lt;-</span> <span class="va">sales</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span><span class="op">(</span><span class="va">`Sale Price`</span><span class="op">)</span> <span class="op">&gt;</span> <span class="fl">2500</span><span class="op">)</span></code></pre></div>
 <p>Finally, we conduct a left join of assessments on sales matching sales to assessment by unique identifier (PIN) and year.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="co"># Join assessments to sales based on PIN (a unique identifier) and Year.</span>
-<span class="no">joined</span> <span class="kw">&lt;-</span> <span class="no">sales</span> <span class="kw">%&gt;%</span> <span class="fu">left_join</span>(<span class="no">assessments</span>, <span class="kw">by</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"PIN"</span><span class="kw">=</span><span class="st">"PIN"</span>, <span class="st">"Sale Year"</span><span class="kw">=</span><span class="st">"YEAR"</span>))
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Join assessments to sales based on PIN (a unique identifier) and Year.</span>
+<span class="va">joined</span> <span class="op">&lt;-</span> <span class="va">sales</span> <span class="op">%&gt;%</span> <span class="fu">left_join</span><span class="op">(</span><span class="va">assessments</span>, by<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"PIN"</span><span class="op">=</span><span class="st">"PIN"</span>, <span class="st">"Sale Year"</span><span class="op">=</span><span class="st">"YEAR"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Remove spaces from column names (not necessary)</span>
-<span class="no">joined</span> <span class="kw">&lt;-</span> <span class="no">joined</span> <span class="kw">%&gt;%</span> <span class="fu">rename</span>(<span class="kw">SALE_YEAR</span> <span class="kw">=</span> <span class="no">`Sale Year`</span>, <span class="kw">SALE_PRICE</span> <span class="kw">=</span> <span class="no">`Sale Price`</span>, <span class="kw">ASSESSED_VALUE</span> <span class="kw">=</span> <span class="no">CERTIFIED</span>)</pre></body></html></div>
+<span class="va">joined</span> <span class="op">&lt;-</span> <span class="va">joined</span> <span class="op">%&gt;%</span> <span class="fu">rename</span><span class="op">(</span>SALE_YEAR <span class="op">=</span> <span class="va">`Sale Year`</span>, SALE_PRICE <span class="op">=</span> <span class="va">`Sale Price`</span>, ASSESSED_VALUE <span class="op">=</span> <span class="va">CERTIFIED</span><span class="op">)</span></code></pre></div>
 <p>This dataset is then identical to <code>example_data</code>:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw pkg">cmfproperty</span><span class="kw ns">::</span><span class="no"><a href="../reference/example_data.html">example_data</a></span>)
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu">cmfproperty</span><span class="fu">::</span><span class="va"><a href="../reference/example_data.html">example_data</a></span><span class="op">)</span>
 <span class="co">#&gt;              PIN SALE_YEAR SALE_PRICE ASSESSED_VALUE</span>
 <span class="co">#&gt; 1 17273100931118      2015      53000          33860</span>
 <span class="co">#&gt; 2 18013090421010      2018      80000          60390</span>
 <span class="co">#&gt; 3 12111190201042      2018     118000         108300</span>
 <span class="co">#&gt; 4 13093160601015      2017     125500          87200</span>
 <span class="co">#&gt; 5 14322110150000      2018    3705000        3670740</span>
-<span class="co">#&gt; 6 27021200080000      2016     345000         267280</span></pre></body></html></div>
+<span class="co">#&gt; 6 27021200080000      2016     345000         267280</span></code></pre></div>
 </div>
   </div>
 
@@ -213,7 +222,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

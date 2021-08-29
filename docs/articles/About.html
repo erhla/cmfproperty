@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Getting Started • cmfproperty</title>
+<title>Why cmfproperty • cmfproperty</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Getting Started">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Why cmfproperty">
 <meta property="og:description" content="cmfproperty">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -91,41 +91,66 @@
 
       
 
-      </header><script src="cmfproperty_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><script src="About_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Getting Started</h1>
+      <h1 data-toc-skip>Why cmfproperty</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/cmf-uchicago/cmfproperty/blob/master/vignettes/cmfproperty.Rmd"><code>vignettes/cmfproperty.Rmd</code></a></small>
-      <div class="hidden name"><code>cmfproperty.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/cmf-uchicago/cmfproperty/blob/master/vignettes/About.Rmd"><code>vignettes/About.Rmd</code></a></small>
+      <div class="hidden name"><code>About.Rmd</code></div>
 
     </div>
 
     
     
-<div id="what-and-who-is-cmfproperty-for" class="section level1">
+<div id="introduction" class="section level1">
 <h1 class="hasAnchor">
-<a href="#what-and-who-is-cmfproperty-for" class="anchor"></a>What and Who is <code>cmfproperty</code> for?</h1>
-<p>The property tax is the single largest source of locally generated revenue for American local governments. Cities, counties, school districts, and special districts raise roughly $500 billion per year in property taxes according to <a href="https://www.urban.org/policy-centers/cross-center-initiatives/state-and-local-finance-initiative/projects/state-and-local-backgrounders/property-taxes">The Urban Institute</a>.</p>
-<p>Property taxes are supposed to be a <em>flat tax</em> where everyone pays the same rate regardless of how much their home is worth. In practice, property taxes are regressive in almost every single county in America, according to a <a href="https://harris.uchicago.edu/research-impact/centers-institutes/center-municipal-finance">recent nationwide analysis</a> by the Center for Municipal Finance which analyzed 40 million property sales. For an individual homeowner, understanding if their home was assessed fairly is relatively difficult. A homeowner only knows what their home is assessed for and only knows how <em>accurately</em> their home was assessed if it sells in a given year.</p>
-<p><code>cmfproperty</code> provides the necessary tools for the public, assessors, and public interest groups to evaluate the effectiveness of assessment systems by removing subject-matter and technical barriers and producing automated contextualized reports. These reports analyze the assessor’s own data using industry standards and visualizations designed to illustrate inequities <strong>and</strong> package the information in an easy to use format.</p>
+<a href="#introduction" class="anchor"></a>Introduction</h1>
+<p>Property tax analysis and sale ratios studies are highly standardized processes ripe for automation. This package implements the IAAO <a href="https://www.iaao.org/media/standards/Standard_on_Ratio_Studies.pdf">standards</a> and generates a sale ratios study in seconds from user-provided data.</p>
+<p>This tool has been critical for the work of the <a href="https://harris.uchicago.edu/research-impact/centers-institutes/center-municipal-finance">Center for Municipal Finance</a> as we produce thousands of sale ratios studies annually. This open-source tool incorporates what we have learned in this work and is designed to enable Assessors and members of the public to analyze their own data.</p>
 </div>
-<div id="how-do-i-use-cmfproperty" class="section level1">
+<div id="how-does-this-work" class="section level1">
 <h1 class="hasAnchor">
-<a href="#how-do-i-use-cmfproperty" class="anchor"></a>How do I use <code>cmfproperty</code>?</h1>
-<p>First, check out the <a href="Preprocessing.html">article on preprocessing</a> which outlines data requirements and examples. In order to analyze assessments, data is required to have at least three columns: Sale Year, Sale Price, and Assessed Value.</p>
+<a href="#how-does-this-work" class="anchor"></a>How does this work?</h1>
+<p>There are four steps to utilize this report:</p>
+<ol style="list-style-type: decimal">
+<li>Install R &amp; R Studio</li>
+<li>Install devtools and <code>cmfproperty</code>
+</li>
+<li>Preprocess your data</li>
+<li>Use <code>cmfproperty</code> to create <code>ratios</code> and run <code>make_report</code>
+</li>
+</ol>
+</div>
+<div id="package-installation-steps-1-and-2" class="section level1">
+<h1 class="hasAnchor">
+<a href="#package-installation-steps-1-and-2" class="anchor"></a>Package Installation (Steps 1 and 2)</h1>
+<p><code>cmfproperty</code> uses the R programming language. R is an open-source language which can be easily installed on any computer. We recommend that you install <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio</a> and <a href="https://cran.rstudio.com/">R</a>.</p>
+<p>Installing <code>cmfproperty</code> requires the <code>devtools</code> package which can be installed as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu">cmfproperty</span><span class="fu">::</span><span class="va"><a href="../reference/example_data.html">example_data</a></span><span class="op">)</span>
-<span class="co">#&gt;              PIN SALE_YEAR SALE_PRICE ASSESSED_VALUE</span>
-<span class="co">#&gt; 1 17273100931118      2015      53000          33860</span>
-<span class="co">#&gt; 2 18013090421010      2018      80000          60390</span>
-<span class="co">#&gt; 3 12111190201042      2018     118000         108300</span>
-<span class="co">#&gt; 4 13093160601015      2017     125500          87200</span>
-<span class="co">#&gt; 5 14322110150000      2018    3705000        3670740</span>
-<span class="co">#&gt; 6 27021200080000      2016     345000         267280</span></code></pre></div>
-<p>After gathering data in this form, we have to identify the three required columns (sales, assessments, and sale year) for the package using <code><a href="../reference/reformat_data.html">cmfproperty::reformat_data</a></code>.</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></code></pre></div>
+<p>Once <code>devtools</code> is installed, our package can be installed from our github repository as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"cmf-uchicago/cmfproperty"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="data-preprocessing-step-3" class="section level1">
+<h1 class="hasAnchor">
+<a href="#data-preprocessing-step-3" class="anchor"></a>Data Preprocessing (Step 3)</h1>
+<p>To use this package we need to create a data frame where each row is the sale of individual property matched to its assessment at the time of sale. This process is highly dependent on how your data is structured. Examples can be found in <a href="preprocessing.html">Data Preprocessing</a>.</p>
+<p>Your final data set must have the following columns:</p>
+<ul>
+<li>Sale Price</li>
+<li>Assessed Value</li>
+<li>Sale Year</li>
+</ul>
+<p>We highly recommend that you also include a column with a unique identifier such as parcel number or pin number.</p>
+</div>
+<div id="running-the-report-step-4" class="section level1">
+<h1 class="hasAnchor">
+<a href="#running-the-report-step-4" class="anchor"></a>Running the Report (Step 4)</h1>
+<p>After gathering data in this form, we have to identify the three required columns (sales, assessments, and sale year) for the package using <code><a href="../reference/reformat_data.html">cmfproperty::reformat_data</a></code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ratios</span> <span class="op">&lt;-</span>
   <span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="../reference/reformat_data.html">reformat_data</a></span><span class="op">(</span>
     data <span class="op">=</span> <span class="fu">cmfproperty</span><span class="fu">::</span><span class="va"><a href="../reference/example_data.html">example_data</a></span>,
@@ -152,62 +177,28 @@
 <span class="co">#&gt; 6                       1      376080.37          291358.73</span></code></pre></div>
 <p>We denote data processed by <code><a href="../reference/reformat_data.html">cmfproperty::reformat_data</a></code> as <code>ratios</code> throughout the documentation. <code>ratios</code> includes the additional calculated fields needed to complete the study.</p>
 <p>There’s one more step to get the automated report:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="../reference/make_report.html">make_report</a></span><span class="op">(</span><span class="va">ratios</span>, 
                          jurisdiction_name <span class="op">=</span> <span class="st">"Cook County, Illinois"</span><span class="op">)</span></code></pre></div>
 <p>The report will be saved in your working directory or a specific directory can be provided.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="../reference/make_report.html">make_report</a></span><span class="op">(</span><span class="va">ratios</span>, 
                          jurisdiction_name <span class="op">=</span> <span class="st">"Cook County, Illinois"</span>,
                          output_dir <span class="op">=</span> <span class="st">"~/Desktop/"</span><span class="op">)</span></code></pre></div>
 <p>Check out an example report <a href="https://cmf-uchicago.github.io/Cook%20County,%20Illinois.html">here</a>.</p>
 </div>
-<div id="how-does-this-work" class="section level1">
+<div id="learn-more" class="section level1">
 <h1 class="hasAnchor">
-<a href="#how-does-this-work" class="anchor"></a>How does this work?</h1>
-<p>Check out our <a href="Methods.html">methods</a> and information on <a href="Figures.html">figures</a> in addition to function-level <a href="https://cmf-uchicago.github.io/cmfproperty/reference/index.html">documentation</a>. The core unit of analysis that we use (and is standard) is the Sales Ratio. A sales ratio is a calculated ratio between the sale price and assessed value at the time of sale for an individual property. Properties should be assessed at their <strong>fair market value</strong> which is defined as the sale price when sold between two unrelated parties in an <strong>arm’s length transaction</strong>. We then apply the standard method to determine if a sale is arm’s length from the International Association of Assessing Officers.</p>
-<p>If you would like to use our package to make your own report, simply take <code>ratios</code> and create <code>stats</code>.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">stats</span> <span class="op">&lt;-</span> <span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="../reference/calc_iaao_stats.html">calc_iaao_stats</a></span><span class="op">(</span><span class="va">ratios</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">stats</span><span class="op">)</span>
-<span class="co">#&gt;       N     COD COD_SE    PRD PRD_SE     PRB PRB_SE  q1_ratio median_ratio</span>
-<span class="co">#&gt; 1 51879 19.2009 6.1946 1.0578 0.0079 -0.0514 0.0012 0.7758364    0.9093448</span>
-<span class="co">#&gt; 2 62852 20.0905 6.6369 1.0798 0.0219 -0.0462 0.0011 0.7705720    0.9001375</span>
-<span class="co">#&gt; 3 65961 20.0706 5.8239 1.0600 0.0074 -0.0269 0.0011 0.7428108    0.8732099</span>
-<span class="co">#&gt; 4 65298 18.4733 5.1744 1.0308 0.0077  0.0133 0.0010 0.7470336    0.8856039</span>
-<span class="co">#&gt; 5 62041 18.0105 5.5011 1.0143 0.0097  0.0098 0.0010 0.7681042    0.9035000</span>
-<span class="co">#&gt;   q3_ratio q1_sale median_sale q3_sale q1_assessed_value median_assessed_value</span>
-<span class="co">#&gt; 1 1.057180  148000      230000  375000          136670.0                213430</span>
-<span class="co">#&gt; 2 1.060422  148000      229900  365000          133940.0                209150</span>
-<span class="co">#&gt; 3 1.031267  155000      235000  365000          136960.0                209380</span>
-<span class="co">#&gt; 4 1.021504  159642      239900  370000          132382.5                210645</span>
-<span class="co">#&gt; 5 1.036399  164900      245000  372000          140220.0                217690</span>
-<span class="co">#&gt;   q3_assessed_value Year</span>
-<span class="co">#&gt; 1          331235.0 2015</span>
-<span class="co">#&gt; 2          321720.0 2016</span>
-<span class="co">#&gt; 3          316300.0 2017</span>
-<span class="co">#&gt; 4          331257.5 2018</span>
-<span class="co">#&gt; 5          336480.0 2019</span></code></pre></div>
-<p>With <code>stats</code> and <code>ratios</code>, you have the necessary tools for all the forms of analysis we present. For example,</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">output</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/diagnostic_plots.html">diagnostic_plots</a></span><span class="op">(</span><span class="va">stats</span>, 
-                           <span class="va">ratios</span>, 
-                           min_reporting_yr <span class="op">=</span> <span class="fl">2015</span>, 
-                           max_reporting_yr <span class="op">=</span> <span class="fl">2019</span><span class="op">)</span>
-
-<span class="va">output</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></code></pre></div>
-<p><img src="cmfproperty_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-</div>
-<div id="report-diagnostic" class="section level1">
-<h1 class="hasAnchor">
-<a href="#report-diagnostic" class="anchor"></a>Report Diagnostic</h1>
-<p>We also present a series of diagnostic graphs to evaluate data quality, especially unexpected year-to-year changes. The diagnostic section can optionally be included as an appendix to the report as follows.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">cmfproperty</span><span class="fu">::</span><span class="fu"><a href="../reference/make_report.html">make_report</a></span><span class="op">(</span><span class="va">ratios</span>, 
-                         jurisdiction_name <span class="op">=</span> <span class="st">"Cook County, Illinois Diagnostic"</span>,
-                         output_dir <span class="op">=</span> <span class="st">"~/../Documents/GitHub/cmf-uchicago.github.io/"</span>,
-                         diagnostic <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p>Check out a report on the example data with a diagnostic section <a href="https://cmf-uchicago.github.io/Cook%20County%2C%20Illinois%20Diagnostic.html#5_data_diagnostics">here</a>.</p>
+<a href="#learn-more" class="anchor"></a>Learn More</h1>
+<ul>
+<li><a href="index.html">Basic Usage</a></li>
+<li><a href="cmfproperty.html">Detailed Usage</a></li>
+<li><a href="preprocessing.html">Data Preprocessing</a></li>
+<li><a href="methods.html">Methods</a></li>
+<li><a href="figures.html">Example Figures</a></li>
+<li><a href="https://cmf-uchicago.github.io/Cook%20County,%20Illinois.html">Example Report</a></li>
+<li><a href="reference.html">Reference</a></li>
+</ul>
 </div>
   </div>
 
