@@ -20,6 +20,8 @@ navbar:
         href: articles/Methods.html
       - text: List of Figures
         href: articles/Figures.html
+      - text: About
+        href: articles/About.html
 
 reference:
 - title: "Data Preprocessing"

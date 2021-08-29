@@ -1,0 +1,108 @@
+---
+title: "Why cmfproperty"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Figures}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "#>"
+)
+```
+
+
+# Why `cmfproperty`
+
+Property tax analysis and sale ratios studies are highly standardized processes ripe for automation. This package implements the IAAO [standards](https://www.iaao.org/media/standards/Standard_on_Ratio_Studies.pdf) and generates a sale ratios study in seconds from user-provided data.
+
+This tool has been critical for the work of the [Center for Municipal Finance](https://harris.uchicago.edu/research-impact/centers-institutes/center-municipal-finance) as we produce thousands of sale ratios studies annually. This open-source tool incorporates what we have learned in this work and is designed to enable Assessors and members of the public to analyze their own data.
+
+# How does this work?
+
+There are four steps to utilize this report:
+
+1. Install R & R Studio
+2. Install devtools and `cmfproperty`
+3. Preprocess your data
+4. Use `cmfproperty` to create `ratios` and run `make_report`
+
+
+# Package Installation (Steps 1 and 2)
+
+`cmfproperty` uses the R programming language. R is an open-source language which can be easily installed on any computer. We recommend that you install [RStudio](https://www.rstudio.com/products/rstudio/download/#download) and [R](https://cran.rstudio.com/).
+
+Installing `cmfproperty` requires the `devtools` package which can be installed as follows:
+
+``` r
+install.packages("devtools")
+```
+
+Once `devtools` is installed, our package can be installed from our github repository as follows:
+
+``` r
+devtools::install_github("cmf-uchicago/cmfproperty")
+```
+
+# Data Preprocessing (Step 3)
+
+To use this package we need to create a data frame where each row is the sale of individual property matched to its assessment at the time of sale. This process is highly dependent on how your data is structured. Examples can be found in [Data Preprocessing](preprocessing.html).
+
+Your final data set must have the following columns:
+
+- Sale Price
+- Assessed Value
+- Sale Year
+
+We highly recommend that you also include a column with a unique identifier such as parcel number or pin number. 
+
+# Running the Report (Step 4)
+
+After gathering data in this form, we have to identify the three required columns (sales, assessments, and sale year) for the package using `cmfproperty::reformat_data`.
+
+```{r}
+ratios <-
+  cmfproperty::reformat_data(
+    data = cmfproperty::example_data,
+    sale_col = "SALE_PRICE",
+    assessment_col = "ASSESSED_VALUE",
+    sale_year_col = "SALE_YEAR",
+  )
+head(as.data.frame(ratios))
+```
+
+We denote data processed by `cmfproperty::reformat_data` as `ratios` throughout the documentation. `ratios` includes the additional calculated fields needed to complete the study.
+
+There's one more step to get the automated report:
+
+```{r eval=FALSE}
+cmfproperty::make_report(ratios, 
+                         jurisdiction_name = "Cook County, Illinois")
+```
+
+The report will be saved in your working directory or a specific directory can be provided.
+
+```{r eval=FALSE}
+cmfproperty::make_report(ratios, 
+                         jurisdiction_name = "Cook County, Illinois",
+                         output_dir = "~/Desktop/")
+```
+
+Check out an example report [here](https://cmf-uchicago.github.io/Cook%20County,%20Illinois.html).
+
+
+# Learn More
+
+- [Basic Usage](index.html)
+- [Detailed Usage](cmfproperty.html)
+- [Data Preprocessing](preprocessing.html)
+- [Methods](methods.html)
+- [Example Figures](figures.html)
+- [Example Report](https://cmf-uchicago.github.io/Cook%20County,%20Illinois.html)
+- [Reference](reference.html)
+

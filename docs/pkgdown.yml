@@ -2,9 +2,10 @@ pandoc: 2.11.4
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  About: About.html
   cmfproperty: cmfproperty.html
   Figures: Figures.html
   Methods: Methods.html
   Preprocessing: Preprocessing.html
-last_built: 2021-08-26T14:41Z
+last_built: 2021-08-29T17:30Z
 
