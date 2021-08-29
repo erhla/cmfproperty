@@ -2,7 +2,7 @@
 title: "Why cmfproperty"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Figures}
+  %\VignetteIndexEntry{About}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 
-# Why `cmfproperty`
+# Introduction
 
 Property tax analysis and sale ratios studies are highly standardized processes ripe for automation. This package implements the IAAO [standards](https://www.iaao.org/media/standards/Standard_on_Ratio_Studies.pdf) and generates a sale ratios study in seconds from user-provided data.
 
