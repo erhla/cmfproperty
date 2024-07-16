@@ -7,7 +7,7 @@ cod_func <- function(df, ratio_col, bootstrap_iters) {
     }
     f <- data.frame(df[[ratio_col]])
     det_cod <- 100 * sum(abs(f[, 1] - stats::median(f[, 1])))/(n * stats::median(f[, 1]))
-    cod_output <- c(round(f, 4), round(stats::sd(generated_cods, na.rm = TRUE), 4))
+    cod_output <- c(round(det_cod, 4), round(stats::sd(generated_cods, na.rm = TRUE), 4))
     return(cod_output)
 }
 
