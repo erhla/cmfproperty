@@ -1,5 +1,5 @@
 cod_func <- function(df, ratio_col, bootstrap_iters) {
-    n <- length(df)
+    n <- nrow(df)
     generated_cods <- NULL
     for (i in 1:bootstrap_iters) {
         s <- dplyr::sample_n(data.frame(df[[ratio_col]]), n, replace = T)
