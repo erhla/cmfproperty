@@ -1,7 +1,7 @@
 Package: cmfproperty
 Type: Package
 Title: Property Tax Analysis
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: person("Eric", "Langowski", email = "erhlango@gmail.com",
                   role = c("aut", "cre"))
 Description: Analyzes property assessment data through a variety of tests.
