@@ -4,7 +4,7 @@
 
 file_loc <- "~/../Downloads/CPIHOSNS.csv"
 
-fred <- readr::read_csv(file_loc)
+fred <- readr::read_csv(file_loc)  %>% rename(DATE = observation_date)
 usethis::use_data(fred, internal=TRUE, overwrite=TRUE)
 
 #see README.Rmd
