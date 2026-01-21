@@ -8,6 +8,8 @@
 
 #' @return a list (caption, plot)
 
+#' Import UChicago palettes and ggplot theme
+source("R/themes.R")
 
 #' @export
 pct_over_under <- function(ratios, min_reporting_yr, max_reporting_yr, jurisdiction_name) {
@@ -38,9 +40,15 @@ pct_over_under <- function(ratios, min_reporting_yr, max_reporting_yr, jurisdict
                aes(fill = .data$variable, x = .data$sale_decile_bin, y = .data$count)) +
         geom_bar(position = "dodge",
                  stat = "identity",
-                 width = 0.75) + scale_y_continuous(labels = scales::percent_format()) + scale_x_continuous(breaks = 1:10) +
-        labs(title = "Percent of property over/under assessed", x = "Sale Decile", y = NULL) + my_theme + theme(legend.title = element_blank(), legend.position =
-                                                                                                                    "bottom")
+                 width = 0.75) +
+      scale_y_continuous(labels = scales::percent_format()) +
+      scale_x_continuous(breaks = 1:10) +
+      scale_fill_manual(values = v_uchicago_primary_palette) +
+        labs(title = "Percent of property over/under assessed",
+             x = "Sale Decile", y = NULL) +
+      my_theme +
+      theme(legend.title = element_blank(),
+            legend.position = "bottom")
 
     #over/under caption
     over_under_caption <- paste0("In ", jurisdiction_name, ", <b>", scales::percent(over_under_data[1,3][[1]]),
